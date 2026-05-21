@@ -32,7 +32,7 @@ export default function About() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "0 clamp(1.5rem, 4vw, 3rem)",
+          padding: "0 clamp(2.5rem, 6vw, 6rem)",
           display: "grid",
           gridTemplateColumns: "5fr 7fr",
           gap: "clamp(3rem, 6vw, 7rem)",

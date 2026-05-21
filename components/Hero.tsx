@@ -311,7 +311,7 @@ export default function Hero() {
           width: "100%",
           maxWidth: 1380,
           margin: "0 auto",
-          padding: "0 clamp(2rem, 5vw, 4.5rem)",
+          padding: "0 clamp(3rem, 6vw, 7rem)",
           display: "grid",
           gridTemplateColumns: "1fr 1.05fr",
           gap: "clamp(3rem, 5vw, 6rem)",

@@ -76,7 +76,7 @@ export default function Results() {
         style={{
           maxWidth: 1280,
           margin: "0 auto",
-          padding: "0 clamp(1.5rem, 4vw, 3rem)",
+          padding: "0 clamp(2.5rem, 6vw, 6rem)",
         }}
       >
         <motion.div

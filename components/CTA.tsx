@@ -62,7 +62,7 @@ export default function CTA() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "0 clamp(1.25rem, 4vw, 3rem)",
+          padding: "0 clamp(2.5rem, 6vw, 6rem)",
           position: "relative",
           zIndex: 1,
           display: "flex",

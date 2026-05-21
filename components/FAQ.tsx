@@ -88,7 +88,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" ref={ref} style={{ background: "var(--warm-stone)", padding: "clamp(5rem, 10vw, 9rem) 0" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.5rem, 4vw, 3rem)", display: "grid", gridTemplateColumns: "1fr 2fr", gap: "clamp(3rem, 6vw, 7rem)", alignItems: "start" }} className="faq-grid">
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(2.5rem, 6vw, 6rem)", display: "grid", gridTemplateColumns: "1fr 2fr", gap: "clamp(3rem, 6vw, 7rem)", alignItems: "start" }} className="faq-grid">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

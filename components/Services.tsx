@@ -308,7 +308,7 @@ export default function Services() {
       id="services"
       style={{
         background: "var(--cream)",
-        padding: "clamp(5rem, 9vw, 8rem) clamp(1.5rem, 5vw, 4rem)",
+        padding: "clamp(5rem, 9vw, 8rem) clamp(2.5rem, 6vw, 6rem)",
       }}
     >
       {/* Section header */}
