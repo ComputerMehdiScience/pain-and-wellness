@@ -153,10 +153,10 @@ export default function Results() {
 
       <style>{`
         .marquee-track {
-          animation: marquee-left 40s linear infinite;
+          animation: marquee-left 60s linear infinite;
         }
         .marquee-reverse {
-          animation: marquee-right 40s linear infinite;
+          animation: marquee-right 60s linear infinite;
         }
         @keyframes marquee-left {
           from { transform: translateX(0); }
