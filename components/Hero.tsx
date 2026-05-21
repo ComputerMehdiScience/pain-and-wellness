@@ -82,11 +82,11 @@ function FloatingCard({
       style={{
         position: "absolute",
         background: "#ffffff",
-        borderRadius: 22,
-        padding: "1.125rem 1.5rem",
+        borderRadius: 24,
+        padding: "1.25rem 1.75rem",
         display: "flex",
         alignItems: "center",
-        gap: "1.125rem",
+        gap: "1.25rem",
         boxShadow:
           "0 1px 2px oklch(20% 0.01 240 / 0.04), 0 18px 38px oklch(20% 0.01 240 / 0.12)",
         border: "1px solid oklch(86% 0.018 195 / 0.5)",
@@ -96,8 +96,8 @@ function FloatingCard({
     >
       <div
         style={{
-          width: 46,
-          height: 46,
+          width: 54,
+          height: 54,
           borderRadius: "50%",
           background: "oklch(94% 0.015 195)",
           display: "flex",
@@ -125,7 +125,7 @@ function FloatingCard({
         <p
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "1.0625rem",
+            fontSize: "1.1875rem",
             fontWeight: 500,
             color: "var(--ink)",
             lineHeight: 1.2,
@@ -327,12 +327,12 @@ export default function Hero() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 5.6vw, 5.25rem)",
+              fontSize: "clamp(3.25rem, 6.8vw, 6.75rem)",
               fontWeight: 400,
               lineHeight: 1.02,
               letterSpacing: "-0.02em",
               color: "var(--ink)",
-              marginBottom: "clamp(1.5rem, 2.5vw, 2rem)",
+              marginBottom: "clamp(1.5rem, 2.5vw, 2.25rem)",
               maxWidth: "16ch",
             }}
           >
@@ -367,7 +367,7 @@ export default function Hero() {
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "clamp(1.0625rem, 1.3vw, 1.25rem)",
+              fontSize: "clamp(1.125rem, 1.55vw, 1.4rem)",
               lineHeight: 1.65,
               color: "var(--ink-soft)",
               maxWidth: "46ch",
@@ -473,7 +473,7 @@ export default function Hero() {
             position: "relative",
             aspectRatio: "1",
             width: "100%",
-            maxWidth: 620,
+            maxWidth: 740,
             justifySelf: "center",
           }}
           className="hero-photo-cluster"
