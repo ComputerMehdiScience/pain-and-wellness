@@ -314,7 +314,7 @@ export default function Hero() {
           padding: "0 clamp(2rem, 5vw, 4.5rem)",
           display: "grid",
           gridTemplateColumns: "1fr 1.05fr",
-          gap: "clamp(3rem, 8vw, 9rem)",
+          gap: "clamp(3rem, 5vw, 6rem)",
           alignItems: "center",
         }}
         className="hero-grid"
@@ -327,12 +327,12 @@ export default function Hero() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(3.25rem, 6.8vw, 6.75rem)",
+              fontSize: "clamp(2.75rem, 5.6vw, 5.5rem)",
               fontWeight: 400,
               lineHeight: 1.02,
               letterSpacing: "-0.02em",
               color: "var(--ink)",
-              marginBottom: "clamp(1.5rem, 2.5vw, 2.25rem)",
+              marginBottom: "clamp(1.5rem, 2.5vw, 2rem)",
               maxWidth: "16ch",
             }}
           >
@@ -473,7 +473,7 @@ export default function Hero() {
             position: "relative",
             aspectRatio: "1",
             width: "100%",
-            maxWidth: 740,
+            maxWidth: 660,
             justifySelf: "center",
           }}
           className="hero-photo-cluster"
