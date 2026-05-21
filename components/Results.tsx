@@ -137,32 +137,15 @@ export default function Results() {
         </motion.div>
       </div>
 
-      {/* Tinted band + marquees — Framer only fades this wrapper, never the tracks */}
+      {/* Marquees — Framer only fades this wrapper, never the tracks */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        {/* Constrained band — max-width so it doesn't stretch edge-to-edge */}
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(2.5rem, 6vw, 6rem)" }}>
-          {/* Subtle teal-wash strip behind the cards */}
-          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
-            {/* The coloured band */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(180deg, oklch(93% 0.015 80) 0%, oklch(88% 0.032 195 / 0.35) 30%, oklch(88% 0.032 195 / 0.35) 70%, oklch(93% 0.015 80) 100%)",
-                pointerEvents: "none",
-              }}
-            />
-            {/* Marquee rows sit on top */}
-            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "1.25rem", padding: "2rem 0" }}>
-              <MarqueeRow reviews={row1} />
-              <MarqueeRow reviews={row2} reverse />
-            </div>
-          </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", padding: "2rem 0" }}>
+          <MarqueeRow reviews={row1} />
+          <MarqueeRow reviews={row2} reverse />
         </div>
       </motion.div>
 
