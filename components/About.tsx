@@ -45,9 +45,33 @@ export default function About() {
           initial={{ opacity: 0, scale: 0.97 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ position: "relative" }}
+          style={{ position: "relative", perspective: 1000 }}
         >
-          <div style={{ borderRadius: 4, overflow: "hidden", aspectRatio: "3/4" }}>
+          {/* Offset teal frame behind — creates stacked depth */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: 8,
+            border: "2px solid var(--teal-accent)",
+            transform: "translate(14px, 14px)",
+            opacity: 0.35,
+            pointerEvents: "none",
+          }} />
+
+          {/* Photo card with 3D hover tilt */}
+          <motion.div
+            whileHover={{ rotateY: 5, rotateX: -3, y: -8 }}
+            transition={{ type: "spring", stiffness: 220, damping: 22 }}
+            style={{
+              borderRadius: 6,
+              overflow: "hidden",
+              aspectRatio: "3/4",
+              position: "relative",
+              zIndex: 1,
+              boxShadow: "12px 28px 64px oklch(30% 0.05 200 / 0.2), 0 4px 16px oklch(0% 0 0 / 0.08)",
+              transformOrigin: "center bottom",
+            }}
+          >
             <Image
               src="/photos/kathy-portrait.jpg"
               alt="Kathy Morton"
@@ -55,7 +79,8 @@ export default function About() {
               style={{ objectFit: "cover", objectPosition: "center top" }}
               sizes="(max-width: 860px) 80vw, 40vw"
             />
-          </div>
+          </motion.div>
+
           <div style={{
             position: "absolute",
             bottom: "1.5rem",
@@ -64,6 +89,7 @@ export default function About() {
             backdropFilter: "blur(8px)",
             padding: "0.875rem 1.25rem",
             borderRadius: 3,
+            zIndex: 2,
           }}>
             <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 500, color: "var(--deep-forest)", lineHeight: 1.2 }}>
               Kathy Morton
