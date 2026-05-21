@@ -143,9 +143,11 @@ export default function Results() {
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", padding: "2rem 0" }}>
-          <MarqueeRow reviews={row1} />
-          <MarqueeRow reviews={row2} reverse />
+        <div style={{ padding: "0 clamp(1.5rem, 4vw, 4rem)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", padding: "2rem 0" }}>
+            <MarqueeRow reviews={row1} />
+            <MarqueeRow reviews={row2} reverse />
+          </div>
         </div>
       </motion.div>
 
