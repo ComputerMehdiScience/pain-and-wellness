@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useCallback } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 
 function CheckShieldIcon({ color = "var(--teal)" }: { color?: string }) {
@@ -143,10 +143,30 @@ function FloatingCard({
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
 
+  /* Mouse parallax for orb layer */
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 35, damping: 28 });
+  const springY = useSpring(mouseY, { stiffness: 35, damping: 28 });
+  const orbX = useTransform(springX, [-0.5, 0.5], [-28, 28]);
+  const orbY = useTransform(springY, [-0.5, 0.5], [-18, 18]);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      mouseX.set(e.clientX / window.innerWidth - 0.5);
+      mouseY.set(e.clientY / window.innerHeight - 0.5);
+    },
+    [mouseX, mouseY]
+  );
+
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
-    return () => clearTimeout(t);
-  }, []);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [handleMouseMove]);
 
   return (
     <section
@@ -161,14 +181,102 @@ export default function Hero() {
         alignItems: "center",
       }}
     >
-      {/* Ambient background washes */}
+      {/* ── Floating orb layer (parallax-driven) ── */}
+      <motion.div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          x: orbX,
+          y: orbY,
+        }}
+      >
+        {/* Primary glow — large, top-center, slowest drift */}
+        <div
+          className="orb orb-a"
+          style={{
+            position: "absolute",
+            top: "2%",
+            left: "28%",
+            width: 560,
+            height: 560,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 40% 40%, oklch(78% 0.042 195 / 0.28), transparent 68%)",
+            filter: "blur(72px)",
+          }}
+        />
+        {/* Secondary glow — medium, bottom-right */}
+        <div
+          className="orb orb-b"
+          style={{
+            position: "absolute",
+            bottom: "8%",
+            right: "8%",
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 60% 55%, oklch(72% 0.05 188 / 0.20), transparent 68%)",
+            filter: "blur(58px)",
+          }}
+        />
+        {/* Warm accent — bottom-left, warm cream tone */}
+        <div
+          className="orb orb-c"
+          style={{
+            position: "absolute",
+            bottom: "22%",
+            left: "3%",
+            width: 300,
+            height: 300,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 50% 50%, oklch(85% 0.028 80 / 0.22), transparent 68%)",
+            filter: "blur(52px)",
+          }}
+        />
+        {/* Tiny accent — top-right, deepest teal */}
+        <div
+          className="orb orb-d"
+          style={{
+            position: "absolute",
+            top: "20%",
+            right: "3%",
+            width: 220,
+            height: 220,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 45% 45%, oklch(68% 0.062 195 / 0.15), transparent 68%)",
+            filter: "blur(42px)",
+          }}
+        />
+        {/* Whisper orb — center-left, barely visible */}
+        <div
+          className="orb orb-e"
+          style={{
+            position: "absolute",
+            top: "55%",
+            left: "18%",
+            width: 260,
+            height: 260,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 50% 50%, oklch(76% 0.035 200 / 0.14), transparent 68%)",
+            filter: "blur(48px)",
+          }}
+        />
+      </motion.div>
+
+      {/* Static ambient washes (no parallax, always present) */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(55% 50% at 15% 18%, oklch(78% 0.03 195 / 0.25), transparent 65%), radial-gradient(40% 35% at 92% 75%, oklch(78% 0.03 195 / 0.18), transparent 70%)",
+            "radial-gradient(55% 50% at 15% 18%, oklch(78% 0.03 195 / 0.12), transparent 65%), radial-gradient(40% 35% at 92% 75%, oklch(78% 0.03 195 / 0.10), transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -414,7 +522,7 @@ export default function Hero() {
             />
           </div>
 
-          {/* Floating cards — positioned around photo edges */}
+          {/* Floating cards */}
           <FloatingCard
             icon={<CheckShieldIcon />}
             eyebrow="Certified"
@@ -440,6 +548,34 @@ export default function Hero() {
       </div>
 
       <style>{`
+        .orb { will-change: transform; }
+
+        .orb-a { animation: float-a 20s ease-in-out infinite; }
+        .orb-b { animation: float-b 26s ease-in-out infinite; }
+        .orb-c { animation: float-c 30s ease-in-out infinite; }
+        .orb-d { animation: float-a 17s ease-in-out infinite reverse; }
+        .orb-e { animation: float-b 23s ease-in-out infinite reverse; }
+
+        @keyframes float-a {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33%       { transform: translate(22px, -28px) scale(1.04); }
+          66%       { transform: translate(-16px, 18px) scale(0.97); }
+        }
+        @keyframes float-b {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          40%       { transform: translate(-24px, 16px) scale(1.06); }
+          70%       { transform: translate(20px, -20px) scale(0.96); }
+        }
+        @keyframes float-c {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25%       { transform: translate(28px, 22px) scale(1.04); }
+          75%       { transform: translate(-18px, -26px) scale(1.07); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .orb { animation: none !important; }
+        }
+
         @media (max-width: 960px) {
           .hero-grid {
             grid-template-columns: 1fr !important;

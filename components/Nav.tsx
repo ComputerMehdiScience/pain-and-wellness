@@ -17,7 +17,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    const onScroll = () => setScrolled(window.scrollY > 120);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -47,84 +47,19 @@ export default function Nav() {
             "background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease",
         }}
       >
-        {/* Logo — PNG at top, slides up into compact wordmark when scrolled */}
         <a
           href="/"
           aria-label="Pain & Wellness Solutions — home"
-          style={{
-            position: "relative",
-            display: "block",
-            width: 220,
-            height: 60,
-            flexShrink: 0,
-            overflow: "hidden",
-          }}
+          style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
         >
-          {/* Full PNG logo — visible at top, slides up & fades when scrolled */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              transform: scrolled ? "translateY(-72px)" : "translateY(0)",
-              opacity: scrolled ? 0 : 1,
-              transition:
-                "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease",
-              willChange: "transform, opacity",
-            }}
-          >
-            <Image
-              src="/logotransparent.png"
-              alt="Pain & Wellness Solutions"
-              width={220}
-              height={60}
-              priority
-              style={{
-                width: "auto",
-                height: "100%",
-                objectFit: "contain",
-                objectPosition: "left center",
-              }}
-            />
-          </div>
-
-          {/* Compact text wordmark — slides up from below when scrolled */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              fontFamily: "var(--font-display)",
-              fontSize: "1.125rem",
-              fontWeight: 500,
-              color: "var(--teal-accent)",
-              letterSpacing: "0.005em",
-              lineHeight: 1.15,
-              transform: scrolled ? "translateY(0)" : "translateY(72px)",
-              opacity: scrolled ? 1 : 0,
-              transition:
-                "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s, opacity 0.4s ease 0.12s",
-              willChange: "transform, opacity",
-            }}
-          >
-            <span>Pain &amp; Wellness</span>
-            <span
-              style={{
-                fontSize: "0.625rem",
-                fontFamily: "var(--font-body)",
-                fontWeight: 700,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--ink-soft)",
-                marginTop: "0.15rem",
-              }}
-            >
-              Solutions
-            </span>
-          </div>
+          <Image
+            src="/logotransparent.png"
+            alt="Pain & Wellness Solutions"
+            width={220}
+            height={60}
+            priority
+            style={{ width: "auto", height: 60, objectFit: "contain" }}
+          />
         </a>
 
         <div style={{ flex: 1 }} />
