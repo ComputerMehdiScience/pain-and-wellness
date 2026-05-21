@@ -25,17 +25,17 @@ export default function About() {
       ref={ref}
       style={{
         background: "var(--warm-cream)",
-        padding: "clamp(5rem, 10vw, 9rem) 0",
+        padding: "clamp(3rem, 5vw, 5rem) 0",
       }}
     >
       <div
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "0 clamp(2.5rem, 6vw, 6rem)",
+          padding: "0 clamp(2rem, 5vw, 5rem)",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(3rem, 6vw, 7rem)",
+          gridTemplateColumns: "1fr 1.2fr",
+          gap: "clamp(2rem, 4vw, 5rem)",
           alignItems: "center",
         }}
         className="about-grid"
@@ -60,15 +60,13 @@ export default function About() {
 
           {/* Photo card with 3D hover tilt */}
           <motion.div
+            className="photo-pop"
             whileHover={{ rotateY: 5, rotateX: -3, y: -8 }}
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
             style={{
-              borderRadius: 6,
-              overflow: "hidden",
               aspectRatio: "3/4",
               position: "relative",
               zIndex: 1,
-              boxShadow: "12px 28px 64px oklch(30% 0.05 200 / 0.2), 0 4px 16px oklch(0% 0 0 / 0.08)",
               transformOrigin: "center bottom",
             }}
           >
@@ -76,7 +74,7 @@ export default function About() {
               src="/photos/kathy-portrait.jpg"
               alt="Kathy Morton"
               fill
-              style={{ objectFit: "cover", objectPosition: "center top" }}
+              style={{ objectFit: "cover", objectPosition: "center top", filter: "contrast(1.05) saturate(1.1)" }}
               sizes="(max-width: 860px) 80vw, 40vw"
             />
           </motion.div>
@@ -109,12 +107,12 @@ export default function About() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 5vw, 4.25rem)",
-              fontWeight: 400,
-              lineHeight: 1.1,
-              letterSpacing: "-0.01em",
+              fontSize: "clamp(2rem, 3.2vw, 2.875rem)",
+              fontWeight: 500,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.12,
               color: "var(--deep-forest)",
-              marginBottom: "1.75rem",
+              marginBottom: "1.5rem",
             }}
           >
             A neighbour who happens to be very good at this.

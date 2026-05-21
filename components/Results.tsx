@@ -101,37 +101,22 @@ export default function Results() {
       ref={ref}
       style={{
         background: "var(--cream-warm)",
-        padding: "clamp(5rem, 10vw, 9rem) 0",
+        padding: "clamp(3.5rem, 7vw, 6rem) 0",
         overflow: "hidden",
       }}
     >
       {/* Heading */}
-      <div style={{ padding: "0 clamp(2.5rem, 6vw, 6rem)", maxWidth: 1280, margin: "0 auto" }}>
+      <div style={{ padding: "0 clamp(2rem, 7vw, 8rem)", maxWidth: 1280, margin: "0 auto" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)", textAlign: "center" }}
         >
-          <h2 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.75rem, 5vw, 4.25rem)",
-            fontWeight: 400,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.1,
-            color: "var(--teal-accent)",
-            marginBottom: "1rem",
-          }}>
+          <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
             Real clients, real changes.
           </h2>
-          <p style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "clamp(1rem, 1.2vw, 1.125rem)",
-            lineHeight: 1.6,
-            color: "var(--ink-soft)",
-            maxWidth: 540,
-            margin: "0 auto",
-          }}>
+          <p className="section-subhead" style={{ maxWidth: 560, margin: "0 auto" }}>
             Here&apos;s what people and their animals have to say after working together.
           </p>
         </motion.div>

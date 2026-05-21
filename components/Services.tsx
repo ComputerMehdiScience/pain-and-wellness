@@ -1,387 +1,426 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
 
-const CanineSVG = () => (
-  <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "100%", height: "100%", opacity: 0.22 }} aria-hidden>
-    <path d="M360 280c8-30 4-62-18-86-24-26-62-40-100-38-38 4-72 24-92 54-10 15-16 32-16 50 0 14 6 24 20 28l186 8c14 0 24-8 20-16z"
-      stroke="#ffffff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
-    <path d="M192 228c-18-4-34 4-44 18-8 10-12 24-8 38 2 6 6 12 14 14l66 6"
-      stroke="#ffffff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
-    <path d="M156 242c-8 0-12 2-16 6" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" />
-    <path d="M224 218c-4-20 4-38 18-48 6-4 14-4 20 2 6 4 10 14 6 26-2 8-8 12-14 14"
-      stroke="#ffffff" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
-    <path d="M168 270c6-4 14-4 20 0" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" />
-    <circle cx="152" cy="276" r="6" fill="#ffffff" />
-    <path d="M200 308c18-6 38-6 54 0M218 316c-4 6-4 14 0 20M254 316c-4 6-4 14 0 20"
-      stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
-    <path d="M360 280c16 6 28 20 32 38 4 15-4 30-18 38-10 4-20 0-26-8-4-6-2-16 4-20"
-      stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
-  </svg>
-);
-
-const cards = [
+const services = [
   {
-    tag: "Human Therapy",
-    heading: "When the body has been carrying pain for too long.",
-    body: "Bowen therapy works where other treatments haven't. It addresses root cause rather than masking symptoms. Drug-free, gentle, and lasting.",
-    facts: [
-      "Bowen therapy",
-      "Myoskeletal alignment technique",
-      "Scar tissue release",
-      "Reiki & energy work",
-      "Ionized foot detox",
-      "Tuning fork sound therapy",
-    ],
-    cta: "Book an appointment",
-    href: "https://app.setmore.com/painandwellnesssolutions",
-    photo: {
-      src: "/photos/Untitled-design-5-e1749224624391-768x841.png",
-      alt: "Kathy performing Bowen therapy on a patient",
-    },
+    name: "Bowen & Myoskeletal Therapy",
+    description: "Gentle nervous system communication to address root dysfunction. Restores balance, reduces pain, improves mobility.",
+    photo: "/photos/Bowenmyoskeletal.png",
+    objectPosition: "60% 85%",
+    zoom: 1.3,
+    slug: "bowen-myoskeletal-therapy",
   },
   {
-    tag: "Equine Bodywork",
-    heading: "When your horse isn't moving the way they used to.",
-    body: "Reluctance on the lead, post-injury stiffness, behavioural changes under saddle. Kathy comes to your farm with no trailering and no stress.",
-    facts: [
-      "Bowen therapy (equine)",
-      "Myofascial kinetic lines",
-      "Musculoskeletal unwinding",
-      "Tensegrity work",
-      "Mobile farm visits, Hastings County",
-    ],
-    cta: "Call to arrange a visit",
-    href: "tel:6138851311",
-    photo: {
-      src: "/photos/Family-is-Everything-1-819x1024.png",
-      alt: "Kathy doing equine Bowen therapy in a barn",
-    },
+    name: "Healing with the Herd",
+    description: "Unique wellness experience combining horse wisdom with tuning fork sound therapy. Supports stress release and self-reconnection.",
+    photo: "/photos/Family-is-Everything-1-819x1024.png",
+    objectPosition: "25% center",
+    zoom: 1,
+    slug: "healing-with-the-herd",
   },
   {
-    tag: "Canine Bowen",
-    heading: "When your dog is slowing down before their time.",
-    body: "The same gentle nervous-system approach, adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, age-related mobility.",
-    facts: [
-      "Bowen therapy (canine)",
-      "Hip dysplasia & joint issues",
-      "Post-surgical recovery",
-      "Anxiety & nervous system regulation",
-      "In-clinic or home visits",
-    ],
-    cta: "Book a canine session",
-    href: "https://app.setmore.com/painandwellnesssolutions",
-    photo: {
-      src: "/photos/kathy%20dog.png",
-      alt: "Kathy doing canine Bowen therapy with a dog",
-    },
+    name: "Scar Tissue Release",
+    description: "McLoughlin Method. Reduces sensitivity and improves movement around old or new scars that disrupt body mechanics.",
+    photo: "/photos/scartissueservice.png",
+    objectPosition: "65% 85%",
+    zoom: 1.2,
+    slug: "scar-tissue-release",
+  },
+  {
+    name: "Reiki",
+    description: "Calming energy practice for emotional healing and nervous system regulation. Ideal for stress, anxiety, and trauma recovery.",
+    photo: "/photos/Reiki.png",
+    objectPosition: "55% 90%",
+    zoom: 1.15,
+    slug: "reiki",
+  },
+  {
+    name: "Ionized Foot Detox",
+    description: "Warm ionized water soak to draw out impurities and rebalance the body's natural energy.",
+    photo: "/photos/ionized footbath.png",
+    objectPosition: "25% 75%",
+    zoom: 1.2,
+    slug: "ionized-foot-detox",
+  },
+  {
+    name: "Equine Bodywork",
+    description: "Myofascial kinetic lines, equine musculoskeletal unwinding, and tensegrity work. Farm visits across Hastings County.",
+    photo: "/photos/kathy-horse-barn.png",
+    objectPosition: "30% center",
+    zoom: 1.1,
+    slug: "equine-bodywork",
+  },
+  {
+    name: "Canine Bowen",
+    description: "The same gentle nervous system approach adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, and mobility.",
+    photo: "/photos/kathy dog.png",
+    objectPosition: "center 85%",
+    zoom: 1.4,
+    slug: "canine-bowen",
   },
 ];
 
-function ServiceCard({ card, index }: { card: typeof cards[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [hovered, setHovered] = useState(false);
+const GAP_PX = 16;
+const N = services.length;
 
+function getVisible(w: number) {
+  if (w < 640) return 1;
+  if (w < 900) return 2;
+  if (w < 1200) return 3;
+  return 4;
+}
+
+export default function Services() {
+  const ref = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [position, setPosition] = useState(0); // visual position 0..N + PAD
+  const [paused, setPaused] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [visible, setVisible] = useState(3);
+  const [transitioning, setTransitioning] = useState(true);
+
+  const PAD = visible;
+  // Track: [last PAD services][all services][first PAD services]
+  const track = [
+    ...services.slice(N - PAD),
+    ...services,
+    ...services.slice(0, PAD),
+  ];
+
+  const cardWidth = containerWidth > 0 ? (containerWidth - (visible - 1) * GAP_PX) / visible : 0;
+  const active = ((position % N) + N) % N;
+
+  // Boundary reset
+  useEffect(() => {
+    if (position >= N) {
+      const t = setTimeout(() => {
+        setTransitioning(false);
+        setPosition(position - N);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => setTransitioning(true));
+        });
+      }, 600);
+      return () => clearTimeout(t);
+    }
+    if (position < 0) {
+      const t = setTimeout(() => {
+        setTransitioning(false);
+        setPosition(position + N);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => setTransitioning(true));
+        });
+      }, 600);
+      return () => clearTimeout(t);
+    }
+  }, [position]);
+
+  const next = useCallback(() => setPosition(p => p + 1), []);
+  const prev = useCallback(() => setPosition(p => p - 1), []);
+  const goTo = useCallback((realIdx: number) => {
+    setPosition(realIdx);
+  }, []);
+
+  // Auto-advance
+  useEffect(() => {
+    if (paused || containerWidth === 0) return;
+    const id = setInterval(() => {
+      setPosition(p => p + 1);
+    }, 3800);
+    return () => clearInterval(id);
+  }, [paused, containerWidth]);
+
+  // Measure
+  useEffect(() => {
+    const update = () => {
+      if (viewportRef.current) {
+        setContainerWidth(viewportRef.current.offsetWidth);
+      }
+      setVisible(getVisible(window.innerWidth));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // In view
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      ([e]) => { if (e.isIntersecting) setInView(true); },
       { threshold: 0.1 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
-      style={{
-        background: "#ffffff",
-        borderRadius: 20,
-        overflow: "hidden",
-        boxShadow: "0 2px 12px oklch(42% 0.06 200 / 0.08), 0 1px 3px oklch(42% 0.06 200 / 0.06)",
-        display: "flex",
-        flexDirection: "column",
-        transition: "box-shadow 0.3s ease, transform 0.3s ease",
-        ...(hovered ? {
-          boxShadow: "0 8px 32px oklch(42% 0.06 200 / 0.14), 0 2px 8px oklch(42% 0.06 200 / 0.08)",
-          transform: "translateY(-4px)",
-        } : {}),
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Photo / art area */}
-      <div style={{ position: "relative", height: 260, flexShrink: 0, overflow: "hidden" }}>
-        {card.photo ? (
-          <Image
-            src={card.photo.src}
-            alt={card.photo.alt}
-            fill
-            sizes="(max-width: 900px) 100vw, 33vw"
-            priority={index === 0}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center top",
-              transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
-              transform: hovered ? "scale(1.04)" : "scale(1)",
-            }}
-          />
-        ) : (
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(145deg, oklch(52% 0.055 200), oklch(38% 0.07 200))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "radial-gradient(60% 60% at 40% 45%, oklch(78% 0.03 195 / 0.4), transparent 70%)",
-              }}
-            />
-            <div style={{ width: "75%", aspectRatio: "4/3", position: "relative", zIndex: 1 }}>
-              <CanineSVG />
-            </div>
-          </div>
-        )}
-
-        {/* Tag pill over photo */}
-        <div
-          style={{
-            position: "absolute",
-            top: 16,
-            left: 16,
-            background: "oklch(97% 0.008 90 / 0.92)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
-            borderRadius: 999,
-            padding: "0.3rem 0.9rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.6875rem",
-            fontWeight: 700,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--teal-deep)",
-          }}
-        >
-          {card.tag}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-          padding: "1.75rem 1.875rem 2rem",
-        }}
-      >
-        <h3
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1.2rem, 1.6vw, 1.4rem)",
-            fontWeight: 400,
-            color: "var(--teal-deep)",
-            lineHeight: 1.25,
-            letterSpacing: "-0.01em",
-            marginBottom: "0.75rem",
-          }}
-        >
-          {card.heading}
-        </h3>
-
-        <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "0.9rem",
-            lineHeight: 1.7,
-            color: "var(--ink-soft)",
-            marginBottom: "1.25rem",
-          }}
-        >
-          {card.body}
-        </p>
-
-        {/* Divider */}
-        <div style={{ height: 1, background: "var(--cream-edge)", marginBottom: "1.25rem" }} />
-
-        {/* Skills */}
-        <ul
-          style={{
-            listStyle: "none",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.45rem",
-            marginBottom: "1.75rem",
-            flex: 1,
-          }}
-        >
-          {card.facts.map((f) => (
-            <li
-              key={f}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.625rem",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.8375rem",
-                color: "var(--ink-soft)",
-              }}
-            >
-              <span
-                style={{
-                  width: 16,
-                  height: 1.5,
-                  background: "var(--teal-accent)",
-                  display: "inline-block",
-                  flexShrink: 0,
-                  borderRadius: 1,
-                }}
-              />
-              {f}
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA */}
-        <a
-          href={card.href}
-          target={card.href.startsWith("http") ? "_blank" : undefined}
-          rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.625rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.9rem",
-            fontWeight: 600,
-            color: "#ffffff",
-            background: "var(--teal)",
-            padding: "0.8rem 1.5rem",
-            borderRadius: 999,
-            transition: "background 0.25s ease",
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--teal-deep)")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--teal)")}
-        >
-          {card.cta}
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
-            <path d="M1 5h11M12 5L8 1M12 5L8 9" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
-      </div>
-    </motion.div>
-  );
-}
-
-export default function Services() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.05 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  // Translate offset accounts for the leading PAD duplicates
+  const translateX = -(position + PAD) * (cardWidth + GAP_PX);
 
   return (
     <section
       id="services"
+      ref={ref}
       style={{
-        background: "var(--cream)",
-        padding: "clamp(5rem, 9vw, 8rem) clamp(2.5rem, 6vw, 6rem)",
+        background: "var(--warm-stone)",
+        padding: "clamp(3.5rem, 7vw, 6rem) 0",
+        overflow: "hidden",
       }}
     >
-      {/* Section header */}
-      <div ref={ref} style={{ textAlign: "center", marginBottom: "clamp(3rem, 5vw, 4.5rem)" }}>
+      {/* Centered header */}
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.5rem, 4vw, 3rem)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ marginBottom: "clamp(2.5rem, 4vw, 4rem)", textAlign: "center" }}
         >
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)",
-              fontWeight: 400,
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              color: "var(--ink)",
-              marginBottom: "1.125rem",
-            }}
-          >
-            <span style={{ fontWeight: 600, color: "var(--teal-deep)" }}>Bowen therapy</span>
-            {" "}for people, horses, and dogs.
+          <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
+            What brings you here?
           </h2>
-
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
-              lineHeight: 1.7,
-              color: "var(--ink-soft)",
-              maxWidth: 520,
-              margin: "0 auto",
-            }}
-          >
-            People come carrying pain. Horses come carrying tension. Dogs come carrying age.
-            The body knows what to do. Bowen therapy gives it the room.
+          <p className="section-subhead">
+            Seven ways Kathy can help. Humans, horses, and dogs.
           </p>
         </motion.div>
       </div>
 
-      {/* Card grid */}
-      <div
-        className="services-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "clamp(1.25rem, 2.5vw, 2rem)",
-          maxWidth: 1200,
-          margin: "0 auto",
-        }}
-      >
-        {cards.map((card, i) => (
-          <ServiceCard key={card.tag} card={card} index={i} />
-        ))}
-      </div>
+      {/* Carousel */}
+      <div style={{ maxWidth: 1560, margin: "0 auto", padding: "0 clamp(1.5rem, 3vw, 3rem)" }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div ref={viewportRef} style={{ overflow: "visible", paddingBottom: "16px" }}>
+            <div style={{ overflow: "hidden", paddingTop: "20px", paddingBottom: "8px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: `${GAP_PX}px`,
+                  transform: `translateX(${translateX}px)`,
+                  transition: transitioning
+                    ? "transform 0.58s cubic-bezier(0.4, 0, 0.2, 1)"
+                    : "none",
+                  width: "max-content",
+                  alignItems: "center",
+                }}
+              >
+                {track.map((svc, i) => {
+                  // Real position relative to "position" state
+                  const trackPos = i - PAD;
+                  const isFeatured = trackPos === position;
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        width: cardWidth > 0 ? `${cardWidth}px` : "0px",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Link href={`/services/${svc.slug}`} style={{ textDecoration: "none", display: "block" }}>
+                        <div
+                          style={{
+                            borderRadius: 16,
+                            overflow: "hidden",
+                            height: "clamp(440px, 50vw, 540px)",
+                            position: "relative",
+                            cursor: "pointer",
+                            boxShadow: isFeatured
+                              ? "0 28px 60px -12px oklch(20% 0.01 240 / 0.35), 0 12px 24px -6px oklch(20% 0.01 240 / 0.2)"
+                              : "0 8px 22px -6px oklch(20% 0.01 240 / 0.14)",
+                            transform: isFeatured ? "scale(1.06)" : "scale(0.94)",
+                            transformOrigin: "center",
+                            transition: "transform 0.58s cubic-bezier(0.4,0,0.2,1), box-shadow 0.58s cubic-bezier(0.4,0,0.2,1)",
+                            zIndex: isFeatured ? 2 : 1,
+                          }}
+                        >
+                          <img
+                            src={svc.photo}
+                            alt={svc.name}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              objectPosition: svc.objectPosition,
+                              transform: `scale(${svc.zoom})`,
+                              transformOrigin: svc.objectPosition,
+                              display: "block",
+                              filter: "contrast(1.05) saturate(1.1)",
+                            }}
+                          />
 
-      <style>{`
-        @media (max-width: 900px) {
-          .services-grid {
-            grid-template-columns: 1fr !important;
-            max-width: 520px !important;
-          }
-        }
-        @media (min-width: 600px) and (max-width: 900px) {
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            max-width: 860px !important;
-          }
-        }
-      `}</style>
+                          <div style={{
+                            position: "absolute",
+                            inset: 0,
+                            background: "linear-gradient(to top, oklch(14% 0.04 200 / 0.96) 0%, oklch(14% 0.04 200 / 0.5) 42%, oklch(14% 0.04 200 / 0.05) 72%, transparent 100%)",
+                          }} />
+
+                          {isFeatured && (
+                            <div style={{
+                              position: "absolute",
+                              top: 0, left: 0, right: 0,
+                              height: 4,
+                              background: "var(--teal-light)",
+                            }} />
+                          )}
+
+                          {isFeatured && (
+                            <div style={{
+                              position: "absolute",
+                              top: "1.25rem",
+                              right: "1.25rem",
+                              background: "oklch(18% 0.04 200 / 0.55)",
+                              backdropFilter: "blur(10px)",
+                              border: "1px solid oklch(96% 0.012 82 / 0.18)",
+                              borderRadius: 20,
+                              padding: "0.35rem 0.9rem",
+                              fontFamily: "var(--font-body)",
+                              fontSize: "0.6875rem",
+                              fontWeight: 600,
+                              letterSpacing: "0.06em",
+                              textTransform: "uppercase" as const,
+                              color: "oklch(96% 0.012 82 / 0.92)",
+                            }}>
+                              Learn more →
+                            </div>
+                          )}
+
+                          <div style={{
+                            position: "absolute",
+                            bottom: 0, left: 0, right: 0,
+                            padding: "1.5rem 1.625rem 1.75rem",
+                          }}>
+                            <p style={{
+                              fontFamily: "var(--font-display)",
+                              fontSize: "clamp(1.25rem, 1.6vw, 1.5rem)",
+                              fontWeight: 500,
+                              color: "oklch(98% 0.008 82)",
+                              lineHeight: 1.2,
+                              textShadow: "0 1px 6px oklch(8% 0.02 200 / 0.65)",
+                            }}>
+                              {svc.name}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Nav */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: "1.5rem",
+            flexWrap: "wrap",
+            gap: "1rem",
+          }}>
+            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              {services.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  style={{
+                    height: 4,
+                    borderRadius: 2,
+                    background: i === active ? "var(--deep-forest)" : "var(--warm-mid)",
+                    width: i === active ? 28 : 10,
+                    transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                />
+              ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "0.75rem" }}>
+              <button
+                onClick={prev}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 600,
+                  color: "var(--deep-forest)",
+                  background: "transparent",
+                  border: "2px solid var(--deep-forest)",
+                  padding: "0.625rem 1.5rem",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  letterSpacing: "0.01em",
+                  transition: "background 0.2s, color 0.2s",
+                }}
+                onMouseEnter={e => { const b = e.currentTarget; b.style.background = "var(--deep-forest)"; b.style.color = "var(--cream)"; }}
+                onMouseLeave={e => { const b = e.currentTarget; b.style.background = "transparent"; b.style.color = "var(--deep-forest)"; }}
+              >
+                ← Prev
+              </button>
+              <button
+                onClick={next}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 700,
+                  color: "var(--cream)",
+                  background: "var(--teal)",
+                  border: "2px solid var(--teal)",
+                  padding: "0.625rem 1.5rem",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  letterSpacing: "0.01em",
+                  boxShadow: "0 4px 12px oklch(20% 0.01 240 / 0.18)",
+                  transition: "transform 0.2s, box-shadow 0.2s, background 0.2s",
+                }}
+                onMouseEnter={e => { const b = e.currentTarget; b.style.transform = "translateY(-2px)"; b.style.boxShadow = "0 8px 18px oklch(20% 0.01 240 / 0.25)"; b.style.background = "var(--teal-deep)"; }}
+                onMouseLeave={e => { const b = e.currentTarget; b.style.transform = "translateY(0)"; b.style.boxShadow = "0 4px 12px oklch(20% 0.01 240 / 0.18)"; b.style.background = "var(--teal)"; }}
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Book CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          style={{ textAlign: "center", marginTop: "clamp(1.5rem, 2.5vw, 2rem)" }}
+        >
+          <a
+            href="https://app.setmore.com/painandwellnesssolutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "1rem",
+              fontWeight: 700,
+              color: "var(--cream)",
+              background: "var(--teal)",
+              padding: "1rem 2.5rem",
+              borderRadius: 8,
+              letterSpacing: "0.01em",
+              display: "inline-block",
+              boxShadow: "0 6px 18px oklch(20% 0.01 240 / 0.2)",
+              transition: "transform 0.2s, box-shadow 0.2s, background 0.2s",
+            }}
+            onMouseEnter={e => { const a = e.currentTarget; a.style.transform = "translateY(-3px)"; a.style.boxShadow = "0 10px 26px oklch(20% 0.01 240 / 0.28)"; a.style.background = "var(--teal-deep)"; }}
+            onMouseLeave={e => { const a = e.currentTarget; a.style.transform = "translateY(0)"; a.style.boxShadow = "0 6px 18px oklch(20% 0.01 240 / 0.2)"; a.style.background = "var(--teal)"; }}
+          >
+            Book an appointment
+          </a>
+        </motion.div>
+      </div>
     </section>
   );
 }

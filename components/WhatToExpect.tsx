@@ -1,329 +1,191 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const steps = [
+type Block = {
+  heading: string;
+  body: string[];
+  ctaText: string;
+  ctaHref: string;
+  photo: string;
+  objectPosition: string;
+  zoom: number;
+  imageSide: "left" | "right";
+};
+
+const blocks: Block[] = [
   {
-    n: "01",
-    title: "You book online",
-    body: "Takes two minutes. Pick a time that works, choose your service. New patients are always welcome with no referral needed.",
-    detail: "First sessions are 60 to 75 minutes. Wear comfortable, loose clothing. Kathy will review your history before anything begins.",
-    icon: "📅",
+    heading: "Helping you overcome pain at its source, not its symptom.",
+    body: [
+      "Most chronic pain is the loud part of a quiet imbalance further down the chain. Kathy maps the compensation pattern before she touches the place that's complaining.",
+    ],
+    ctaText: "Book an appointment",
+    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    photo: "/photos/Bowenmyoskeletal.png",
+    objectPosition: "60% 85%",
+    zoom: 1.3,
+    imageSide: "left",
   },
   {
-    n: "02",
-    title: "Kathy takes your full history",
-    body: "Not just \"where does it hurt.\" She maps your posture, movement patterns, past injuries, and stress load. Everything that led to where you are now.",
-    detail: "This is what separates Bowen therapy from a standard massage. Root cause, not just the symptom that brought you in.",
-    icon: "📋",
-  },
-  {
-    n: "03",
-    title: "The treatment itself",
-    body: "Gentle, precise moves on specific muscles and connective tissue. Pauses between each sequence. No cracking, no deep pressure, no pain.",
-    detail: "Most people feel deeply relaxed within minutes. Some notice shifts immediately. Others feel the difference over the next few days as the nervous system responds.",
-    icon: "🤲",
-  },
-  {
-    n: "04",
-    title: "You leave feeling different",
-    body: "Drink water. Rest the day. The body keeps working after you leave. The nervous system is still processing the reset.",
-    detail: "Most clients need 3 to 6 sessions. Many extended health plans cover Bowen therapy. Receipts provided for all sessions.",
-    icon: "✨",
+    heading: "One practitioner. Three species. Eight years.",
+    body: [
+      "Whether you're walking in with sciatica, leading your horse off a trailer, or carrying in an aging dog: Kathy reads the same body language. Most therapists pick one species and stop.",
+    ],
+    ctaText: "Book an appointment",
+    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    photo: "/photos/kathy-horse-barn.png",
+    objectPosition: "30% center",
+    zoom: 1.1,
+    imageSide: "right",
   },
 ];
 
 export default function WhatToExpect() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
-  const [pinned, setPinned] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    let sectionTop = 0;
-    let sectionHeight = 0;
-
-    const measure = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      sectionTop = window.scrollY + rect.top;
-      sectionHeight = sectionRef.current.offsetHeight;
-    };
-
-    const onScroll = () => {
-      if (!sectionRef.current) return;
-      const y = window.scrollY;
-      const vh = window.innerHeight;
-      const start = sectionTop;
-      const end = sectionTop + sectionHeight - vh;
-
-      // Is the sticky panel in its pinned zone?
-      const inZone = y >= start && y <= sectionTop + sectionHeight;
-      setPinned(inZone);
-
-      if (y < start) { setActiveStep(0); return; }
-      if (y > end) { setActiveStep(steps.length - 1); return; }
-
-      const progress = (y - start) / (end - start);
-      const step = Math.min(steps.length - 1, Math.floor(progress * steps.length));
-      setActiveStep(step);
-    };
-
-    measure();
-    onScroll();
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => { measure(); onScroll(); });
-
-    // Re-measure after a tick for hydration offset
-    setTimeout(() => { measure(); onScroll(); }, 200);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", () => { measure(); onScroll(); });
-    };
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.05 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   return (
     <section
-      id="process"
+      ref={ref}
+      id="for-you"
       style={{
         background: "var(--cream)",
-        height: `${steps.length * 100}vh`,
-        position: "relative",
-        zIndex: 6,
+        padding: "clamp(3.5rem, 7vw, 6rem) 0",
       }}
     >
-      {/*
-        We can't use position:sticky — Lenis sets overflow:hidden on <html>.
-        Instead: fixed positioning while inside the section, normal flow otherwise.
-        The outer section reserves the 400vh scroll distance.
-      */}
-      <div ref={sectionRef} style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.5rem, 4vw, 4rem)" }}>
 
-      <div
-        style={{
-          position: pinned ? "fixed" : "absolute",
-          top: pinned ? 0 : undefined,
-          bottom: !pinned ? 0 : undefined,
-          left: 0,
-          right: 0,
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          overflow: "hidden",
-          pointerEvents: "all",
-          zIndex: 6,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            width: "100%",
-            margin: "0 auto",
-            padding: "0 clamp(2.5rem, 6vw, 6rem)",
-            display: "grid",
-            gridTemplateColumns: "1fr 1.4fr",
-            gap: "clamp(3rem, 6vw, 7rem)",
-            alignItems: "center",
-          }}
-          className="wte-grid"
-        >
-          {/* Left: heading + step nav */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
-                fontWeight: 400,
-                letterSpacing: "-0.01em",
-                lineHeight: 1.1,
-                color: "var(--teal-deep)",
-                marginBottom: "clamp(2.5rem, 5vw, 4rem)",
-              }}
-            >
-              Your first visit,<br />start to finish.
-            </h2>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-              {steps.map((s, i) => (
-                <div
-                  key={s.n}
-                  onClick={() => setActiveStep(i)}
-                  style={{
-                    display: "flex",
-                    gap: "1.25rem",
-                    alignItems: "flex-start",
-                    paddingBottom: i < steps.length - 1 ? "1.5rem" : 0,
-                    position: "relative",
-                    cursor: "pointer",
-                  }}
-                >
-                  {/* Connector line */}
-                  {i < steps.length - 1 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        left: 19,
-                        top: 40,
-                        width: 2,
-                        height: "calc(100% - 8px)",
-                        background: "var(--cream-edge)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "100%",
-                          background: "var(--teal-accent)",
-                          height: activeStep > i ? "100%" : "0%",
-                          transition: "height 0.5s cubic-bezier(0.16,1,0.3,1)",
-                        }}
-                      />
-                    </div>
-                  )}
-
-                  {/* Circle */}
-                  <div
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50%",
-                      border: `2px solid ${activeStep >= i ? "var(--teal-accent)" : "var(--cream-edge)"}`,
-                      background: activeStep === i ? "var(--teal-accent)" : activeStep > i ? "oklch(53% 0.055 195 / 0.15)" : "transparent",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
-                      zIndex: 1,
-                    }}
-                  >
-                    {activeStep > i ? (
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M2.5 7l3 3 6-6" stroke="var(--teal-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    ) : (
-                      <span style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.6875rem",
-                        fontWeight: 700,
-                        color: activeStep === i ? "#ffffff" : "var(--ink-faint)",
-                        letterSpacing: "0.04em",
-                        transition: "color 0.3s ease",
-                      }}>
-                        {s.n}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Label */}
-                  <div style={{ paddingTop: "0.625rem" }}>
-                    <p style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "0.9375rem",
-                      fontWeight: activeStep === i ? 600 : 400,
-                      color: activeStep === i ? "var(--teal-deep)" : "var(--ink-faint)",
-                      transition: "all 0.3s ease",
-                      lineHeight: 1.3,
-                    }}>
-                      {s.title}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: animated step content */}
-          <div style={{ position: "relative", minHeight: 320 }}>
-            <AnimatePresence mode="wait">
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(4rem, 7vw, 6rem)" }}>
+          {blocks.map((b, i) => {
+            const photoFirst = b.imageSide === "left";
+            return (
               <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: 24, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -16, filter: "blur(4px)" }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                key={i}
+                initial={{ opacity: 0, y: 32 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
                 style={{
-                  background: "var(--cream-warm)",
-                  border: "1px solid var(--cream-edge)",
-                  borderRadius: 12,
-                  padding: "clamp(2rem, 4vw, 3rem)",
+                  display: "grid",
+                  gridTemplateColumns: photoFirst ? "1.15fr 1fr" : "1fr 1.15fr",
+                  gap: "clamp(2rem, 4vw, 4rem)",
+                  alignItems: "center",
                 }}
+                className="wte-block"
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
-                  <span style={{ fontSize: "2.5rem", lineHeight: 1 }}>{steps[activeStep].icon}</span>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "5rem",
-                      fontWeight: 400,
-                      lineHeight: 1,
-                      color: "oklch(53% 0.055 195 / 0.1)",
-                      letterSpacing: "-0.03em",
-                    }}
-                  >
-                    {steps[activeStep].n}
-                  </div>
-                </div>
-
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                  fontWeight: 400,
-                  color: "var(--teal-deep)",
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.01em",
-                  marginBottom: "1.125rem",
-                }}>
-                  {steps[activeStep].title}
-                </h3>
-
-                <p style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "1rem",
-                  fontWeight: 400,
-                  lineHeight: 1.8,
-                  color: "var(--ink)",
-                  marginBottom: "1.25rem",
-                }}>
-                  {steps[activeStep].body}
-                </p>
-
-                <p style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.875rem",
-                  fontWeight: 400,
-                  lineHeight: 1.75,
-                  color: "var(--ink-soft)",
-                  paddingTop: "1.25rem",
-                  borderTop: "1px solid var(--cream-edge)",
-                }}>
-                  {steps[activeStep].detail}
-                </p>
-
-                <div style={{ display: "flex", gap: "0.4rem", marginTop: "2rem" }}>
-                  {steps.map((_, i) => (
-                    <div
-                      key={i}
+                {/* Photo */}
+                <div style={{
+                  order: photoFirst ? 1 : 2,
+                  position: "relative" as const,
+                }} className="wte-photo">
+                  <div className="photo-pop" style={{
+                    width: "100%",
+                    aspectRatio: "4 / 3",
+                    background: "var(--warm-stone)",
+                  }}>
+                    <img
+                      src={b.photo}
+                      alt={b.heading}
                       style={{
-                        height: 3,
-                        borderRadius: 2,
-                        background: i === activeStep ? "var(--teal-accent)" : "var(--cream-edge)",
-                        width: i === activeStep ? 24 : 8,
-                        transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: b.objectPosition,
+                        transform: `scale(${b.zoom})`,
+                        transformOrigin: b.objectPosition,
+                        display: "block",
                       }}
                     />
+                  </div>
+                </div>
+
+                {/* Text */}
+                <div style={{
+                  order: photoFirst ? 2 : 1,
+                }} className="wte-text">
+                  <h2 style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(2.25rem, 3.8vw, 3.25rem)",
+                    fontWeight: 500,
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.08,
+                    color: "var(--deep-forest)",
+                    marginBottom: "1.75rem",
+                    maxWidth: "18ch",
+                  }}>
+                    {b.heading}
+                  </h2>
+
+                  {b.body.map((p, j) => (
+                    <p key={j} style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "1rem",
+                      fontWeight: 300,
+                      lineHeight: 1.8,
+                      color: "var(--earth-soft)",
+                      marginBottom: j < b.body.length - 1 ? "1.125rem" : "2rem",
+                      maxWidth: "52ch",
+                    }}>
+                      {p}
+                    </p>
                   ))}
+
+                  <a
+                    href={b.ctaHref}
+                    target={b.ctaHref.startsWith("http") ? "_blank" : undefined}
+                    rel={b.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.9375rem",
+                      fontWeight: 700,
+                      color: "var(--cream)",
+                      background: "var(--teal)",
+                      padding: "0.875rem 1.75rem",
+                      borderRadius: 8,
+                      display: "inline-block",
+                      letterSpacing: "0.01em",
+                      boxShadow: "0 6px 16px oklch(20% 0.01 240 / 0.2)",
+                      transition: "transform 0.2s, box-shadow 0.2s, background 0.2s",
+                    }}
+                    onMouseEnter={e => {
+                      const a = e.currentTarget as HTMLAnchorElement;
+                      a.style.transform = "translateY(-2px)";
+                      a.style.boxShadow = "0 10px 22px oklch(20% 0.01 240 / 0.28)";
+                      a.style.background = "var(--teal-deep)";
+                    }}
+                    onMouseLeave={e => {
+                      const a = e.currentTarget as HTMLAnchorElement;
+                      a.style.transform = "translateY(0)";
+                      a.style.boxShadow = "0 6px 16px oklch(20% 0.01 240 / 0.2)";
+                      a.style.background = "var(--teal)";
+                    }}
+                  >
+                    {b.ctaText}
+                  </a>
                 </div>
               </motion.div>
-            </AnimatePresence>
-          </div>
+            );
+          })}
         </div>
+
       </div>
 
       <style>{`
         @media (max-width: 760px) {
-          .wte-grid { grid-template-columns: 1fr !important; }
+          .wte-block { grid-template-columns: 1fr !important; }
+          .wte-photo { order: 1 !important; }
+          .wte-text { order: 2 !important; }
         }
       `}</style>
     </section>

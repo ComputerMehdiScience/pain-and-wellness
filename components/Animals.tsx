@@ -63,13 +63,8 @@ export default function Animals() {
           padding: "clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 5rem)",
         }}
       >
-        <h2 style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
-          fontWeight: 400,
-          color: "oklch(96% 0.012 82)",
-          lineHeight: 1.1,
-          letterSpacing: "-0.01em",
+        <h2 className="section-heading" style={{
+          color: "var(--cream)",
           marginBottom: "1.5rem",
         }}>
           Healing with<br />the Herd
@@ -113,12 +108,28 @@ export default function Animals() {
             rel="noopener noreferrer"
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              color: "#ffffff",
-              background: "var(--teal)",
-              padding: "0.75rem 1.75rem",
-              borderRadius: 3,
+              fontSize: "1rem",
+              fontWeight: 700,
+              color: "var(--teal-deep)",
+              background: "var(--cream)",
+              padding: "0.875rem 2rem",
+              borderRadius: 8,
+              letterSpacing: "0.01em",
+              display: "inline-block",
+              boxShadow: "0 6px 18px oklch(0% 0 0 / 0.25)",
+              transition: "transform 0.2s, box-shadow 0.2s, background 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              const a = e.currentTarget as HTMLElement;
+              a.style.transform = "translateY(-3px)";
+              a.style.boxShadow = "0 10px 26px oklch(0% 0 0 / 0.35)";
+              a.style.background = "var(--teal-light)";
+            }}
+            onMouseLeave={(e) => {
+              const a = e.currentTarget as HTMLElement;
+              a.style.transform = "translateY(0)";
+              a.style.boxShadow = "0 6px 18px oklch(0% 0 0 / 0.25)";
+              a.style.background = "var(--cream)";
             }}
           >
             Book a Herd session

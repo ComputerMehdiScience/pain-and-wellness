@@ -23,7 +23,7 @@ export default function CTA() {
       ref={ref}
       style={{
         background: "var(--deep-forest)",
-        padding: "clamp(5rem, 10vw, 8rem) 0",
+        padding: "clamp(3.5rem, 7vw, 6rem) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -62,7 +62,7 @@ export default function CTA() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "0 clamp(2.5rem, 6vw, 6rem)",
+          padding: "0 clamp(2rem, 7vw, 8rem)",
           position: "relative",
           zIndex: 1,
           display: "flex",
@@ -79,25 +79,15 @@ export default function CTA() {
           style={{ flex: 1, minWidth: 280 }}
         >
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 5.5vw, 4.5rem)",
-              fontWeight: 400,
-              color: "oklch(96% 0.012 82)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.01em",
-              marginBottom: "1.25rem",
-            }}
+            className="section-heading"
+            style={{ color: "var(--cream)", marginBottom: "1.25rem" }}
           >
             Ready to feel better?
           </h2>
           <p
+            className="section-subhead"
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.9375rem",
-              fontWeight: 300,
-              lineHeight: 1.75,
-              color: "oklch(96% 0.012 82 / 0.62)",
+              color: "oklch(96% 0.012 82 / 0.7)",
               maxWidth: "44ch",
             }}
           >
@@ -123,22 +113,28 @@ export default function CTA() {
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "1rem",
-              fontWeight: 500,
-              color: "#ffffff",
-              background: "var(--teal)",
+              fontWeight: 700,
+              color: "var(--teal-deep)",
+              background: "var(--cream)",
               padding: "1rem 2.5rem",
-              borderRadius: 3,
+              borderRadius: 8,
               display: "inline-block",
-              transition: "background 0.2s ease",
+              letterSpacing: "0.01em",
+              boxShadow: "0 6px 18px oklch(0% 0 0 / 0.25)",
+              transition: "transform 0.2s, box-shadow 0.2s, background 0.2s",
             }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "var(--amber-hover)")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "var(--amber)")
-            }
+            onMouseEnter={(e) => {
+              const a = e.currentTarget as HTMLElement;
+              a.style.transform = "translateY(-3px)";
+              a.style.boxShadow = "0 10px 26px oklch(0% 0 0 / 0.35)";
+              a.style.background = "var(--teal-light)";
+            }}
+            onMouseLeave={(e) => {
+              const a = e.currentTarget as HTMLElement;
+              a.style.transform = "translateY(0)";
+              a.style.boxShadow = "0 6px 18px oklch(0% 0 0 / 0.25)";
+              a.style.background = "var(--cream)";
+            }}
           >
             Book your appointment
           </a>
