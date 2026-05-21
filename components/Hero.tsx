@@ -309,12 +309,12 @@ export default function Hero() {
         style={{
           position: "relative",
           width: "100%",
-          maxWidth: 1380,
+          maxWidth: 1600,
           margin: "0 auto",
-          padding: "0 clamp(3rem, 6vw, 7rem)",
+          padding: "0 clamp(1.5rem, 3.5vw, 5rem)",
           display: "grid",
-          gridTemplateColumns: "1fr 1.05fr",
-          gap: "clamp(3rem, 5vw, 6rem)",
+          gridTemplateColumns: "1fr 1.2fr",
+          gap: "clamp(2rem, 4vw, 5rem)",
           alignItems: "center",
         }}
         className="hero-grid"
@@ -327,7 +327,7 @@ export default function Hero() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.75rem, 5.6vw, 5.5rem)",
+              fontSize: "clamp(3.5rem, 6vw, 7rem)",
               fontWeight: 400,
               lineHeight: 1.02,
               letterSpacing: "-0.02em",
@@ -367,15 +367,14 @@ export default function Hero() {
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "clamp(1.125rem, 1.55vw, 1.4rem)",
+              fontSize: "clamp(1.125rem, 1.6vw, 1.5rem)",
               lineHeight: 1.65,
               color: "var(--ink-soft)",
               maxWidth: "46ch",
               marginBottom: "clamp(2rem, 3.5vw, 2.75rem)",
             }}
           >
-            Drug-free Bowen therapy for the people, horses, and dogs of Hastings County —
-            gentle hands-on work that lets the body do what it already knows how to do.
+            Drug-free Bowen therapy for the people, horses, and dogs of Hastings County. Gentle hands-on work that lets the body do what it already knows how to do.
           </motion.p>
 
           <motion.div
@@ -473,7 +472,7 @@ export default function Hero() {
             position: "relative",
             aspectRatio: "1",
             width: "100%",
-            maxWidth: 660,
+            maxWidth: 820,
             justifySelf: "center",
           }}
           className="hero-photo-cluster"
@@ -535,7 +534,7 @@ export default function Hero() {
             eyebrow="Stirling, ON"
             title="Mobile farm visits"
             delay={1.1}
-            style={{ top: "44%", right: "-12%" }}
+            style={{ top: "44%", right: "-5%" }}
           />
           <FloatingCard
             icon={<LeafIcon />}
