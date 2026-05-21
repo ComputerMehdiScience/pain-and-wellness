@@ -34,7 +34,7 @@ export default function About() {
           margin: "0 auto",
           padding: "0 clamp(2.5rem, 6vw, 6rem)",
           display: "grid",
-          gridTemplateColumns: "5fr 7fr",
+          gridTemplateColumns: "1fr 1fr",
           gap: "clamp(3rem, 6vw, 7rem)",
           alignItems: "center",
         }}
@@ -49,7 +49,7 @@ export default function About() {
         >
           <div style={{ borderRadius: 4, overflow: "hidden", aspectRatio: "3/4" }}>
             <Image
-              src="/photos/kathy-portrait.png"
+              src="/photos/kathy-portrait.jpg"
               alt="Kathy Morton"
               fill
               style={{ objectFit: "cover", objectPosition: "center top" }}
