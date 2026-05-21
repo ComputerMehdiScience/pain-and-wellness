@@ -83,7 +83,7 @@ export default function About() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
+              fontSize: "clamp(2.75rem, 5vw, 4.25rem)",
               fontWeight: 400,
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
@@ -103,9 +103,7 @@ export default function About() {
             marginBottom: "2.5rem",
             maxWidth: "52ch",
           }}>
-            Kathy grew up with horses in rural Ontario. Cattle sorting wasn't a hobby —
-            it was how she learned to read an animal's body, movement, and pain. That same
-            instinct shapes every treatment today, whether the patient has two legs or four.
+            Kathy grew up with horses in rural Ontario. Cattle sorting wasn't a hobby. It was how she learned to read an animal's body, movement, and pain. That same instinct shapes every treatment today, whether the patient has two legs or four.
           </p>
 
           <blockquote style={{

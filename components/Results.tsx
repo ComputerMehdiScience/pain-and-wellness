@@ -91,7 +91,7 @@ export default function Results() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
+              fontSize: "clamp(2.75rem, 5vw, 4.25rem)",
               fontWeight: 400,
               letterSpacing: "-0.01em",
               lineHeight: 1.1,
@@ -111,8 +111,7 @@ export default function Results() {
               margin: "0 auto",
             }}
           >
-            Don&apos;t just take my word for it — here&apos;s what people and their
-            animals have to say after working together.
+            Here&apos;s what people and their animals have to say after working together.
           </p>
         </motion.div>
 

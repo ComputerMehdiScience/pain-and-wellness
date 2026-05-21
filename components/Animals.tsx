@@ -49,22 +49,6 @@ export default function Animals() {
           inset: 0,
           background: "linear-gradient(to right, transparent 50%, oklch(22% 0.055 158) 95%)",
         }} />
-        <div style={{
-          position: "absolute",
-          top: "2rem",
-          left: "2rem",
-          background: "var(--brown)",
-          color: "#ffffff",
-          fontFamily: "var(--font-body)",
-          fontSize: "0.625rem",
-          fontWeight: 700,
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-          padding: "0.35rem 0.75rem",
-          borderRadius: 2,
-        }}>
-          Signature experience
-        </div>
       </div>
 
       {/* Right: content */}

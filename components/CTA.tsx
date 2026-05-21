@@ -78,28 +78,10 @@ export default function CTA() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           style={{ flex: 1, minWidth: 280 }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.6875rem",
-              fontWeight: 600,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--amber)",
-              background: "oklch(68% 0.13 68 / 0.12)",
-              border: "1px solid oklch(68% 0.13 68 / 0.25)",
-              padding: "0.3rem 0.75rem",
-              borderRadius: 2,
-              marginBottom: "1.5rem",
-            }}
-          >
-            New patients welcome
-          </span>
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)",
+              fontSize: "clamp(2.75rem, 5.5vw, 4.5rem)",
               fontWeight: 400,
               color: "oklch(96% 0.012 82)",
               lineHeight: 1.1,

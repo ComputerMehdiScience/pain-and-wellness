@@ -4,12 +4,12 @@ import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
-  { q: "Is Bowen therapy covered by insurance?", a: "Many extended health care plans include Bowen therapy. Check with your provider — receipts are provided for all sessions. Cash, e-transfer, and major credit cards accepted." },
-  { q: "How many sessions will I need?", a: "Most clients see meaningful results in 3–6 sessions. Chronic or complex issues may need more. We discuss this at your first appointment — no one-size-fits-all answer." },
-  { q: "What should I expect at my first visit?", a: "First sessions run 60–75 minutes. Wear comfortable, loose clothing. Kathy will assess your posture, movement patterns, and pain history before treatment begins. Most people leave deeply relaxed." },
-  { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County — no trailering required. Dog sessions are in-clinic or at your home. Call to arrange animal appointments." },
+  { q: "Is Bowen therapy covered by insurance?", a: "Many extended health care plans include Bowen therapy. Check with your provider. Receipts are provided for all sessions. Cash, e-transfer, and major credit cards accepted." },
+  { q: "How many sessions will I need?", a: "Most clients see meaningful results in 3 to 6 sessions. Chronic or complex issues may need more. We discuss this at your first appointment." },
+  { q: "What should I expect at my first visit?", a: "First sessions run 60 to 75 minutes. Wear comfortable, loose clothing. Kathy will assess your posture, movement patterns, and pain history before treatment begins. Most people leave deeply relaxed." },
+  { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County, no trailering required. Dog sessions are in-clinic or at your home. Call to arrange animal appointments." },
   { q: "Can I keep seeing my doctor or chiropractor?", a: "Absolutely. Bowen works alongside conventional care. Kathy actively encourages an integrated approach. Many clients see her in addition to physiotherapy, massage, or chiropractic." },
-  { q: "Does Bowen therapy hurt?", a: "No. Very gentle, precise moves — no sustained pressure, no cracking, no manipulation. Most people describe it as profoundly relaxing. Suitable for all ages and pain levels." },
+  { q: "Does Bowen therapy hurt?", a: "No. Very gentle, precise moves with no sustained pressure, no cracking, and no manipulation. Most people describe it as profoundly relaxing. Suitable for all ages and pain levels." },
 ];
 
 function FaqItem({ q, a, i, inView }: { q: string; a: string; i: number; inView: boolean }) {
@@ -96,7 +96,7 @@ export default function FAQ() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           style={{ position: "sticky", top: "5.5rem" }}
         >
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 400, letterSpacing: "-0.01em", color: "var(--deep-forest)", lineHeight: 1.1, marginBottom: "1.5rem" }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 4.5vw, 4rem)", fontWeight: 400, letterSpacing: "-0.01em", color: "var(--deep-forest)", lineHeight: 1.1, marginBottom: "1.5rem" }}>
             Common questions
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>

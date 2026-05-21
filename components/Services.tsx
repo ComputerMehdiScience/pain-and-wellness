@@ -27,7 +27,7 @@ const cards = [
   {
     tag: "Human Therapy",
     heading: "When the body has been carrying pain for too long.",
-    body: "Bowen therapy works where other treatments haven't — addressing root cause rather than masking symptoms. Drug-free, gentle, and lasting.",
+    body: "Bowen therapy works where other treatments haven't. It addresses root cause rather than masking symptoms. Drug-free, gentle, and lasting.",
     facts: [
       "Bowen therapy",
       "Myoskeletal alignment technique",
@@ -46,13 +46,13 @@ const cards = [
   {
     tag: "Equine Bodywork",
     heading: "When your horse isn't moving the way they used to.",
-    body: "Reluctance on the lead, post-injury stiffness, behavioural changes under saddle. Kathy comes to your farm — no trailering, no stress.",
+    body: "Reluctance on the lead, post-injury stiffness, behavioural changes under saddle. Kathy comes to your farm with no trailering and no stress.",
     facts: [
       "Bowen therapy (equine)",
       "Myofascial kinetic lines",
       "Musculoskeletal unwinding",
       "Tensegrity work",
-      "Mobile farm visits — Hastings County",
+      "Mobile farm visits, Hastings County",
     ],
     cta: "Call to arrange a visit",
     href: "tel:6138851311",
@@ -318,25 +318,10 @@ export default function Services() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--teal-accent)",
-              marginBottom: "1rem",
-            }}
-          >
-            What brings you here
-          </span>
-
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.25rem, 4.5vw, 3.5rem)",
+              fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)",
               fontWeight: 400,
               lineHeight: 1.1,
               letterSpacing: "-0.02em",
@@ -359,7 +344,7 @@ export default function Services() {
             }}
           >
             People come carrying pain. Horses come carrying tension. Dogs come carrying age.
-            The body knows what to do — Bowen therapy gives it the room.
+            The body knows what to do. Bowen therapy gives it the room.
           </p>
         </motion.div>
       </div>
