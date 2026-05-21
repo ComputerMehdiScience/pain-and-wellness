@@ -314,7 +314,7 @@ export default function Hero() {
           padding: "0 clamp(2rem, 5vw, 4.5rem)",
           display: "grid",
           gridTemplateColumns: "1fr 1.05fr",
-          gap: "clamp(2rem, 4vw, 4.5rem)",
+          gap: "clamp(3rem, 8vw, 9rem)",
           alignItems: "center",
         }}
         className="hero-grid"
