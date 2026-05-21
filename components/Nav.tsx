@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 const links = [
   { label: "About Kathy", href: "#about" },
@@ -29,48 +31,100 @@ export default function Nav() {
           left: 0,
           right: 0,
           zIndex: 100,
-          height: 68,
+          height: 76,
           display: "flex",
           alignItems: "center",
-          padding: "0 clamp(1.25rem, 4vw, 3rem)",
+          padding: "0 clamp(1.5rem, 4vw, 3.5rem)",
           background: scrolled
-            ? "oklch(96% 0.012 82 / 0.96)"
+            ? "oklch(97% 0.008 90 / 0.88)"
             : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
+          backdropFilter: scrolled ? "blur(14px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
           borderBottom: scrolled
-            ? "1px solid oklch(78% 0.018 75)"
+            ? "1px solid oklch(86% 0.018 195 / 0.6)"
             : "1px solid transparent",
           transition:
             "background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease",
         }}
       >
-        {/* Logo */}
+        {/* Logo — PNG at top, slides up into compact wordmark when scrolled */}
         <a
           href="/"
+          aria-label="Pain & Wellness Solutions — home"
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "1.125rem",
-            fontWeight: 500,
-            color: scrolled ? "var(--deep-forest)" : "oklch(96% 0.012 82)",
-            letterSpacing: "0.01em",
-            lineHeight: 1.2,
-            transition: "color 0.3s ease",
+            position: "relative",
+            display: "block",
+            width: 220,
+            height: 60,
             flexShrink: 0,
+            overflow: "hidden",
           }}
         >
-          Pain & Wellness<br />
-          <span
+          {/* Full PNG logo — visible at top, slides up & fades when scrolled */}
+          <div
             style={{
-              fontSize: "0.6875rem",
-              fontFamily: "var(--font-body)",
-              fontWeight: 400,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              opacity: 0.7,
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              transform: scrolled ? "translateY(-72px)" : "translateY(0)",
+              opacity: scrolled ? 0 : 1,
+              transition:
+                "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease",
+              willChange: "transform, opacity",
             }}
           >
-            Solutions
-          </span>
+            <Image
+              src="/logotransparent.png"
+              alt="Pain & Wellness Solutions"
+              width={220}
+              height={60}
+              priority
+              style={{
+                width: "auto",
+                height: "100%",
+                objectFit: "contain",
+                objectPosition: "left center",
+              }}
+            />
+          </div>
+
+          {/* Compact text wordmark — slides up from below when scrolled */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "1.125rem",
+              fontWeight: 500,
+              color: "var(--teal-accent)",
+              letterSpacing: "0.005em",
+              lineHeight: 1.15,
+              transform: scrolled ? "translateY(0)" : "translateY(72px)",
+              opacity: scrolled ? 1 : 0,
+              transition:
+                "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s, opacity 0.4s ease 0.12s",
+              willChange: "transform, opacity",
+            }}
+          >
+            <span>Pain &amp; Wellness</span>
+            <span
+              style={{
+                fontSize: "0.625rem",
+                fontFamily: "var(--font-body)",
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--ink-soft)",
+                marginTop: "0.15rem",
+              }}
+            >
+              Solutions
+            </span>
+          </div>
         </a>
 
         <div style={{ flex: 1 }} />
@@ -80,7 +134,7 @@ export default function Nav() {
           className="nav-links"
           style={{
             display: "flex",
-            gap: "2rem",
+            gap: "2.25rem",
             alignItems: "center",
           }}
         >
@@ -90,23 +144,17 @@ export default function Nav() {
               href={l.href}
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "0.8125rem",
-                fontWeight: 400,
-                letterSpacing: "0.02em",
-                color: scrolled
-                  ? "var(--earth-soft)"
-                  : "oklch(96% 0.012 82 / 0.82)",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
+                letterSpacing: "0.005em",
+                color: "var(--ink)",
                 transition: "color 0.2s ease",
               }}
               onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.color = scrolled
-                  ? "var(--forest)"
-                  : "oklch(96% 0.012 82)")
+                ((e.target as HTMLElement).style.color = "var(--teal)")
               }
               onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.color = scrolled
-                  ? "var(--earth-soft)"
-                  : "oklch(96% 0.012 82 / 0.82)")
+                ((e.target as HTMLElement).style.color = "var(--ink)")
               }
             >
               {l.label}
@@ -119,23 +167,24 @@ export default function Nav() {
             rel="noopener noreferrer"
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "0.8125rem",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
-              color: "var(--deep-forest)",
-              background: "var(--amber)",
-              padding: "0.5625rem 1.25rem",
-              borderRadius: 3,
-              transition: "background 0.2s ease",
+              fontSize: "0.9375rem",
+              fontWeight: 600,
+              letterSpacing: "0.005em",
+              color: "#ffffff",
+              background: "var(--teal)",
+              padding: "0.75rem 1.5rem",
+              borderRadius: 999,
+              transition: "background 0.25s ease, transform 0.25s ease",
+              marginLeft: "0.5rem",
             }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "var(--amber-hover)")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "var(--amber)")
-            }
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "var(--teal-deep)";
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "var(--teal)";
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+            }}
           >
             Book now
           </a>
@@ -158,13 +207,10 @@ export default function Nav() {
               key={i}
               style={{
                 display: "block",
-                width: 22,
-                height: 1.5,
-                background: scrolled
-                  ? "var(--earth-text)"
-                  : "oklch(96% 0.012 82)",
+                width: 24,
+                height: 1.75,
+                background: "var(--ink)",
                 borderRadius: 1,
-                transition: "background 0.3s ease",
               }}
             />
           ))}
@@ -211,8 +257,8 @@ export default function Nav() {
               fontFamily: "var(--font-body)",
               fontSize: "0.875rem",
               fontWeight: 500,
-              color: "var(--deep-forest)",
-              background: "var(--amber)",
+              color: "#ffffff",
+              background: "var(--teal)",
               padding: "0.75rem 1.5rem",
               borderRadius: 3,
               textAlign: "center",

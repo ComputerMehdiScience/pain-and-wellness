@@ -5,18 +5,38 @@
 }
 
 :root {
-  --deep-forest:   oklch(22% 0.055 158);
-  --forest:        oklch(35% 0.075 155);
-  --sage:          oklch(55% 0.085 150);
-  --sage-light:    oklch(72% 0.065 150);
-  --warm-cream:    oklch(96% 0.012 82);
-  --warm-stone:    oklch(91% 0.015 75);
-  --warm-mid:      oklch(78% 0.018 75);
-  --earth-text:    oklch(28% 0.025 60);
-  --earth-soft:    oklch(52% 0.022 65);
-  --earth-faint:   oklch(72% 0.018 70);
-  --amber:         oklch(68% 0.13 68);
-  --amber-hover:   oklch(62% 0.14 68);
+  /* Brand palette — sampled from painandwellnesssolutions.ca + logo */
+  --teal-deep:     oklch(42% 0.06 200);   /* darker teal, hover/active */
+  --teal:          oklch(52% 0.055 200);  /* #367c83 — primary CTA */
+  --teal-accent:   oklch(53% 0.055 195);  /* #368286 — headings/links */
+  --teal-light:    oklch(78% 0.03 195);   /* #9bc0c2 — soft surfaces, dividers */
+  --teal-wash:     oklch(94% 0.015 195);  /* very pale teal — section bands */
+
+  --cream:         oklch(97% 0.008 90);   /* page bg */
+  --cream-warm:    oklch(93% 0.015 80);   /* card/section alt bg */
+  --cream-edge:    oklch(86% 0.018 80);   /* hairlines / borders */
+
+  --brown:         oklch(35% 0.045 55);   /* #654631 — emphasis accent */
+  --brown-soft:    oklch(50% 0.04 55);    /* secondary accent text */
+
+  --ink:           oklch(20% 0.01 240);   /* body text near-black */
+  --ink-soft:      oklch(45% 0.01 240);   /* secondary text */
+  --ink-faint:     oklch(65% 0.008 240);  /* tertiary / meta */
+
+  /* Backward-compat aliases — old names map to brand-correct values.
+     Keep these so existing components don't break; remove once migrated. */
+  --deep-forest:   var(--teal-deep);
+  --forest:        var(--teal);
+  --sage:          var(--teal-accent);
+  --sage-light:    var(--teal-light);
+  --warm-cream:    var(--cream);
+  --warm-stone:    var(--cream-warm);
+  --warm-mid:      var(--cream-edge);
+  --earth-text:    var(--ink);
+  --earth-soft:    var(--ink-soft);
+  --earth-faint:   var(--ink-faint);
+  --amber:         var(--teal);          /* was named for old amber CTAs — now brand teal */
+  --amber-hover:   var(--teal-deep);
 }
 
 html {
