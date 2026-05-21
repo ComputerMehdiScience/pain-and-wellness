@@ -74,7 +74,10 @@ const cards = [
     ],
     cta: "Book a canine session",
     href: "https://app.setmore.com/painandwellnesssolutions",
-    photo: null,
+    photo: {
+      src: "/photos/kathy%20dog.png",
+      alt: "Kathy doing canine Bowen therapy with a dog",
+    },
   },
 ];
 
