@@ -1,676 +1,371 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-type ServiceCard = {
-  num: string;
-  tag: string;
-  heading: string;
-  body: string;
-  chips: string[];
-  cta: string;
-  href: string;
-  art:
-    | { kind: "photo"; src: string; alt: string }
-    | { kind: "svg"; render: () => React.ReactNode };
-  wash: { from: string; to: string; accent: string };
-};
-
-const HumanIllustration = () => (
-  <svg
-    viewBox="0 0 320 320"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "100%", height: "100%" }}
-    aria-hidden
-  >
-    <defs>
-      <linearGradient id="humanStroke" x1="80" y1="40" x2="240" y2="300" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stopColor="oklch(52% 0.055 200)" />
-        <stop offset="1" stopColor="oklch(38% 0.07 200)" />
-      </linearGradient>
-      <radialGradient id="humanGlow" cx="160" cy="160" r="120">
-        <stop offset="0" stopColor="oklch(52% 0.055 200)" stopOpacity="0.10" />
-        <stop offset="1" stopColor="oklch(52% 0.055 200)" stopOpacity="0" />
-      </radialGradient>
-    </defs>
-
-    {/* Soft halo */}
-    <circle cx="160" cy="170" r="135" fill="url(#humanGlow)" />
-
-    {/* Two cupped hands cradling a small body / energy form — universal healing motif */}
-
-    {/* Left hand — palm up, fingers curled inward to cradle */}
-    <path
-      d="
-        M70 200
-        c0-10 4-20 12-28
-        c8-8 18-12 30-12
-        l16 0
-      "
-      stroke="url(#humanStroke)"
-      strokeWidth="4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-    {/* Left hand — wrist + forearm */}
-    <path
-      d="
-        M70 200
-        c-6 2-14 6-22 14
-        c-6 6-10 14-12 22
-      "
-      stroke="url(#humanStroke)"
-      strokeWidth="4"
-      strokeLinecap="round"
-      fill="none"
-    />
-    {/* Left hand — fingers curled */}
-    <g stroke="url(#humanStroke)" strokeWidth="3" strokeLinecap="round" fill="none">
-      <path d="M128 160c-2-6-6-10-12-12" />
-      <path d="M134 168c0-7-2-13-6-18" />
-      <path d="M138 178c2-7 2-14 0-20" />
-      <path d="M138 188c6-5 8-12 6-20" />
+const CanineSVG = () => (
+  <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "100%", height: "100%", opacity: 0.18 }} aria-hidden>
+    <path d="M360 280c8-30 4-62-18-86-24-26-62-40-100-38-38 4-72 24-92 54-10 15-16 32-16 50 0 14 6 24 20 28l186 8c14 0 24-8 20-16z"
+      stroke="#ffffff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
+    <path d="M192 228c-18-4-34 4-44 18-8 10-12 24-8 38 2 6 6 12 14 14l66 6"
+      stroke="#ffffff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
+    <path d="M156 242c-8 0-12 2-16 6" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" />
+    <path d="M224 218c-4-20 4-38 18-48 6-4 14-4 20 2 6 4 10 14 6 26-2 8-8 12-14 14"
+      stroke="#ffffff" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
+    <path d="M168 270c6-4 14-4 20 0" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" />
+    <circle cx="152" cy="276" r="6" fill="#ffffff" />
+    <path d="M200 308c18-6 38-6 54 0M218 316c-4 6-4 14 0 20M254 316c-4 6-4 14 0 20"
+      stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
+    <path d="M360 280c16 6 28 20 32 38 4 15-4 30-18 38-10 4-20 0-26-8-4-6-2-16 4-20"
+      stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
+    <g transform="translate(86 130)" opacity="0.7">
+      <path d="M0 18l14 0l-14 20l14 0" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M-22 0l8 0l-8 12l8 0" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </g>
-
-    {/* Right hand — palm up, mirror */}
-    <path
-      d="
-        M250 200
-        c0-10-4-20-12-28
-        c-8-8-18-12-30-12
-        l-16 0
-      "
-      stroke="url(#humanStroke)"
-      strokeWidth="4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-    <path
-      d="
-        M250 200
-        c6 2 14 6 22 14
-        c6 6 10 14 12 22
-      "
-      stroke="url(#humanStroke)"
-      strokeWidth="4"
-      strokeLinecap="round"
-      fill="none"
-    />
-    <g stroke="url(#humanStroke)" strokeWidth="3" strokeLinecap="round" fill="none">
-      <path d="M192 160c2-6 6-10 12-12" />
-      <path d="M186 168c0-7 2-13 6-18" />
-      <path d="M182 178c-2-7-2-14 0-20" />
-      <path d="M182 188c-6-5-8-12-6-20" />
-    </g>
-
-    {/* Hands meeting at the bottom — cradle base */}
-    <path
-      d="M128 188c12 8 24 12 32 12c8 0 20-4 32-12"
-      stroke="url(#humanStroke)"
-      strokeWidth="3.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="oklch(94% 0.015 195)"
-      fillOpacity="0.4"
-    />
-
-    {/* Glowing energy held within the hands — concentric circles like ripples */}
-    <g>
-      <circle cx="160" cy="162" r="20" fill="oklch(52% 0.055 200)" fillOpacity="0.08" />
-      <circle cx="160" cy="162" r="14" fill="oklch(52% 0.055 200)" fillOpacity="0.14" />
-      <circle cx="160" cy="162" r="8" fill="oklch(52% 0.055 200)" fillOpacity="0.32" />
-      <circle cx="160" cy="162" r="4" fill="oklch(35% 0.045 55)" />
-    </g>
-
-    {/* Energy radiating outward — Bowen pressure-point ripples */}
-    <g stroke="url(#humanStroke)" strokeWidth="1.4" strokeLinecap="round" opacity="0.55" fill="none">
-      <path d="M120 100c8-8 22-12 40-12c18 0 32 4 40 12" strokeDasharray="2 7" />
-      <path d="M100 76c14-12 36-18 60-18c24 0 46 6 60 18" strokeDasharray="2 9" opacity="0.65" />
-      <path d="M80 56c20-16 50-24 80-24c30 0 60 8 80 24" strokeDasharray="2 11" opacity="0.4" />
-    </g>
-
-    {/* Small accent dots — pressure points */}
-    <g fill="oklch(35% 0.045 55)" opacity="0.6">
-      <circle cx="106" cy="148" r="2.5" />
-      <circle cx="214" cy="148" r="2.5" />
-      <circle cx="160" cy="110" r="3" />
+    <g transform="translate(380 120)" opacity="0.5">
+      <circle cx="0" cy="4" r="10" stroke="#ffffff" strokeWidth="2" />
+      <circle cx="-16" cy="-14" r="6" stroke="#ffffff" strokeWidth="2" />
+      <circle cx="16" cy="-14" r="6" stroke="#ffffff" strokeWidth="2" />
+      <circle cx="-8" cy="-26" r="5" stroke="#ffffff" strokeWidth="2" />
+      <circle cx="10" cy="-26" r="5" stroke="#ffffff" strokeWidth="2" />
     </g>
   </svg>
 );
 
-const CanineIllustration = () => (
-  <svg
-    viewBox="0 0 320 320"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "100%", height: "100%" }}
-    aria-hidden
-  >
-    <defs>
-      <linearGradient id="dogStroke" x1="40" y1="80" x2="280" y2="260" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stopColor="oklch(52% 0.055 200)" />
-        <stop offset="1" stopColor="oklch(38% 0.07 200)" />
-      </linearGradient>
-      <radialGradient id="dogGlow" cx="160" cy="180" r="130">
-        <stop offset="0" stopColor="oklch(52% 0.055 200)" stopOpacity="0.10" />
-        <stop offset="1" stopColor="oklch(52% 0.055 200)" stopOpacity="0" />
-      </radialGradient>
-    </defs>
-
-    {/* Soft halo */}
-    <circle cx="160" cy="180" r="120" fill="url(#dogGlow)" />
-
-    {/* Sleeping dog — side profile, curled body, head resting on paws */}
-
-    {/* Body — gentle arching back from rump to shoulder */}
-    <path
-      d="
-        M252 196
-        c4-18 0-36-12-50
-        c-14-16-36-24-58-22
-        c-22 2-42 14-54 32
-        c-6 9-10 19-10 30
-        c0 8 4 14 12 16
-        l108 4
-        c8 0 14-4 14-10
-      "
-      stroke="url(#dogStroke)"
-      strokeWidth="3"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    />
-
-    {/* Head — resting low, snout extending forward */}
-    <path
-      d="
-        M132 158
-        c-10-2-20 2-26 10
-        c-5 6-7 14-5 22
-        c1 4 4 7 8 8
-        l38 4
-      "
-      stroke="url(#dogStroke)"
-      strokeWidth="3"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    />
-
-    {/* Snout tip */}
-    <path
-      d="M106 168c-4 0-7 1-10 3"
-      stroke="url(#dogStroke)"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
-
-    {/* Folded ear — flopping naturally */}
-    <path
-      d="
-        M148 152
-        c-2-12 2-22 10-28
-        c4-2 8-2 12 1
-        c4 3 6 9 4 16
-        c-1 4-4 7-8 8
-      "
-      stroke="url(#dogStroke)"
-      strokeWidth="2.5"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    />
-
-    {/* Eye — peacefully closed */}
-    <path
-      d="M120 174c4-2 8-2 12 0"
-      stroke="oklch(35% 0.045 55)"
-      strokeWidth="2"
-      strokeLinecap="round"
-      fill="none"
-    />
-
-    {/* Nose */}
-    <circle cx="102" cy="172" r="3.5" fill="oklch(35% 0.045 55)" />
-
-    {/* Front paws crossed under chin */}
-    <path
-      d="M138 198c10-4 22-4 32 0M148 202c-2 4-2 8 0 12M170 202c-2 4-2 8 0 12"
-      stroke="url(#dogStroke)"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-
-    {/* Curled tail */}
-    <path
-      d="
-        M252 196
-        c10 4 18 12 20 22
-        c2 9-2 18-10 22
-        c-6 3-13 1-16-4
-        c-2-4-1-9 3-11
-      "
-      stroke="url(#dogStroke)"
-      strokeWidth="3"
-      strokeLinecap="round"
-      fill="none"
-    />
-
-    {/* Paw print accent — bottom right, like a little signature */}
-    <g transform="translate(240 248)" opacity="0.65">
-      <ellipse cx="0" cy="2" rx="6" ry="5" fill="oklch(35% 0.045 55)" />
-      <circle cx="-10" cy="-8" r="3" fill="oklch(35% 0.045 55)" />
-      <circle cx="10" cy="-8" r="3" fill="oklch(35% 0.045 55)" />
-      <circle cx="-5" cy="-15" r="2.5" fill="oklch(35% 0.045 55)" />
-      <circle cx="7" cy="-15" r="2.5" fill="oklch(35% 0.045 55)" />
-    </g>
-
-    {/* Sleep "z" marks above head — subtle */}
-    <g stroke="url(#dogStroke)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" opacity="0.45" fill="none">
-      <path d="M88 110l8 0l-8 12l8 0" />
-      <path d="M64 88l5 0l-5 7l5 0" />
-    </g>
-  </svg>
-);
-
-const services: ServiceCard[] = [
+const panels = [
   {
     num: "01",
-    tag: "Human therapy",
+    tag: "Human Therapy",
     heading: "When the body has been carrying pain for too long.",
-    body:
-      "Chronic back pain, sciatica, migraines, jaw tension, sports injuries — Bowen therapy works where other treatments haven't. Gentle, drug-free, and it addresses the root cause rather than masking it.",
-    chips: ["Bowen & Myoskeletal", "Scar Tissue Release", "Reiki", "Ionized Foot Detox"],
+    body: "Chronic back pain, sciatica, migraines, jaw tension, sports injuries — Bowen therapy works where other treatments haven't. Gentle, drug-free, and it addresses the root cause rather than masking it.",
+    facts: ["Bowen & Myoskeletal therapy", "Scar tissue release", "Reiki & energy work", "Ionized foot detox"],
     cta: "Book an appointment",
     href: "https://app.setmore.com/painandwellnesssolutions",
-    art: { kind: "svg", render: () => <HumanIllustration /> },
-    wash: {
-      from: "oklch(94% 0.015 195)",
-      to: "oklch(86% 0.025 195)",
-      accent: "oklch(52% 0.055 200)",
-    },
+    photo: { src: "/photos/Untitled-design-5-e1749224624391-768x841.png", alt: "Kathy performing Bowen therapy on a patient" },
+    imageLeft: true,
+    dark: false,
+    bg: "var(--cream)",
+    contentBg: "#ffffff",
+    accent: "var(--teal)",
+    accentRaw: "oklch(52% 0.055 200)",
   },
   {
     num: "02",
-    tag: "Equine bodywork",
+    tag: "Equine Bodywork",
     heading: "When your horse isn't moving the way they used to.",
-    body:
-      "Reluctance on the lead, behavioural changes under saddle, post-injury stiffness. Kathy comes to your farm — no trailering, no stress. Her cattle-sorting background means horses trust her fast.",
-    chips: ["Farm visits — Hastings County", "Myofascial kinetic lines", "Musculoskeletal unwinding", "Tensegrity work"],
+    body: "Reluctance on the lead, behavioural changes under saddle, post-injury stiffness. Kathy comes to your farm — no trailering, no stress. Her cattle-sorting background means horses trust her fast.",
+    facts: ["Farm visits — Hastings County", "Myofascial kinetic lines", "Musculoskeletal unwinding", "Tensegrity work"],
     cta: "Call to arrange a visit",
     href: "tel:6138851311",
-    art: { kind: "photo", src: "/photos/kathy-horse.jpg", alt: "Kathy with a horse" },
-    wash: {
-      from: "oklch(93% 0.02 80)",
-      to: "oklch(86% 0.03 75)",
-      accent: "oklch(35% 0.045 55)",
-    },
+    photo: { src: "/photos/Family-is-Everything-1-819x1024.png", alt: "Kathy doing equine Bowen therapy in a barn" },
+    imageLeft: false,
+    dark: true,
+    bg: "oklch(22% 0.055 195)",
+    contentBg: "oklch(22% 0.055 195)",
+    accent: "oklch(70% 0.08 150)",
+    accentRaw: "oklch(70% 0.08 150)",
   },
   {
     num: "03",
     tag: "Canine Bowen",
     heading: "When your dog is slowing down before their time.",
-    body:
-      "The same gentle nervous-system approach — adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, age-related mobility. In-clinic or at your home. Dogs often respond within a single session.",
-    chips: ["Hip dysplasia & joint issues", "Post-surgical recovery", "Anxiety regulation", "In-clinic or home visits"],
+    body: "The same gentle nervous-system approach — adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, age-related mobility. In-clinic or home visits. Dogs often respond within a single session.",
+    facts: ["Hip dysplasia & joint issues", "Post-surgical recovery", "Anxiety & nervous system", "In-clinic or home visits"],
     cta: "Book a canine session",
     href: "https://app.setmore.com/painandwellnesssolutions",
-    art: { kind: "svg", render: () => <CanineIllustration /> },
-    wash: {
-      from: "oklch(94% 0.015 195)",
-      to: "oklch(82% 0.035 200)",
-      accent: "oklch(42% 0.06 200)",
-    },
+    photo: null,
+    imageLeft: true,
+    dark: false,
+    bg: "var(--cream-warm)",
+    contentBg: "var(--cream-warm)",
+    accent: "var(--teal)",
+    accentRaw: "oklch(52% 0.055 200)",
   },
 ];
 
-function ArrowRight({ color }: { color: string }) {
-  return (
-    <svg
-      width="20"
-      height="14"
-      viewBox="0 0 20 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ display: "block" }}
-      aria-hidden
-    >
-      <path
-        d="M1 7H18M18 7L12 1M18 7L12 13"
-        stroke={color}
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ServiceCardRow({
-  s,
-  index,
-  inView,
-}: {
-  s: ServiceCard;
-  index: number;
-  inView: boolean;
-}) {
-  const cardRef = useRef<HTMLDivElement>(null);
+function Panel({ p, index }: { p: typeof panels[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [canTilt, setCanTilt] = useState(false);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [2, -2]), {
-    stiffness: 180,
-    damping: 22,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3.5, 3.5]), {
-    stiffness: 180,
-    damping: 22,
-  });
-
-  const artX = useTransform(mouseX, [-0.5, 0.5], [-14, 14]);
-  const artY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
-  const washX = useTransform(mouseX, [-0.5, 0.5], [8, -8]);
-  const washY = useTransform(mouseY, [-0.5, 0.5], [6, -6]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const photoY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   useEffect(() => {
-    const check = () => setCanTilt(window.innerWidth >= 960 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!canTilt || !cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX.set(x);
-      mouseY.set(y);
-    },
-    [canTilt, mouseX, mouseY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0);
-    mouseY.set(0);
-    setHovered(false);
-  }, [mouseX, mouseY]);
-
-  const imageOnRight = index % 2 === 1;
+  const textColor = p.dark ? "oklch(96% 0.012 82)" : "var(--ink)";
+  const textSoft = p.dark ? "oklch(96% 0.012 82 / 0.6)" : "var(--ink-soft)";
+  const borderColor = p.dark ? "oklch(96% 0.012 82 / 0.12)" : "var(--cream-edge)";
 
   return (
-    <motion.article
-      ref={cardRef}
-      initial={{ opacity: 0, y: 48 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.12 + index * 0.14 }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
+    <div
+      ref={ref}
       style={{
+        background: p.bg,
+        display: "grid",
+        gridTemplateColumns: p.photo
+          ? p.imageLeft ? "54fr 46fr" : "46fr 54fr"
+          : "42fr 58fr",
+        minHeight: 560,
         position: "relative",
-        borderRadius: 28,
         overflow: "hidden",
-        background: "#ffffff",
-        border: "1px solid oklch(86% 0.018 195 / 0.7)",
-        boxShadow: hovered
-          ? "0 24px 60px oklch(20% 0.01 240 / 0.10), 0 2px 6px oklch(20% 0.01 240 / 0.05)"
-          : "0 8px 24px oklch(20% 0.01 240 / 0.05), 0 1px 2px oklch(20% 0.01 240 / 0.03)",
-        transition: "box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        transformStyle: "preserve-3d",
-        perspective: 1400,
-        rotateX: canTilt ? (rotateX as unknown as MotionValue<number>) : 0,
-        rotateY: canTilt ? (rotateY as unknown as MotionValue<number>) : 0,
       }}
+      className="services-panel"
     >
-      <div
-        className="service-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: imageOnRight ? "1.05fr 0.95fr" : "0.95fr 1.05fr",
-          minHeight: 460,
-        }}
-      >
-        {/* Art panel */}
-        <motion.div
+      {/* ── Photo column ── */}
+      {p.photo ? (
+        <div
           style={{
-            order: imageOnRight ? 2 : 1,
+            order: p.imageLeft ? 1 : 2,
             position: "relative",
             overflow: "hidden",
-            background: `linear-gradient(135deg, ${s.wash.from}, ${s.wash.to})`,
-            minHeight: 360,
           }}
-          className="service-art"
+          className="services-photo"
         >
-          {/* Soft animated wash */}
-          <motion.div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: -40,
-              background: `radial-gradient(60% 60% at 30% 30%, ${s.wash.accent}22, transparent 70%), radial-gradient(50% 50% at 75% 70%, ${s.wash.accent}18, transparent 65%)`,
-              x: washX,
-              y: washY,
-              filter: "blur(2px)",
-            }}
-          />
+          {/* Parallax photo */}
+          <motion.div style={{ position: "absolute", inset: "-8%", y: photoY }}>
+            <Image
+              src={p.photo.src}
+              alt={p.photo.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 55vw"
+              priority={index === 0}
+              style={{ objectFit: "cover", objectPosition: "center top" }}
+            />
+          </motion.div>
 
-          {/* Subtle grid hairlines */}
-          <svg
+          {/* Inner edge gradient — blends photo into content area */}
+          <div
             aria-hidden
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.08 }}
-          >
-            <defs>
-              <pattern id={`grid-${s.num}`} width="32" height="32" patternUnits="userSpaceOnUse">
-                <path d="M32 0H0V32" fill="none" stroke={s.wash.accent} strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill={`url(#grid-${s.num})`} />
-          </svg>
-
-          {/* Floating illustration / photo */}
-          <motion.div
             style={{
               position: "absolute",
               inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "clamp(2rem, 4vw, 3.5rem)",
-              x: artX,
-              y: artY,
+              background: p.imageLeft
+                ? `linear-gradient(to right, transparent 55%, ${p.contentBg} 100%)`
+                : `linear-gradient(to left, transparent 55%, ${p.contentBg} 100%)`,
+              pointerEvents: "none",
             }}
-          >
-            {s.art.kind === "photo" ? (
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: 18,
-                  overflow: "hidden",
-                  boxShadow: "0 18px 48px oklch(20% 0.01 240 / 0.20)",
-                }}
-              >
-                <Image
-                  src={s.art.src}
-                  alt={s.art.alt}
-                  fill
-                  sizes="(max-width: 960px) 100vw, 600px"
-                  style={{ objectFit: "cover" }}
-                  priority={index === 0}
-                />
-              </div>
-            ) : (
-              <div style={{ width: "min(92%, 420px)", aspectRatio: "1", filter: "drop-shadow(0 8px 20px oklch(20% 0.01 240 / 0.12))" }}>
-                {s.art.render()}
-              </div>
-            )}
-          </motion.div>
+          />
 
-          {/* Numeral — large ghosted */}
-          <motion.span
+          {/* Ghost numeral over photo */}
+          <span
             aria-hidden
             style={{
               position: "absolute",
-              bottom: "1.25rem",
-              left: imageOnRight ? "auto" : "1.5rem",
-              right: imageOnRight ? "1.5rem" : "auto",
+              bottom: "1.5rem",
+              left: p.imageLeft ? "auto" : "1.75rem",
+              right: p.imageLeft ? "1.75rem" : "auto",
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(5rem, 9vw, 8rem)",
+              fontSize: "clamp(6rem, 12vw, 10rem)",
               fontWeight: 400,
-              color: s.wash.accent,
-              opacity: 0.10,
               lineHeight: 1,
               letterSpacing: "-0.04em",
+              color: "#ffffff",
+              opacity: 0.12,
               pointerEvents: "none",
+              userSelect: "none",
             }}
           >
-            {s.num}
-          </motion.span>
-        </motion.div>
-
-        {/* Content panel */}
+            {p.num}
+          </span>
+        </div>
+      ) : (
+        /* Canine teal art column */
         <div
           style={{
-            order: imageOnRight ? 1 : 2,
-            padding: "clamp(2rem, 4vw, 3.5rem)",
+            order: 1,
+            position: "relative",
+            overflow: "hidden",
+            background: `linear-gradient(145deg, oklch(52% 0.055 200), oklch(38% 0.07 200))`,
+            minHeight: 420,
+          }}
+          className="services-photo"
+        >
+          {/* Radial glow */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "radial-gradient(55% 55% at 35% 40%, oklch(78% 0.03 195 / 0.35), transparent 70%)",
+            }}
+          />
+          {/* Canine SVG watermark */}
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+            <div style={{ width: "min(90%, 480px)", aspectRatio: "4/3" }}>
+              <CanineSVG />
+            </div>
+          </div>
+          {/* Ghost numeral */}
+          <span
+            aria-hidden
+            style={{
+              position: "absolute",
+              bottom: "1.5rem",
+              right: "1.75rem",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(6rem, 12vw, 10rem)",
+              fontWeight: 400,
+              lineHeight: 1,
+              letterSpacing: "-0.04em",
+              color: "#ffffff",
+              opacity: 0.12,
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            {p.num}
+          </span>
+          {/* Gradient edge blend */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: `linear-gradient(to right, transparent 60%, ${p.contentBg} 100%)`,
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+      )}
+
+      {/* ── Content column ── */}
+      <motion.div
+        initial={{ opacity: 0, x: p.imageLeft ? 32 : -32 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        style={{
+          order: p.imageLeft ? 2 : 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "clamp(3rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4.5rem)",
+          position: "relative",
+          zIndex: 1,
+        }}
+        className="services-content"
+      >
+        {/* Tag + number */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem" }}>
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "0.6875rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: p.accent,
+            }}
+          >
+            {p.tag}
+          </span>
+          <span style={{ color: borderColor, fontSize: "0.8rem" }}>—</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: textSoft, letterSpacing: "0.04em" }}>
+            {p.num}
+          </span>
+        </div>
+
+        {/* Heading */}
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.75rem, 2.8vw, 2.5rem)",
+            fontWeight: 400,
+            color: textColor,
+            lineHeight: 1.1,
+            letterSpacing: "-0.02em",
+            marginBottom: "1.25rem",
+            maxWidth: "26ch",
+          }}
+        >
+          {p.heading}
+        </h3>
+
+        {/* Body */}
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "0.9375rem",
+            lineHeight: 1.75,
+            color: textSoft,
+            maxWidth: "42ch",
+            marginBottom: "1.75rem",
+          }}
+        >
+          {p.body}
+        </p>
+
+        {/* Fact list — dash style, no chips */}
+        <ul
+          style={{
+            listStyle: "none",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            gap: "1.25rem",
-            position: "relative",
+            gap: "0.5rem",
+            marginBottom: "2.25rem",
           }}
-          className="service-content"
         >
-          {/* Tag chip */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <span
+          {p.facts.map((f) => (
+            <li
+              key={f}
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.625rem",
                 fontFamily: "var(--font-body)",
-                fontSize: "0.6875rem",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: s.wash.accent,
-                background: `${s.wash.accent}14`,
-                padding: "0.4rem 0.75rem",
-                borderRadius: 999,
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: textSoft,
               }}
             >
-              {s.tag}
-            </span>
-            <span
-              aria-hidden
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "0.75rem",
-                color: "var(--ink-faint)",
-                letterSpacing: "0.04em",
-              }}
-            >
-              — {s.num}
-            </span>
-          </div>
+              <span style={{ width: 18, height: 1.5, background: p.accent, display: "inline-block", flexShrink: 0, borderRadius: 1 }} />
+              {f}
+            </li>
+          ))}
+        </ul>
 
-          {/* Heading */}
-          <h3
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.5rem, 2.4vw, 2.125rem)",
-              fontWeight: 400,
-              color: "var(--ink)",
-              lineHeight: 1.15,
-              letterSpacing: "-0.015em",
-              maxWidth: "32ch",
-            }}
-          >
-            {s.heading}
-          </h3>
-
-          {/* Body */}
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.9375rem",
-              lineHeight: 1.7,
-              color: "var(--ink-soft)",
-              maxWidth: "44ch",
-            }}
-          >
-            {s.body}
-          </p>
-
-          {/* Chips */}
-          <ul
-            style={{
-              listStyle: "none",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-              marginTop: "0.25rem",
-            }}
-          >
-            {s.chips.map((c) => (
-              <li
-                key={c}
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.78rem",
-                  fontWeight: 500,
-                  color: "var(--ink-soft)",
-                  background: "oklch(96% 0.005 200)",
-                  border: "1px solid oklch(88% 0.012 200)",
-                  padding: "0.4rem 0.7rem",
-                  borderRadius: 999,
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {c}
-              </li>
-            ))}
-          </ul>
-
-          {/* CTA arrow link */}
-          <a
-            href={s.href}
-            target={s.href.startsWith("http") ? "_blank" : undefined}
-            rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-            style={{
-              marginTop: "0.875rem",
-              alignSelf: "flex-start",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.9375rem",
-              fontWeight: 600,
-              color: "var(--teal)",
-              letterSpacing: "0.005em",
-              padding: "0.625rem 0",
-              borderBottom: `1.5px solid ${hovered ? "var(--teal)" : "transparent"}`,
-              transition: "border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
-            <span>{s.cta}</span>
-            <motion.span
-              animate={{ x: hovered ? 6 : 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: "inline-flex" }}
-            >
-              <ArrowRight color="var(--teal)" />
-            </motion.span>
-          </a>
-        </div>
-      </div>
-    </motion.article>
+        {/* CTA */}
+        <a
+          href={p.href}
+          target={p.href.startsWith("http") ? "_blank" : undefined}
+          rel={p.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            alignSelf: "flex-start",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.875rem",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.9375rem",
+            fontWeight: 600,
+            color: p.dark ? "#ffffff" : "#ffffff",
+            background: p.accent,
+            padding: "0.875rem 1.75rem",
+            borderRadius: 999,
+            transition: "transform 0.25s ease, opacity 0.25s ease",
+            transform: hovered ? "translateY(-2px)" : "translateY(0)",
+            opacity: hovered ? 0.9 : 1,
+          }}
+        >
+          {p.cta}
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden>
+            <path d="M1 6h13M14 6L9 1M14 6L9 11" stroke="#ffffff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
+      </motion.div>
+    </div>
   );
 }
 
@@ -682,12 +377,7 @@ export default function Services() {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
       { threshold: 0.05 }
     );
     obs.observe(el);
@@ -695,45 +385,21 @@ export default function Services() {
   }, []);
 
   return (
-    <section
-      id="services"
-      ref={ref}
-      style={{
-        background: "var(--cream-warm)",
-        padding: "clamp(5rem, 10vw, 9rem) 0",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Section ambient wash */}
+    <section id="services" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Section header */}
       <div
-        aria-hidden
+        ref={ref}
         style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(60% 50% at 10% 10%, oklch(78% 0.03 195 / 0.18), transparent 60%), radial-gradient(40% 35% at 90% 80%, oklch(35% 0.045 55 / 0.08), transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div
-        style={{
-          position: "relative",
-          maxWidth: 1240,
+          background: "var(--cream)",
+          padding: "clamp(5rem, 9vw, 8rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 5vw, 4rem)",
+          maxWidth: 1400,
           margin: "0 auto",
-          padding: "0 clamp(1.5rem, 4vw, 3rem)",
         }}
       >
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            marginBottom: "clamp(3rem, 5vw, 4.5rem)",
-            maxWidth: 720,
-          }}
         >
           <span
             style={{
@@ -758,6 +424,7 @@ export default function Services() {
               lineHeight: 1.05,
               color: "var(--ink)",
               marginBottom: "1rem",
+              maxWidth: "18ch",
             }}
           >
             Three ways the work shows up.
@@ -768,32 +435,32 @@ export default function Services() {
               fontSize: "clamp(1rem, 1.25vw, 1.125rem)",
               lineHeight: 1.65,
               color: "var(--ink-soft)",
-              maxWidth: 580,
+              maxWidth: 540,
             }}
           >
             People come carrying pain. Horses come carrying tension. Dogs come carrying age.
             The body knows what to do — Bowen therapy gives it the room.
           </p>
         </motion.div>
+      </div>
 
-        {/* Cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(1.5rem, 2.5vw, 2.25rem)" }}>
-          {services.map((s, i) => (
-            <ServiceCardRow key={s.num} s={s} index={i} inView={inView} />
-          ))}
-        </div>
+      {/* Full-bleed panels */}
+      <div>
+        {panels.map((p, i) => (
+          <Panel key={p.num} p={p} index={i} />
+        ))}
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
-          .service-grid {
+        @media (max-width: 860px) {
+          .services-panel {
             grid-template-columns: 1fr !important;
           }
-          .service-art {
+          .services-photo {
             order: 1 !important;
-            min-height: 280px !important;
+            min-height: 320px !important;
           }
-          .service-content {
+          .services-content {
             order: 2 !important;
           }
         }
