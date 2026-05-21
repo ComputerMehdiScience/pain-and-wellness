@@ -28,7 +28,7 @@ export default function Animals() {
       ref={ref}
       style={{
         background: "var(--deep-forest)",
-        minHeight: "85vh",
+        minHeight: 480,
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         overflow: "hidden",
