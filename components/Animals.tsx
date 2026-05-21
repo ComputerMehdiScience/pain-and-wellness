@@ -39,9 +39,9 @@ export default function Animals() {
       <div style={{ position: "relative", overflow: "hidden", minHeight: 480 }}>
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
           <img
-            src="/photos/kathy-horse.jpg"
-            alt="Kathy Morton with a horse near Stirling, Ontario"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
+            src="/photos/kathy-horse-barn.png"
+            alt="Kathy Morton doing equine Bowen therapy in a barn"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }}
           />
         </motion.div>
         <div style={{
