@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const services = [
@@ -85,11 +86,11 @@ export default function Services() {
 
   const PAD = visible;
   // Track: [last PAD services][all services][first PAD services]
-  const track = [
+  const track = useMemo(() => [
     ...services.slice(N - PAD),
     ...services,
     ...services.slice(0, PAD),
-  ];
+  ], [PAD]);
 
   const cardWidth = containerWidth > 0 ? (containerWidth - (visible - 1) * GAP_PX) / visible : 0;
   const active = ((position % N) + N) % N;
@@ -240,17 +241,16 @@ export default function Services() {
                             zIndex: isFeatured ? 2 : 1,
                           }}
                         >
-                          <img
+                          <Image
                             src={svc.photo}
                             alt={svc.name}
+                            fill
+                            sizes="(max-width: 640px) 90vw, (max-width: 900px) 50vw, (max-width: 1200px) 33vw, 390px"
                             style={{
-                              width: "100%",
-                              height: "100%",
                               objectFit: "cover",
                               objectPosition: svc.objectPosition,
                               transform: `scale(${svc.zoom})`,
                               transformOrigin: svc.objectPosition,
-                              display: "block",
                               filter: "contrast(1.05) saturate(1.1)",
                             }}
                           />

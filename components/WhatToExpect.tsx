@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type Block = {
   heading: string;
@@ -94,17 +95,16 @@ export default function WhatToExpect() {
                     aspectRatio: "4 / 3",
                     background: "var(--warm-stone)",
                   }}>
-                    <img
+                    <Image
                       src={b.photo}
                       alt={b.heading}
+                      fill
+                      sizes="(max-width: 760px) 90vw, 55vw"
                       style={{
-                        width: "100%",
-                        height: "100%",
                         objectFit: "cover",
                         objectPosition: b.objectPosition,
                         transform: `scale(${b.zoom})`,
                         transformOrigin: b.objectPosition,
-                        display: "block",
                       }}
                     />
                   </div>

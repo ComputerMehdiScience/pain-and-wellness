@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const services: Record<string, {
   name: string;
@@ -231,13 +232,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </a>
         </div>
 
-        <div className="photo-pop" style={{ aspectRatio: "4/5" }}>
-          <img
+        <div className="photo-pop" style={{ aspectRatio: "4/5", position: "relative" }}>
+          <Image
             src={svc.photo}
             alt={svc.name}
+            fill
+            priority
+            sizes="(max-width: 860px) 90vw, 45vw"
             style={{
-              width: "100%",
-              height: "100%",
               objectFit: "cover",
               objectPosition: svc.objectPosition,
               transform: `scale(${svc.zoom})`,

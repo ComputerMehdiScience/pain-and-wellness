@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 
 export default function Animals() {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,10 +39,13 @@ export default function Animals() {
       {/* Left: photo */}
       <div style={{ position: "relative", overflow: "hidden", minHeight: 480 }}>
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
-          <img
+          <Image
             src="/photos/kathy-horse-barn.png"
             alt="Kathy Morton doing equine Bowen therapy in a barn"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }}
+            fill
+            sizes="(max-width: 860px) 100vw, 50vw"
+            priority
+            style={{ objectFit: "cover", objectPosition: "center 30%" }}
           />
         </motion.div>
         <div style={{
