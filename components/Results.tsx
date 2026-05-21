@@ -111,7 +111,7 @@ export default function Results() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)", textAlign: "center" }}
+          style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)", textAlign: "center" }}
         >
           <h2 style={{
             fontFamily: "var(--font-display)",
