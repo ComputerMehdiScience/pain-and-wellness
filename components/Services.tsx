@@ -40,7 +40,7 @@ const panels = [
     tag: "Human Therapy",
     heading: "When the body has been carrying pain for too long.",
     body: "Chronic back pain, sciatica, migraines, jaw tension, sports injuries — Bowen therapy works where other treatments haven't. Gentle, drug-free, and it addresses the root cause rather than masking it.",
-    facts: ["Bowen & Myoskeletal therapy", "Scar tissue release", "Reiki & energy work", "Ionized foot detox"],
+    facts: ["Bowen therapy", "Myoskeletal alignment technique", "Scar tissue release", "Reiki & energy work", "Ionized foot detox", "Tuning fork sound therapy"],
     cta: "Book an appointment",
     href: "https://app.setmore.com/painandwellnesssolutions",
     photo: { src: "/photos/Untitled-design-5-e1749224624391-768x841.png", alt: "Kathy performing Bowen therapy on a patient" },
@@ -56,7 +56,7 @@ const panels = [
     tag: "Equine Bodywork",
     heading: "When your horse isn't moving the way they used to.",
     body: "Reluctance on the lead, behavioural changes under saddle, post-injury stiffness. Kathy comes to your farm — no trailering, no stress. Her cattle-sorting background means horses trust her fast.",
-    facts: ["Farm visits — Hastings County", "Myofascial kinetic lines", "Musculoskeletal unwinding", "Tensegrity work"],
+    facts: ["Bowen therapy (equine)", "Myofascial kinetic lines", "Musculoskeletal unwinding", "Tensegrity work", "Mobile farm visits — Hastings County"],
     cta: "Call to arrange a visit",
     href: "tel:6138851311",
     photo: { src: "/photos/Family-is-Everything-1-819x1024.png", alt: "Kathy doing equine Bowen therapy in a barn" },
@@ -72,7 +72,7 @@ const panels = [
     tag: "Canine Bowen",
     heading: "When your dog is slowing down before their time.",
     body: "The same gentle nervous-system approach — adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, age-related mobility. In-clinic or home visits. Dogs often respond within a single session.",
-    facts: ["Hip dysplasia & joint issues", "Post-surgical recovery", "Anxiety & nervous system", "In-clinic or home visits"],
+    facts: ["Bowen therapy (canine)", "Hip dysplasia & joint issues", "Post-surgical recovery", "Anxiety & nervous system regulation", "In-clinic or home visits"],
     cta: "Book a canine session",
     href: "https://app.setmore.com/painandwellnesssolutions",
     photo: null,
@@ -158,27 +158,6 @@ function Panel({ p, index }: { p: typeof panels[0]; index: number }) {
             }}
           />
 
-          {/* Ghost numeral over photo */}
-          <span
-            aria-hidden
-            style={{
-              position: "absolute",
-              bottom: "1.5rem",
-              left: p.imageLeft ? "auto" : "1.75rem",
-              right: p.imageLeft ? "1.75rem" : "auto",
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(6rem, 12vw, 10rem)",
-              fontWeight: 400,
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              color: "#ffffff",
-              opacity: 0.12,
-              pointerEvents: "none",
-              userSelect: "none",
-            }}
-          >
-            {p.num}
-          </span>
         </div>
       ) : (
         /* Canine teal art column */
@@ -207,26 +186,6 @@ function Panel({ p, index }: { p: typeof panels[0]; index: number }) {
               <CanineSVG />
             </div>
           </div>
-          {/* Ghost numeral */}
-          <span
-            aria-hidden
-            style={{
-              position: "absolute",
-              bottom: "1.5rem",
-              right: "1.75rem",
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(6rem, 12vw, 10rem)",
-              fontWeight: 400,
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              color: "#ffffff",
-              opacity: 0.12,
-              pointerEvents: "none",
-              userSelect: "none",
-            }}
-          >
-            {p.num}
-          </span>
           {/* Gradient edge blend */}
           <div
             aria-hidden
@@ -256,8 +215,8 @@ function Panel({ p, index }: { p: typeof panels[0]; index: number }) {
         }}
         className="services-content"
       >
-        {/* Tag + number */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem" }}>
+        {/* Tag */}
+        <div style={{ marginBottom: "1.25rem" }}>
           <span
             style={{
               fontFamily: "var(--font-body)",
@@ -269,10 +228,6 @@ function Panel({ p, index }: { p: typeof panels[0]; index: number }) {
             }}
           >
             {p.tag}
-          </span>
-          <span style={{ color: borderColor, fontSize: "0.8rem" }}>—</span>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: textSoft, letterSpacing: "0.04em" }}>
-            {p.num}
           </span>
         </div>
 
