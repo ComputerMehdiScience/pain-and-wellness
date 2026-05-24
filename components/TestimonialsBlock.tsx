@@ -87,7 +87,7 @@ export default function TestimonialsBlock() {
             fontWeight: 400,
             lineHeight: 1.1,
             letterSpacing: "-0.01em",
-            color: "var(--ink)",
+            color: "var(--teal-accent)",
             marginBottom: "1.25rem",
           }}>
             Real clients,<br />real changes.
