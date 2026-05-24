@@ -171,6 +171,7 @@ export default function Hero() {
 
   return (
     <section
+      className="hero-section"
       style={{
         position: "relative",
         minHeight: "100svh",
@@ -482,6 +483,7 @@ export default function Hero() {
           {/* Soft circular backdrop */}
           <div
             aria-hidden
+            className="hero-circle-bg"
             style={{
               position: "absolute",
               inset: 0,
@@ -494,6 +496,7 @@ export default function Hero() {
           {/* Outer dashed ring */}
           <div
             aria-hidden
+            className="hero-dashed-ring"
             style={{
               position: "absolute",
               inset: "-3%",
@@ -502,8 +505,9 @@ export default function Hero() {
             }}
           />
 
-          {/* Photo — perfect circle */}
+          {/* Photo */}
           <div
+            className="hero-photo-frame"
             style={{
               position: "absolute",
               inset: "4%",
@@ -588,12 +592,33 @@ export default function Hero() {
             width: 100%;
           }
         }
+
+        /* ── Mobile hero: full-width photo strip, no circle, no dead space ── */
         @media (max-width: 700px) {
+          .hero-section {
+            min-height: unset !important;
+            padding-top: 5rem !important;
+            padding-bottom: 2.5rem !important;
+            align-items: flex-start !important;
+          }
+          .hero-grid {
+            gap: 1.5rem !important;
+          }
+          .hero-photo-cluster {
+            max-width: 100% !important;
+            aspect-ratio: 4 / 3 !important;
+            border-radius: 20px;
+            overflow: hidden;
+          }
+          .hero-circle-bg,
+          .hero-dashed-ring,
           .hero-floating-card {
             display: none !important;
           }
-          .hero-photo-cluster {
-            max-width: 280px !important;
+          .hero-photo-frame {
+            inset: 0 !important;
+            border-radius: 20px !important;
+            box-shadow: 0 8px 28px oklch(20% 0.01 240 / 0.18) !important;
           }
         }
       `}</style>
