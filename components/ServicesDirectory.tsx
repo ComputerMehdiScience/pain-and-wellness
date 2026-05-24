@@ -8,7 +8,7 @@ import Link from "next/link";
 const services = [
   {
     name: "Bowen & Myoskeletal Therapy",
-    description: "Kathy looks at the whole body — posture, old injuries, compensation patterns, and where the tension actually originates. Most people feel a shift within the first session.",
+    description: "Kathy looks at the whole body: posture, old injuries, compensation patterns, and where the tension actually originates. Most people feel a shift within the first session.",
     details: ["Drug-free and non-invasive", "Works on pain, stiffness, and restricted movement", "60–75 minute sessions"],
     photo: "/photos/Bowenmyoskeletal.png",
     objectPosition: "60% 85%",
@@ -28,7 +28,7 @@ const services = [
   },
   {
     name: "Reiki",
-    description: "A quiet, hands-off session for people whose nervous system won't settle. Stress, anxiety, grief, burnout — Reiki gives the body a chance to slow down and reset.",
+    description: "A quiet, hands-off session for people whose nervous system won't settle. Stress, anxiety, grief, burnout. Reiki gives the body a chance to slow down and reset.",
     details: ["Fully clothed, no pressure applied", "Good for stress and emotional exhaustion", "Can be combined with Bowen"],
     photo: "/photos/Reiki.png",
     objectPosition: "55% 90%",

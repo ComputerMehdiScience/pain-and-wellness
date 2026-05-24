@@ -17,7 +17,7 @@ const services: Record<string, {
   "bowen-myoskeletal-therapy": {
     name: "Bowen & Myoskeletal Therapy",
     tagline: "Root cause, not just the symptom.",
-    description: "Bowen therapy uses gentle, precise moves on specific muscles and connective tissue — with deliberate pauses between sequences that allow the nervous system to respond and reset. No cracking, no sustained pressure, no pain. Most people feel deeply relaxed within minutes.",
+    description: "Bowen therapy uses gentle, precise moves on specific muscles and connective tissue, with deliberate pauses between sequences that allow the nervous system to respond and reset. No cracking, no sustained pressure, no pain. Most people feel deeply relaxed within minutes.",
     details: [
       "Addresses chronic back pain, sciatica, migraines, jaw tension, and sports injuries",
       "First sessions are 60–75 minutes",
@@ -32,12 +32,12 @@ const services: Record<string, {
   "healing-with-the-herd": {
     name: "Healing with the Herd",
     tagline: "One of the only experiences of its kind in Ontario.",
-    description: "Horse wisdom, tuning fork sound therapy, and fresh air on Kathy's farm. Horses are extraordinarily sensitive to human emotion and energy — they respond without judgment and meet you exactly where you are. A nervous system reset unlike anything else.",
+    description: "Horse wisdom, tuning fork sound therapy, and fresh air on Kathy's farm. Horses are extraordinarily sensitive to human emotion and energy. They respond without judgment and meet you exactly where you are. A nervous system reset unlike anything else.",
     details: [
       "Private sessions held at Kathy's farm near Stirling",
       "Ideal for burnout, anxiety, grief, and chronic stress",
       "Combines equine-assisted work with sound therapy",
-      "Seasonal availability — call to discuss booking",
+      "Seasonal availability. Call to discuss booking.",
       "No horse experience required",
     ],
     photo: "/photos/Family-is-Everything-1-819x1024.png",
@@ -48,10 +48,10 @@ const services: Record<string, {
   "scar-tissue-release": {
     name: "Scar Tissue Release",
     tagline: "McLoughlin Scar Tissue Release Method.",
-    description: "Scars — even old ones — can disrupt the body's fascial web and create compensatory patterns far from the scar site. This gentle technique reduces sensitivity, improves tissue mobility, and restores movement that has been restricted for years.",
+    description: "Scars, even old ones, can disrupt the body's fascial web and create compensatory patterns far from the scar site. This gentle technique reduces sensitivity, improves tissue mobility, and restores movement that has been restricted for years.",
     details: [
       "Effective on surgical, traumatic, and burn scars",
-      "Works on scars of any age — even decades old",
+      "Works on scars of any age, even decades old",
       "Painless and non-invasive",
       "Often produces immediate change in tissue feel and mobility",
       "Can be combined with Bowen therapy in the same session",
@@ -67,7 +67,7 @@ const services: Record<string, {
     description: "Reiki is a gentle energy practice that supports emotional healing and nervous system regulation. Working with the body's own energy field, it reduces stress, eases anxiety, and creates space for the body to heal. Deeply relaxing and non-invasive.",
     details: [
       "Ideal for stress, anxiety, trauma recovery, and burnout",
-      "Fully clothed — gentle touch or no-touch technique",
+      "Fully clothed, gentle touch or no-touch technique",
       "Sessions typically 45–60 minutes",
       "Can be combined with other therapies",
       "Safe for all ages including children and seniors",
@@ -86,7 +86,7 @@ const services: Record<string, {
       "Warm, comfortable foot bath",
       "Often combined with other treatments",
       "Supports detoxification and energy flow",
-      "Visible results in the water — your session is unique to you",
+      "Visible results in the water. Your session is unique to you.",
     ],
     photo: "/photos/ionized footbath.png",
     objectPosition: "25% 75%",
@@ -98,7 +98,7 @@ const services: Record<string, {
     tagline: "Your horse deserves the same care you do.",
     description: "Using myofascial kinetic lines, musculoskeletal unwinding, and tensegrity principles, Kathy addresses the root causes of movement resistance, behavioural changes under saddle, and post-injury stiffness. Kathy's cattle-sorting background means horses trust her fast.",
     details: [
-      "Farm visits across Hastings County — no trailering required",
+      "Farm visits across Hastings County. No trailering required.",
       "Addresses reluctance, stiffness, head-shying, and gait irregularities",
       "Post-surgical recovery and rehabilitation",
       "Call to arrange a farm visit",
@@ -112,7 +112,7 @@ const services: Record<string, {
   "canine-bowen": {
     name: "Canine Bowen",
     tagline: "The same gentle approach, adapted for dogs.",
-    description: "The Bowen technique translates naturally to dogs — the same nervous system reset, the same precise gentle moves, the same resting pauses that allow the body to respond. Dogs often show visible change within a single session.",
+    description: "The Bowen technique translates naturally to dogs. The same nervous system reset, the same precise gentle moves, the same resting pauses that allow the body to respond. Dogs often show visible change within a single session.",
     details: [
       "In-clinic or home visits available",
       "Addresses hip dysplasia, joint issues, and mobility",
