@@ -245,7 +245,7 @@ export default function ServicesDirectory() {
     <section style={{ background: "var(--cream)" }}>
       {/* Thin divider between rows */}
       {services.map((service, i) => (
-        <div key={service.slug ?? service.name}>
+        <div key={service.name}>
           <ServiceRow service={service} index={i} />
           {i < services.length - 1 && (
             <div style={{ height: 1, background: "var(--cream-edge)", margin: "0 clamp(2.5rem, 6vw, 6rem)" }} />

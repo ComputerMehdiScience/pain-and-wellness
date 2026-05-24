@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Quote, Star } from "lucide-react"
-import { motion, useAnimation, useInView } from "framer-motion"
+import { motion, useAnimation, useInView, type Variants } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
 export interface Testimonial {
@@ -45,7 +45,7 @@ export function AnimatedTestimonials({
   const controls = useAnimation()
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -56,7 +56,7 @@ export function AnimatedTestimonials({
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
