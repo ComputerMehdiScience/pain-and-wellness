@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import Animals from "@/components/Animals";
 import WhatToExpect from "@/components/WhatToExpect";
+import Results from "@/components/Results";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -45,6 +46,7 @@ export default function Home() {
         <StickySection zIndex={3}><Services /></StickySection>
         <StickySection zIndex={4}><Animals /></StickySection>
         <WhatToExpect />
+        <Results />
         <StickySection zIndex={7}><FAQ /></StickySection>
         <StickySection zIndex={8}><CTA /></StickySection>
       </main>

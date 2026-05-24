@@ -1,8 +1,41 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
-import Results from "@/components/Results";
+import { AnimatedTestimonials } from "@/components/animated-testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Tiff",
+    role: "Pain & Wellness client",
+    company: "",
+    content:
+      "After years of chiropractor, osteopath and massage, I have finally found that Bowen Therapy works best for my body. I no longer do any other therapy.",
+    rating: 5,
+    avatar: "",
+  },
+  {
+    id: 2,
+    name: "Lyle",
+    role: "Pain & Wellness client",
+    company: "",
+    content:
+      "Totally satisfied with results from Kathy. My neck had been bothering me for months. After the session the pain went from a 10 to a 3.",
+    rating: 5,
+    avatar: "",
+  },
+  {
+    id: 3,
+    name: "Linda Robinson",
+    role: "Pain & Wellness client",
+    company: "",
+    content:
+      "I was able to go to Campbellford shopping by myself for the first time in about 2 years. THANKS Kathy.",
+    rating: 5,
+    avatar: "",
+  },
+];
 
 export default function ResultsPage() {
   return (
@@ -20,7 +53,13 @@ export default function ResultsPage() {
           Reviews from people who have booked with Kathy for pain, mobility,
           relaxation, recovery, and support for their animals.
         </PageHeader>
-        <Results />
+        <AnimatedTestimonials
+          title="Real clients, real changes."
+          subtitle="Here's what people and their animals have to say after working with Kathy."
+          badgeText="Google Reviews"
+          testimonials={testimonials}
+          trustedCompanies={[]}
+        />
         <CTA />
       </main>
       <Footer />
