@@ -25,7 +25,7 @@ function Stars() {
   return (
     <div style={{ display: "flex", gap: 4 }}>
       {[0,1,2,3,4].map(i => (
-        <svg key={i} width="18" height="18" viewBox="0 0 16 16" fill="var(--teal-accent)">
+        <svg key={i} width="18" height="18" viewBox="0 0 16 16" fill="#f5a623">
           <path d="M8 1l1.8 3.6L14 5.3l-3 2.9.7 4.1L8 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z" />
         </svg>
       ))}
@@ -81,21 +81,9 @@ export default function TestimonialsBlock() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "0.75rem",
-            fontWeight: 600,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--teal-accent)",
-            marginBottom: "1.25rem",
-          }}>
-            Google Reviews
-          </p>
-
           <h2 style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)",
+            fontSize: "clamp(3rem, 5.5vw, 5rem)",
             fontWeight: 400,
             lineHeight: 1.1,
             letterSpacing: "-0.01em",
