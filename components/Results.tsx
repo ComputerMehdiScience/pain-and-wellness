@@ -25,7 +25,7 @@ function Stars() {
   return (
     <div style={{ display: "flex", gap: 4 }} aria-label="5 stars">
       {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} width="16" height="16" viewBox="0 0 16 16" fill="var(--teal-accent)" aria-hidden>
+        <svg key={i} width="16" height="16" viewBox="0 0 16 16" fill="#E8A020" aria-hidden>
           <path d="M8 1l1.8 3.6L14 5.3l-3 2.9.7 4.1L8 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z" />
         </svg>
       ))}
