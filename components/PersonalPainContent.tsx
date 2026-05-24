@@ -153,7 +153,7 @@ export default function PersonalPainContent() {
             </h2>
 
             {[
-              "You'll talk through what's going on — history, current pain patterns, what you've already tried. Kathy listens for the whole picture, not just the symptom.",
+              "You'll talk through what's going on: history, current pain patterns, what you've already tried. Kathy listens for the whole picture, not just the symptom.",
               "She'll look at how your body is holding itself. Posture, movement, old injuries, the ways your body has been compensating. Most people are surprised by what she finds.",
               "Then treatment begins. Small, precise moves with deliberate pauses between them. No cracking, no sustained pressure. Most people feel calmer and looser before they leave.",
             ].map((p, i) => (
