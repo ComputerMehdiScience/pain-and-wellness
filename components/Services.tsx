@@ -168,7 +168,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
       ref={ref}
       style={{
         background: "var(--warm-stone)",
-        padding: "clamp(3.5rem, 7vw, 6rem) 0",
+        padding: "clamp(2.5rem, 5vw, 4rem) 0",
         overflow: "hidden",
       }}
     >
@@ -178,13 +178,13 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ marginBottom: "clamp(2.5rem, 4vw, 4rem)", textAlign: "center" }}
+            style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)", textAlign: "center" }}
           >
-            <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-              Bowen therapy, three ways.
+            <h2 className="section-heading" style={{ marginBottom: "1rem" }}>
+              What Kathy offers.
             </h2>
             <p className="section-subhead">
-              Choose the kind of support you need, from clinic appointments to farm visits.
+              Hands-on sessions for people and animals, at the clinic or at your farm.
             </p>
           </motion.div>
         </div>
@@ -230,7 +230,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                           style={{
                             borderRadius: 16,
                             overflow: "hidden",
-                            height: "clamp(440px, 50vw, 540px)",
+                            height: "clamp(300px, 34vw, 400px)",
                             position: "relative",
                             cursor: "pointer",
                             boxShadow: isFeatured
@@ -259,7 +259,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                           <div style={{
                             position: "absolute",
                             inset: 0,
-                            background: "linear-gradient(to top, oklch(14% 0.04 200 / 0.96) 0%, oklch(14% 0.04 200 / 0.5) 42%, oklch(14% 0.04 200 / 0.05) 72%, transparent 100%)",
+                            background: "linear-gradient(to top, oklch(14% 0.04 200 / 0.98) 0%, oklch(14% 0.04 200 / 0.72) 38%, oklch(14% 0.04 200 / 0.15) 65%, transparent 100%)",
                           }} />
 
                           {isFeatured && (
@@ -295,18 +295,31 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                           <div style={{
                             position: "absolute",
                             bottom: 0, left: 0, right: 0,
-                            padding: "1.5rem 1.625rem 1.75rem",
+                            padding: "1.25rem 1.5rem 1.5rem",
                           }}>
                             <p style={{
                               fontFamily: "var(--font-display)",
-                              fontSize: "clamp(1.25rem, 1.6vw, 1.5rem)",
+                              fontSize: "clamp(1.2rem, 1.5vw, 1.4rem)",
                               fontWeight: 500,
                               color: "oklch(98% 0.008 82)",
                               lineHeight: 1.2,
                               textShadow: "0 1px 6px oklch(8% 0.02 200 / 0.65)",
+                              marginBottom: isFeatured ? "0.45rem" : 0,
                             }}>
                               {svc.name}
                             </p>
+                            {isFeatured && (
+                              <p style={{
+                                fontFamily: "var(--font-body)",
+                                fontSize: "0.8125rem",
+                                fontWeight: 400,
+                                color: "oklch(92% 0.01 82 / 0.85)",
+                                lineHeight: 1.55,
+                                textShadow: "0 1px 4px oklch(8% 0.02 200 / 0.5)",
+                              }}>
+                                {svc.description}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </Link>

@@ -333,13 +333,12 @@ export default function Hero() {
               letterSpacing: "-0.02em",
               color: "var(--ink)",
               marginBottom: "clamp(1.5rem, 2.5vw, 2rem)",
-              maxWidth: "18ch",
             }}
           >
             {[
               { text: "Bowen therapy", accent: false, delay: 0.05 },
-              { text: "for you", accent: true, delay: 0.22 },
-              { text: "and your animals.", accent: false, delay: 0.4 },
+              { text: "for you and", accent: true, delay: 0.22 },
+              { text: "your animals.", accent: false, delay: 0.4 },
             ].map((line, i) => (
               <motion.span
                 key={i}
@@ -514,12 +513,12 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/photos/kathy-horse.jpg"
-              alt="Kathy with a horse — Pain & Wellness Solutions"
+              src="/photos/hero-photo.png"
+              alt="Kathy Morton smiling while working on a client — Pain & Wellness Solutions"
               fill
               sizes="(max-width: 960px) 90vw, 620px"
               priority
-              style={{ objectFit: "cover", objectPosition: "center 30%" }}
+              style={{ objectFit: "cover", objectPosition: "center 22%" }}
             />
           </div>
 
