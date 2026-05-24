@@ -271,12 +271,13 @@ export const CircularTestimonials = ({
       <style jsx>{`
         .testimonial-container {
           width: 100%;
-          max-width: 56rem;
-          padding: 2rem;
+          max-width: 78rem;
+          padding: 0;
         }
         .testimonial-grid {
           display: grid;
-          gap: 5rem;
+          gap: 4rem;
+          align-items: center;
         }
         .image-container {
           position: relative;
@@ -295,7 +296,8 @@ export const CircularTestimonials = ({
         .testimonial-content {
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: center;
+          gap: 1.25rem;
         }
         .stars {
           display: flex;
@@ -319,8 +321,8 @@ export const CircularTestimonials = ({
         }
         .arrow-buttons {
           display: flex;
-          gap: 1.5rem;
-          padding-top: 3rem;
+          gap: 1.25rem;
+          padding-top: 0.75rem;
         }
         .arrow-button {
           width: 2.7rem;
@@ -338,7 +340,7 @@ export const CircularTestimonials = ({
         }
         @media (min-width: 768px) {
           .testimonial-grid {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.1fr 0.9fr;
           }
           .arrow-buttons {
             padding-top: 0;
