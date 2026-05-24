@@ -127,9 +127,9 @@ export default function About() {
             marginBottom: "2.5rem",
             maxWidth: "52ch",
           }}>
-            Kathy is a certified holistic therapist who has been helping people
-            and animals since 2017. Her work is quiet, practical, and focused on
-            how the whole body is compensating, not just where it hurts today.
+            Kathy has been helping people and animals since 2017. Her work is
+            quiet and practical. She looks at the whole picture, not just the
+            spot that is hurting.
           </p>
 
           <blockquote style={{

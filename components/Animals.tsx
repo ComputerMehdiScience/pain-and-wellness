@@ -83,9 +83,8 @@ export default function Animals() {
           marginBottom: "2rem",
           maxWidth: "44ch",
         }}>
-          One of the only experiences of its kind in Ontario. Horse wisdom, tuning fork
-          sound therapy, and fresh air on Kathy's farm. A nervous system reset unlike
-          anything else.
+          One of the only things like it in Ontario. Time with Kathy's horses and
+          tuning fork sound therapy on the farm. Hard to describe, easy to feel.
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "2.5rem" }}>

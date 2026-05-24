@@ -16,8 +16,8 @@ const services: Record<string, {
 }> = {
   "bowen-myoskeletal-therapy": {
     name: "Bowen & Myoskeletal Therapy",
-    tagline: "Root cause, not just the symptom.",
-    description: "Bowen therapy uses gentle, precise moves on specific muscles and connective tissue, with deliberate pauses between sequences that allow the nervous system to respond and reset. No cracking, no sustained pressure, no pain. Most people feel deeply relaxed within minutes.",
+    tagline: "Gets to the root of it, not just where it hurts.",
+    description: "Bowen therapy uses small, precise moves on your muscles and connective tissue, with rests in between that give your body time to respond. No cracking. No heavy pressure. No pain. Most people are surprised by how much better they feel, even after the first session.",
     details: [
       "Addresses chronic back pain, sciatica, migraines, jaw tension, and sports injuries",
       "First sessions are 60–75 minutes",
@@ -31,8 +31,8 @@ const services: Record<string, {
   },
   "healing-with-the-herd": {
     name: "Healing with the Herd",
-    tagline: "One of the only experiences of its kind in Ontario.",
-    description: "Horse wisdom, tuning fork sound therapy, and fresh air on Kathy's farm. Horses are extraordinarily sensitive to human emotion and energy. They respond without judgment and meet you exactly where you are. A nervous system reset unlike anything else.",
+    tagline: "One of the only things like it in Ontario.",
+    description: "Time with Kathy's horses and tuning fork sound therapy on the farm. Horses pick up on how you are feeling and respond to it. There is nothing quite like it for people who are burned out, grieving, or just running on empty.",
     details: [
       "Private sessions held at Kathy's farm near Stirling",
       "Ideal for burnout, anxiety, grief, and chronic stress",
@@ -48,7 +48,7 @@ const services: Record<string, {
   "scar-tissue-release": {
     name: "Scar Tissue Release",
     tagline: "McLoughlin Scar Tissue Release Method.",
-    description: "Scars, even old ones, can disrupt the body's fascial web and create compensatory patterns far from the scar site. This gentle technique reduces sensitivity, improves tissue mobility, and restores movement that has been restricted for years.",
+    description: "Old scars can quietly cause problems far from where they are. This gentle technique works on the scar tissue itself, not just the surface. It reduces tenderness, helps the tissue move freely again, and often brings back movement people had written off years ago.",
     details: [
       "Effective on surgical, traumatic, and burn scars",
       "Works on scars of any age, even decades old",
@@ -63,8 +63,8 @@ const services: Record<string, {
   },
   "reiki": {
     name: "Reiki",
-    tagline: "Calming the nervous system from the inside out.",
-    description: "Reiki is a gentle energy practice that supports emotional healing and nervous system regulation. Working with the body's own energy field, it reduces stress, eases anxiety, and creates space for the body to heal. Deeply relaxing and non-invasive.",
+    tagline: "Quiet. Gentle. Does more than it looks like.",
+    description: "Reiki is a hands-off or very light touch practice that a lot of people have not tried before. Good for stress, anxiety, trouble sleeping, and recovery from hard times. Fully clothed, no pressure, nothing uncomfortable. Most people walk out feeling noticeably calmer.",
     details: [
       "Ideal for stress, anxiety, trauma recovery, and burnout",
       "Fully clothed, gentle touch or no-touch technique",
@@ -79,8 +79,8 @@ const services: Record<string, {
   },
   "ionized-foot-detox": {
     name: "Ionized Foot Detox",
-    tagline: "Draw out, rebalance, reset.",
-    description: "A warm ionized water foot soak that uses bioelectric energy to draw impurities out through the feet and rebalance the body's natural energy. Relaxing, rejuvenating, and a gentle complement to any treatment session.",
+    tagline: "A warm soak that does a little more than relax your feet.",
+    description: "A warm foot bath with ionized water. Comfortable, simple, and a good add-on to any session. The water changes colour as it works. A lot of people just book it because it feels good.",
     details: [
       "30-minute session",
       "Warm, comfortable foot bath",
@@ -96,7 +96,7 @@ const services: Record<string, {
   "equine-bodywork": {
     name: "Equine Bodywork",
     tagline: "Your horse deserves the same care you do.",
-    description: "Using myofascial kinetic lines, musculoskeletal unwinding, and tensegrity principles, Kathy addresses the root causes of movement resistance, behavioural changes under saddle, and post-injury stiffness. Kathy's cattle-sorting background means horses trust her fast.",
+    description: "Kathy has been around horses her whole life. She addresses stiffness, uneven movement, reluctance under saddle, and behaviour changes that showed up after an injury. Horses settle quickly with her. She comes to you.",
     details: [
       "Farm visits across Hastings County. No trailering required.",
       "Addresses reluctance, stiffness, head-shying, and gait irregularities",
@@ -112,7 +112,7 @@ const services: Record<string, {
   "canine-bowen": {
     name: "Canine Bowen",
     tagline: "The same gentle approach, adapted for dogs.",
-    description: "The Bowen technique translates naturally to dogs. The same nervous system reset, the same precise gentle moves, the same resting pauses that allow the body to respond. Dogs often show visible change within a single session.",
+    description: "The same gentle moves Kathy uses on people, adapted for dogs. Small, precise touches with rest in between. Dogs often show a real change after just one session.",
     details: [
       "In-clinic or home visits available",
       "Addresses hip dysplasia, joint issues, and mobility",

@@ -4,11 +4,11 @@ import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
-  { q: "How many sessions will I need?", a: "Most clients see meaningful results in 3 to 6 sessions. Chronic or complex issues may need more. We discuss this at your first appointment." },
-  { q: "What should I expect at my first visit?", a: "First sessions run 60 to 75 minutes. Wear comfortable, loose clothing. Kathy will assess your posture, movement patterns, and pain history before treatment begins. Most people leave deeply relaxed." },
+  { q: "How many sessions will I need?", a: "Most people notice a real difference in 3 to 6 sessions. Ongoing or complicated issues may need more. Kathy will talk through that with you at your first appointment." },
+  { q: "What should I expect at my first visit?", a: "First sessions run 60 to 75 minutes. Wear comfortable, loose clothing. Kathy will ask about your pain and look at how you move before getting started. Most people leave feeling better than they expected." },
   { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County, no trailering required. Dog sessions are in-clinic or at your home. Call to arrange animal appointments." },
-  { q: "Can I keep seeing my doctor or chiropractor?", a: "Absolutely. Bowen works alongside conventional care. Kathy actively encourages an integrated approach. Many clients see her in addition to physiotherapy, massage, or chiropractic." },
-  { q: "Does Bowen therapy hurt?", a: "No. Very gentle, precise moves with no sustained pressure, no cracking, and no manipulation. Most people describe it as profoundly relaxing. Suitable for all ages and pain levels." },
+  { q: "Can I keep seeing my doctor or chiropractor?", a: "Yes. Bowen works well alongside other care. Plenty of people see Kathy in addition to physio, massage, or chiropractic." },
+  { q: "Does Bowen therapy hurt?", a: "No. Very gentle, precise moves with no sustained pressure, no cracking, and no manipulation. Most people say they feel much better afterward. Fine for any age." },
 ];
 
 export default function FAQ() {

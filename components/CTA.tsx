@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function CTA({
   title = "Book a session with Kathy.",
-  body = "Book online for clinic appointments in Stirling. Call Kathy directly for equine, canine, and farm-visit questions.",
+  body = "Book online for clinic appointments in Stirling. Call for horse, dog, and farm-visit bookings.",
 }: {
   title?: string;
   body?: string;

@@ -16,7 +16,7 @@ const services = [
   },
   {
     name: "Healing with the Herd",
-    description: "A quiet outdoor session with horses and tuning fork sound therapy for stress, grief, and reconnection.",
+    description: "Time with Kathy's horses and tuning forks on the farm. Good for people carrying stress, grief, or just needing a break.",
     photo: "/photos/Family-is-Everything-1-819x1024.png",
     objectPosition: "25% center",
     zoom: 1,
@@ -32,7 +32,7 @@ const services = [
   },
   {
     name: "Reiki",
-    description: "A calm, gentle session for people carrying stress, anxiety, grief, or a nervous system that will not settle.",
+    description: "A hands-off session for people dealing with stress, anxiety, grief, or trouble sleeping.",
     photo: "/photos/Reiki.png",
     objectPosition: "55% 90%",
     zoom: 1.15,

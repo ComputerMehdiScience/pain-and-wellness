@@ -19,7 +19,7 @@ const blocks: Block[] = [
   {
     heading: "Pain is not always where the problem started.",
     body: [
-      "Kathy looks at posture, movement, old injuries, scar tissue, and the ways your body has been working around discomfort. The goal is to help things settle and move more easily.",
+      "Kathy looks at your posture, how you move, old injuries, and scar tissue. A lot of pain comes from your body working around something it has been protecting for a long time. She works to find the source.",
     ],
     ctaText: "Book an appointment",
     ctaHref: "https://app.setmore.com/painandwellnesssolutions",
@@ -31,7 +31,7 @@ const blocks: Block[] = [
   {
     heading: "Every session is different.",
     body: [
-      "Some clients come in with back pain or headaches. Some call because a horse is short-striding, or a dog is struggling with stairs. Kathy adapts the work to the person or animal she is treating.",
+      "Some people come in with back pain or headaches. Some call because their horse is off, or their dog is struggling on the stairs. The work changes depending on who Kathy is treating.",
     ],
     ctaText: "Book an appointment",
     ctaHref: "https://app.setmore.com/painandwellnesssolutions",
