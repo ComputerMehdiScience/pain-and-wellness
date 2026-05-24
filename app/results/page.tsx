@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
-import { AnimatedTestimonials } from "@/components/animated-testimonials";
+import TestimonialsBlock from "@/components/TestimonialsBlock";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -53,13 +53,7 @@ export default function ResultsPage() {
           Reviews from people who have booked with Kathy for pain, mobility,
           relaxation, recovery, and support for their animals.
         </PageHeader>
-        <AnimatedTestimonials
-          title="Real clients, real changes."
-          subtitle="Here's what people and their animals have to say after working with Kathy."
-          badgeText="Google Reviews"
-          testimonials={testimonials}
-          trustedCompanies={[]}
-        />
+        <TestimonialsBlock />
         <CTA />
       </main>
       <Footer />
