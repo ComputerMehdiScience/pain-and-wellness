@@ -36,6 +36,7 @@ function Stars() {
 function ReviewCard({ text, name }: { text: string; name: string }) {
   return (
     <div
+      className="review-card"
       style={{
         background: "#ffffff",
         borderRadius: 16,
@@ -166,9 +167,10 @@ export default function Results() {
 
         @media (prefers-reduced-motion: reduce) {
           .marquee-track,
-          .marquee-reverse {
-            animation: none;
-          }
+          .marquee-reverse { animation: none; }
+        }
+        @media (max-width: 600px) {
+          .review-card { width: 260px !important; padding: 1.125rem 1.25rem !important; }
         }
       `}</style>
     </section>

@@ -79,6 +79,7 @@ function FloatingCard({
       initial={{ opacity: 0, y: 20, scale: 0.94 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      className="hero-floating-card"
       style={{
         position: "absolute",
         background: "#ffffff",
@@ -522,7 +523,7 @@ export default function Hero() {
             />
           </div>
 
-          {/* Floating cards */}
+          {/* Floating cards — hidden on small screens */}
           <FloatingCard
             icon={<CheckShieldIcon />}
             eyebrow="Certified"
@@ -579,17 +580,20 @@ export default function Hero() {
         @media (max-width: 960px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
-            gap: 3rem !important;
+            gap: 2rem !important;
           }
           .hero-photo-cluster {
             order: -1;
-            max-width: 460px !important;
+            max-width: 380px !important;
             width: 100%;
           }
         }
-        @media (max-width: 560px) {
+        @media (max-width: 700px) {
+          .hero-floating-card {
+            display: none !important;
+          }
           .hero-photo-cluster {
-            max-width: 360px !important;
+            max-width: 280px !important;
           }
         }
       `}</style>

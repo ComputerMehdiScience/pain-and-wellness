@@ -282,7 +282,7 @@ export const CircularTestimonials = ({
         .image-container {
           position: relative;
           width: 100%;
-          height: 32rem;
+          height: 22rem;
           perspective: 1000px;
         }
         .testimonial-image {
@@ -338,7 +338,14 @@ export const CircularTestimonials = ({
         .word {
           display: inline-block;
         }
+        @media (max-width: 480px) {
+          .image-container { height: 16rem; }
+          .testimonial-grid { gap: 2rem; }
+          .condition-label { margin-bottom: 0.75rem; }
+          .stars { margin-bottom: 0.5rem; }
+        }
         @media (min-width: 768px) {
+          .image-container { height: 32rem; }
           .testimonial-grid {
             grid-template-columns: 1.1fr 0.9fr;
           }
