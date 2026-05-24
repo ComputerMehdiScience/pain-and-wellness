@@ -209,6 +209,7 @@ export const CircularTestimonials = ({
                   </svg>
                 ))}
               </div>
+              <p className="condition-label">{activeTestimonial.name}</p>
               <motion.p
                 className="quote"
                 style={{ color: colorTestimony, fontSize: fontSizeQuote }}
@@ -280,7 +281,7 @@ export const CircularTestimonials = ({
         .image-container {
           position: relative;
           width: 100%;
-          height: 24rem;
+          height: 32rem;
           perspective: 1000px;
         }
         .testimonial-image {
@@ -299,6 +300,18 @@ export const CircularTestimonials = ({
         .stars {
           display: flex;
           gap: 5px;
+          margin-bottom: 1rem;
+        }
+        .condition-label {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: oklch(53% 0.055 195);
+          background: oklch(94% 0.015 195);
+          border-radius: 999px;
+          padding: 0.3rem 0.9rem;
           margin-bottom: 1.5rem;
         }
         .quote {
