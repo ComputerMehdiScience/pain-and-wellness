@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
-import WhatToExpect from "@/components/WhatToExpect";
+import PersonalPainContent from "@/components/PersonalPainContent";
 import { SplitPanel } from "@/components/JourneySections";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -40,7 +40,7 @@ export default function PersonalPainManagementPage() {
             is to help it stop bracing.
           </p>
         </SplitPanel>
-        <WhatToExpect />
+        <PersonalPainContent />
         <FAQ />
         <CTA />
       </main>
