@@ -63,11 +63,7 @@ function ReviewCard({ text, name }: { text: string; name: string }) {
 function MarqueeRow({ reviews, reverse }: { reviews: typeof row1; reverse?: boolean }) {
   const doubled = [...reviews, ...reviews];
   return (
-    /* overflow wrapper — holds the edge fade mask */
-    <div
-      className="marquee-fade"
-      style={{ overflow: "hidden", width: "100%" }}
-    >
+    <div className="marquee-fade" style={{ overflow: "hidden", width: "100%" }}>
       <div
         className={reverse ? "marquee-track marquee-reverse" : "marquee-track"}
         style={{ display: "flex", gap: "1.25rem", width: "max-content", willChange: "transform" }}
@@ -88,7 +84,12 @@ export default function Results() {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.1 }
     );
     obs.observe(el);
@@ -105,7 +106,6 @@ export default function Results() {
         overflow: "hidden",
       }}
     >
-      {/* Heading */}
       <div style={{ padding: "0 clamp(2rem, 7vw, 8rem)", maxWidth: 1280, margin: "0 auto" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -114,15 +114,14 @@ export default function Results() {
           style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)", textAlign: "center" }}
         >
           <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-            Real clients, real changes.
+            What clients are saying.
           </h2>
           <p className="section-subhead" style={{ maxWidth: 560, margin: "0 auto" }}>
-            Here&apos;s what people and their animals have to say after working together.
+            A few words from people who have booked with Kathy.
           </p>
         </motion.div>
       </div>
 
-      {/* Marquees — Framer only fades this wrapper, never the tracks */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
@@ -140,27 +139,36 @@ export default function Results() {
         .marquee-track {
           animation: marquee-left 60s linear infinite;
         }
+
         .marquee-reverse {
           animation: marquee-right 60s linear infinite;
         }
+
         @keyframes marquee-left {
           from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          to { transform: translateX(-50%); }
         }
+
         @keyframes marquee-right {
           from { transform: translateX(-50%); }
-          to   { transform: translateX(0); }
+          to { transform: translateX(0); }
         }
+
         .marquee-fade {
           mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
           -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
         }
+
         .marquee-track:hover,
         .marquee-reverse:hover {
           animation-play-state: paused;
         }
+
         @media (prefers-reduced-motion: reduce) {
-          .marquee-track, .marquee-reverse { animation: none; }
+          .marquee-track,
+          .marquee-reverse {
+            animation: none;
+          }
         }
       `}</style>
     </section>

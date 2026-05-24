@@ -4,7 +4,6 @@ import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
-  { q: "Is Bowen therapy covered by insurance?", a: "Many extended health care plans include Bowen therapy. Check with your provider. Receipts are provided for all sessions. Cash, e-transfer, and major credit cards accepted." },
   { q: "How many sessions will I need?", a: "Most clients see meaningful results in 3 to 6 sessions. Chronic or complex issues may need more. We discuss this at your first appointment." },
   { q: "What should I expect at my first visit?", a: "First sessions run 60 to 75 minutes. Wear comfortable, loose clothing. Kathy will assess your posture, movement patterns, and pain history before treatment begins. Most people leave deeply relaxed." },
   { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County, no trailering required. Dog sessions are in-clinic or at your home. Call to arrange animal appointments." },

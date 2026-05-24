@@ -3,7 +3,13 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-export default function CTA() {
+export default function CTA({
+  title = "Book a session with Kathy.",
+  body = "Book online for clinic appointments in Stirling. Call Kathy directly for equine, canine, and farm-visit questions.",
+}: {
+  title?: string;
+  body?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -82,7 +88,7 @@ export default function CTA() {
             className="section-heading"
             style={{ color: "var(--cream)", marginBottom: "1.25rem" }}
           >
-            Ready to feel better?
+            {title}
           </h2>
           <p
             className="section-subhead"
@@ -91,7 +97,7 @@ export default function CTA() {
               maxWidth: "44ch",
             }}
           >
-            Book online for Stirling clinic appointments. Call for equine and farm visits.
+            {body}
           </p>
         </motion.div>
 

@@ -327,19 +327,19 @@ export default function Hero() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(3.5rem, 6vw, 7rem)",
+              fontSize: "clamp(3.25rem, 5vw, 5.75rem)",
               fontWeight: 400,
               lineHeight: 1.02,
               letterSpacing: "-0.02em",
               color: "var(--ink)",
               marginBottom: "clamp(1.5rem, 2.5vw, 2rem)",
-              maxWidth: "16ch",
+              maxWidth: "18ch",
             }}
           >
             {[
-              { text: "Feel better.", accent: false, delay: 0.05 },
-              { text: "Move freely.", accent: true, delay: 0.22 },
-              { text: "Live whole.", accent: false, delay: 0.4 },
+              { text: "Bowen therapy", accent: false, delay: 0.05 },
+              { text: "for people", accent: true, delay: 0.22 },
+              { text: "and animals.", accent: false, delay: 0.4 },
             ].map((line, i) => (
               <motion.span
                 key={i}
@@ -374,7 +374,9 @@ export default function Hero() {
               marginBottom: "clamp(2rem, 3.5vw, 2.75rem)",
             }}
           >
-            Drug-free Bowen therapy for the people, horses, and dogs of Hastings County. Gentle hands-on work that lets the body do what it already knows how to do.
+            Gentle, hands-on care in Stirling and Hastings County for pain,
+            stiffness, scar tissue, stress, and animals that are not moving like
+            themselves.
           </motion.p>
 
           <motion.div
@@ -428,7 +430,7 @@ export default function Hero() {
             </a>
 
             <a
-              href="#services"
+              href="/services"
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "1rem",
@@ -449,7 +451,7 @@ export default function Hero() {
                 (e.currentTarget.style.borderBottomColor = "transparent")
               }
             >
-              See how it works
+              View services
               <svg width="16" height="12" viewBox="0 0 14 10" fill="none" aria-hidden>
                 <path
                   d="M1 5h12M13 5L9 1M13 5L9 9"

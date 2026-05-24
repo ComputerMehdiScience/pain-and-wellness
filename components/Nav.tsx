@@ -5,11 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const links = [
-  { label: "About Kathy", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Equine & Canine", href: "#animals" },
-  { label: "Results", href: "#results" },
-  { label: "FAQ", href: "#faq" },
+  { label: "About", href: "/about" },
+  { label: "Personal Pain Management", href: "/personal-pain-management" },
+  { label: "Equine Body Work", href: "/equine-body-work" },
+  { label: "Services", href: "/services" },
+  { label: "Results", href: "/results" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Nav() {
@@ -69,7 +71,7 @@ export default function Nav() {
           className="nav-links"
           style={{
             display: "flex",
-            gap: "2.25rem",
+            gap: "1.4rem",
             alignItems: "center",
           }}
         >
@@ -79,7 +81,7 @@ export default function Nav() {
               href={l.href}
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "0.9375rem",
+                fontSize: "0.82rem",
                 fontWeight: 500,
                 letterSpacing: "0.005em",
                 color: "var(--ink)",
@@ -101,8 +103,8 @@ export default function Nav() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.9375rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.875rem",
               fontWeight: 600,
               letterSpacing: "0.005em",
               color: "#ffffff",

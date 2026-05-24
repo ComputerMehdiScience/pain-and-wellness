@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 const services: Record<string, {
   name: string;
@@ -20,7 +22,6 @@ const services: Record<string, {
       "Addresses chronic back pain, sciatica, migraines, jaw tension, and sports injuries",
       "First sessions are 60–75 minutes",
       "Wear comfortable, loose clothing",
-      "Many extended health plans provide coverage — receipts provided",
       "No referral needed",
     ],
     photo: "/photos/Bowenmyoskeletal.png",
@@ -136,11 +137,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!svc) notFound();
 
   return (
-    <main style={{ minHeight: "100vh", background: "var(--warm-cream)" }}>
+    <>
+      <Nav />
+      <main style={{ minHeight: "100vh", background: "var(--warm-cream)", paddingTop: 76 }}>
 
       {/* Back nav */}
       <div style={{ padding: "1.5rem clamp(1.5rem, 4vw, 3rem)", maxWidth: 1200, margin: "0 auto" }}>
-        <Link href="/#services" style={{
+        <Link href="/services" style={{
           fontFamily: "var(--font-body)",
           fontSize: "0.875rem",
           fontWeight: 500,
@@ -287,6 +290,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
 
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

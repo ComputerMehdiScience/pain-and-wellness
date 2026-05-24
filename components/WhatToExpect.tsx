@@ -17,9 +17,9 @@ type Block = {
 
 const blocks: Block[] = [
   {
-    heading: "Helping you overcome pain at its source, not its symptom.",
+    heading: "Pain is not always where the problem started.",
     body: [
-      "Most chronic pain is the loud part of a quiet imbalance further down the chain. Kathy maps the compensation pattern before she touches the place that's complaining.",
+      "Kathy looks at posture, movement, old injuries, scar tissue, and the ways your body has been working around discomfort. The goal is to help things settle and move more easily.",
     ],
     ctaText: "Book an appointment",
     ctaHref: "https://app.setmore.com/painandwellnesssolutions",
@@ -29,9 +29,9 @@ const blocks: Block[] = [
     imageSide: "left",
   },
   {
-    heading: "One practitioner. Three species. Eight years.",
+    heading: "Care for the body in front of her.",
     body: [
-      "Whether you're walking in with sciatica, leading your horse off a trailer, or carrying in an aging dog: Kathy reads the same body language. Most therapists pick one species and stop.",
+      "Some clients come in with back pain or headaches. Some call because a horse is short-striding, or a dog is struggling with stairs. Kathy adapts the work to the person or animal she is treating.",
     ],
     ctaText: "Book an appointment",
     ctaHref: "https://app.setmore.com/painandwellnesssolutions",

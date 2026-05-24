@@ -163,9 +163,11 @@ export default function Footer() {
               Explore
             </p>
             {[
-              { label: "About Kathy", href: "/#about" },
-              { label: "Results & reviews", href: "/#results" },
-              { label: "FAQ", href: "/#faq" },
+              { label: "About Kathy", href: "/about" },
+              { label: "Personal Pain Management", href: "/personal-pain-management" },
+              { label: "Equine Body Work", href: "/equine-body-work" },
+              { label: "Results & reviews", href: "/results" },
+              { label: "Contact", href: "/contact" },
               { label: "Privacy policy", href: "/privacy" },
               { label: "Terms", href: "/terms" },
             ].map((l) => (

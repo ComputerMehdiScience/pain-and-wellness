@@ -8,7 +8,7 @@ import Link from "next/link";
 const services = [
   {
     name: "Bowen & Myoskeletal Therapy",
-    description: "Gentle nervous system communication to address root dysfunction. Restores balance, reduces pain, improves mobility.",
+    description: "Gentle hands-on work for pain, stiffness, tension, and movement that feels restricted or off.",
     photo: "/photos/Bowenmyoskeletal.png",
     objectPosition: "60% 85%",
     zoom: 1.3,
@@ -16,7 +16,7 @@ const services = [
   },
   {
     name: "Healing with the Herd",
-    description: "Unique wellness experience combining horse wisdom with tuning fork sound therapy. Supports stress release and self-reconnection.",
+    description: "A quiet outdoor session with horses and tuning fork sound therapy for stress, grief, and reconnection.",
     photo: "/photos/Family-is-Everything-1-819x1024.png",
     objectPosition: "25% center",
     zoom: 1,
@@ -24,7 +24,7 @@ const services = [
   },
   {
     name: "Scar Tissue Release",
-    description: "McLoughlin Method. Reduces sensitivity and improves movement around old or new scars that disrupt body mechanics.",
+    description: "McLoughlin Method work for scars that feel tight, sensitive, numb, or seem to affect nearby movement.",
     photo: "/photos/scartissueservice.png",
     objectPosition: "65% 85%",
     zoom: 1.2,
@@ -32,7 +32,7 @@ const services = [
   },
   {
     name: "Reiki",
-    description: "Calming energy practice for emotional healing and nervous system regulation. Ideal for stress, anxiety, and trauma recovery.",
+    description: "A calm, gentle session for people carrying stress, anxiety, grief, or a nervous system that will not settle.",
     photo: "/photos/Reiki.png",
     objectPosition: "55% 90%",
     zoom: 1.15,
@@ -40,7 +40,7 @@ const services = [
   },
   {
     name: "Ionized Foot Detox",
-    description: "Warm ionized water soak to draw out impurities and rebalance the body's natural energy.",
+    description: "A warm foot soak offered as a simple add-on for clients who want a slower, restorative appointment.",
     photo: "/photos/ionized footbath.png",
     objectPosition: "25% 75%",
     zoom: 1.2,
@@ -48,7 +48,7 @@ const services = [
   },
   {
     name: "Equine Bodywork",
-    description: "Myofascial kinetic lines, equine musculoskeletal unwinding, and tensegrity work. Farm visits across Hastings County.",
+    description: "Farm-visit bodywork for horses showing stiffness, uneven movement, soreness, or performance changes.",
     photo: "/photos/kathy-horse-barn.png",
     objectPosition: "30% center",
     zoom: 1.1,
@@ -56,7 +56,7 @@ const services = [
   },
   {
     name: "Canine Bowen",
-    description: "The same gentle nervous system approach adapted for dogs. Hip dysplasia, post-surgical recovery, anxiety, and mobility.",
+    description: "Gentle Bowen work for dogs dealing with aging, stiffness, recovery, anxiety, or mobility concerns.",
     photo: "/photos/kathy dog.png",
     objectPosition: "center 85%",
     zoom: 1.4,
@@ -74,7 +74,7 @@ function getVisible(w: number) {
   return 4;
 }
 
-export default function Services() {
+export default function Services({ showHeader = true }: { showHeader?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -172,22 +172,23 @@ export default function Services() {
         overflow: "hidden",
       }}
     >
-      {/* Centered header */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.5rem, 4vw, 3rem)" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginBottom: "clamp(2.5rem, 4vw, 4rem)", textAlign: "center" }}
-        >
-          <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-            What brings you here?
-          </h2>
-          <p className="section-subhead">
-            Seven ways Kathy can help. Humans, horses, and dogs.
-          </p>
-        </motion.div>
-      </div>
+      {showHeader && (
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.5rem, 4vw, 3rem)" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ marginBottom: "clamp(2.5rem, 4vw, 4rem)", textAlign: "center" }}
+          >
+            <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
+              Services for people and animals.
+            </h2>
+            <p className="section-subhead">
+              Choose the kind of support you need, from clinic appointments to farm visits.
+            </p>
+          </motion.div>
+        </div>
+      )}
 
       {/* Carousel */}
       <div style={{ maxWidth: 1560, margin: "0 auto", padding: "0 clamp(1.5rem, 3vw, 3rem)" }}>

@@ -115,7 +115,7 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            A neighbour who happens to be very good at this.
+            Meet Kathy Morton.
           </h2>
 
           <p style={{
@@ -127,7 +127,9 @@ export default function About() {
             marginBottom: "2.5rem",
             maxWidth: "52ch",
           }}>
-            Kathy grew up with horses in rural Ontario. Cattle sorting wasn't a hobby. It was how she learned to read an animal's body, movement, and pain. That same instinct shapes every treatment today, whether the patient has two legs or four.
+            Kathy is a certified holistic therapist who has been helping people
+            and animals since 2017. Her work is quiet, practical, and focused on
+            how the whole body is compensating, not just where it hurts today.
           </p>
 
           <blockquote style={{
@@ -141,14 +143,15 @@ export default function About() {
             paddingLeft: "1.25rem",
             marginBottom: "2.5rem",
           }}>
-            &ldquo;The body wants to heal. Sometimes it just needs the right conversation.&rdquo;
+            She brings the same careful eye to a person walking into the clinic,
+            a horse coming out of the barn, or a dog who is starting to slow down.
           </blockquote>
 
           <div style={{ display: "flex", gap: "2.5rem" }}>
             {[
-              { v: "8+", l: "Years in practice" },
-              { v: "3", l: "Species treated" },
-              { v: "6+", l: "Certifications" },
+              { v: "2017", l: "In practice since" },
+              { v: "3", l: "People, horses, dogs" },
+              { v: "ON", l: "Stirling area" },
             ].map(s => (
               <div key={s.l}>
                 <p style={{ fontFamily: "var(--font-display)", fontSize: "2.25rem", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
