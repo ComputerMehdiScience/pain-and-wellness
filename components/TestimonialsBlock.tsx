@@ -31,7 +31,7 @@ const testimonials = [
 function Stars() {
   return (
     <div style={{ display: "flex", gap: 4 }}>
-      {[0,1,2,3,4].map(i => (
+      {[0, 1, 2, 3, 4].map(i => (
         <svg key={i} width="18" height="18" viewBox="0 0 16 16" fill="#f5a623">
           <path d="M8 1l1.8 3.6L14 5.3l-3 2.9.7 4.1L8 10.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7z" />
         </svg>
@@ -61,6 +61,8 @@ export default function TestimonialsBlock() {
     return () => clearInterval(t);
   }, []);
 
+  const t = testimonials[active];
+
   return (
     <section
       ref={ref}
@@ -74,7 +76,7 @@ export default function TestimonialsBlock() {
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        style={{ textAlign: "center", marginBottom: "clamp(2.5rem, 4vw, 4rem)" }}
+        style={{ textAlign: "center", marginBottom: "clamp(3rem, 5vw, 5rem)" }}
       >
         <h2 style={{
           fontFamily: "var(--font-display)",
@@ -97,112 +99,139 @@ export default function TestimonialsBlock() {
         </p>
       </motion.div>
 
-      {/* Card */}
+      {/* Fixed-height track — prevents any layout shift when quotes differ in length */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
         style={{ maxWidth: 1060, margin: "0 auto" }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              background: "#fff",
-              borderRadius: 20,
-              overflow: "hidden",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              boxShadow: "0 8px 48px oklch(42% 0.06 200 / 0.09), 0 2px 8px oklch(42% 0.06 200 / 0.05)",
-              border: "1px solid oklch(86% 0.018 195 / 0.4)",
-              minHeight: 420,
-            }}
-            className="testimonial-card"
-          >
-            {/* Photo */}
-            <div style={{ position: "relative", overflow: "hidden", minHeight: 360 }}>
-              <Image
-                src={testimonials[active].photo}
-                alt={testimonials[active].name}
-                fill
-                sizes="(max-width: 760px) 100vw, 50vw"
-                style={{
-                  objectFit: "cover",
-                  objectPosition: testimonials[active].objectPosition,
-                }}
-              />
-              {/* Label tag on photo */}
-              <div style={{
+        <div className="tblock-track" style={{ position: "relative", height: 460 }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              style={{
                 position: "absolute",
-                top: 16,
-                left: 16,
-                background: "oklch(97% 0.008 90 / 0.93)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-                borderRadius: 999,
-                padding: "0.35rem 0.9rem",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                color: "var(--teal-deep)",
-                letterSpacing: "0.04em",
-              }}>
-                {testimonials[active].name}
+                inset: 0,
+                display: "flex",
+                gap: "clamp(2rem, 4vw, 3.5rem)",
+                alignItems: "stretch",
+              }}
+              className="tblock-row"
+            >
+
+              {/* 3D floating photo — separate from the quote card */}
+              <motion.div
+                className="tblock-photo"
+                style={{
+                  flexShrink: 0,
+                  width: 300,
+                  borderRadius: 18,
+                  overflow: "hidden",
+                  position: "relative",
+                  transformPerspective: 900,
+                  rotateY: -6,
+                  rotateX: 3,
+                  boxShadow: "22px 44px 88px oklch(30% 0.06 200 / 0.26), 4px 10px 28px oklch(30% 0.06 200 / 0.12)",
+                }}
+                whileHover={{ rotateY: -13, rotateX: 7, scale: 1.045, y: -10 }}
+                transition={{ type: "spring", stiffness: 180, damping: 18 }}
+              >
+                <Image
+                  src={t.photo}
+                  alt={t.name}
+                  fill
+                  sizes="(max-width: 760px) 90vw, 30vw"
+                  style={{ objectFit: "cover", objectPosition: t.objectPosition }}
+                />
+                {/* Condition label pill */}
+                <div style={{
+                  position: "absolute",
+                  top: 14,
+                  left: 14,
+                  background: "oklch(97% 0.008 90 / 0.93)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  borderRadius: 999,
+                  padding: "0.35rem 0.9rem",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  color: "var(--teal-deep)",
+                  letterSpacing: "0.04em",
+                }}>
+                  {t.name}
+                </div>
+              </motion.div>
+
+              {/* Quote card — separate floating card */}
+              <div
+                className="tblock-quote"
+                style={{
+                  flex: 1,
+                  background: "#fff",
+                  borderRadius: 20,
+                  padding: "clamp(2rem, 4vw, 3.5rem)",
+                  boxShadow: "0 8px 48px oklch(42% 0.06 200 / 0.08), 0 2px 8px oklch(42% 0.06 200 / 0.04)",
+                  border: "1px solid oklch(86% 0.018 195 / 0.4)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: "1.5rem",
+                }}
+              >
+                <Stars />
+
+                <p style={{
+                  fontFamily: "var(--font-display)",
+                  fontStyle: "italic",
+                  fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
+                  lineHeight: 1.75,
+                  color: "var(--ink)",
+                }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+
+                {/* Dot nav */}
+                <div style={{ display: "flex", gap: "0.5rem", marginTop: "auto" }}>
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActive(i)}
+                      aria-label={`View testimonial ${i + 1}`}
+                      style={{
+                        height: 8,
+                        width: i === active ? 24 : 8,
+                        borderRadius: 999,
+                        border: "none",
+                        cursor: "pointer",
+                        background: i === active ? "var(--teal-accent)" : "oklch(70% 0.02 200 / 0.3)",
+                        transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+                        padding: 0,
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Text */}
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "clamp(2rem, 4vw, 3.5rem)",
-              gap: "1.5rem",
-            }}>
-              <Stars />
-
-              <p style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
-                lineHeight: 1.75,
-                color: "var(--ink)",
-              }}>
-                &ldquo;{testimonials[active].quote}&rdquo;
-              </p>
-
-              {/* Dot nav */}
-              <div style={{ display: "flex", gap: "0.5rem", marginTop: "auto", paddingTop: "1rem" }}>
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActive(i)}
-                    aria-label={`View testimonial ${i + 1}`}
-                    style={{
-                      height: 8,
-                      width: i === active ? 24 : 8,
-                      borderRadius: 999,
-                      border: "none",
-                      cursor: "pointer",
-                      background: i === active ? "var(--teal-accent)" : "oklch(70% 0.02 200 / 0.3)",
-                      transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
-                      padding: 0,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </motion.div>
 
       <style>{`
         @media (max-width: 700px) {
-          .testimonial-card { grid-template-columns: 1fr !important; }
+          .tblock-track { height: auto !important; }
+          .tblock-row {
+            position: relative !important;
+            inset: auto !important;
+            flex-direction: column !important;
+          }
+          .tblock-photo { width: 100% !important; height: 300px !important; flex-shrink: 0 !important; }
         }
       `}</style>
     </section>
