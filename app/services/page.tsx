@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
-import Services from "@/components/Services";
+import ServicesDirectory from "@/components/ServicesDirectory";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -21,7 +21,7 @@ export default function ServicesPage() {
           Clinic appointments, farm visits, and gentle hands-on care for the
           different reasons people come to Pain & Wellness Solutions.
         </PageHeader>
-        <Services showHeader={false} />
+        <ServicesDirectory />
         <FAQ />
         <CTA />
       </main>
