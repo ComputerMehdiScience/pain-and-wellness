@@ -43,7 +43,7 @@ export function CustomerPaths({ cards }: { cards: PathCard[] }) {
           style={{ maxWidth: 680, marginBottom: "clamp(2rem, 4vw, 3rem)" }}
         >
           <h2 className="section-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 4.25rem)" }}>
-            Find the right path.
+            Where do you want to start?
           </h2>
         </motion.div>
 

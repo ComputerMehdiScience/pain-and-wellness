@@ -29,7 +29,7 @@ const blocks: Block[] = [
     imageSide: "left",
   },
   {
-    heading: "Care for the body in front of her.",
+    heading: "Every session is different.",
     body: [
       "Some clients come in with back pain or headaches. Some call because a horse is short-striding, or a dog is struggling with stairs. Kathy adapts the work to the person or animal she is treating.",
     ],

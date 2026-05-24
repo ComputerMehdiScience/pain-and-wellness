@@ -181,7 +181,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
             style={{ marginBottom: "clamp(2.5rem, 4vw, 4rem)", textAlign: "center" }}
           >
             <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-              Services for people and animals.
+              Bowen therapy, three ways.
             </h2>
             <p className="section-subhead">
               Choose the kind of support you need, from clinic appointments to farm visits.

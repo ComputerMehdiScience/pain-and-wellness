@@ -338,8 +338,8 @@ export default function Hero() {
           >
             {[
               { text: "Bowen therapy", accent: false, delay: 0.05 },
-              { text: "for people", accent: true, delay: 0.22 },
-              { text: "and animals.", accent: false, delay: 0.4 },
+              { text: "for you", accent: true, delay: 0.22 },
+              { text: "and your animals.", accent: false, delay: 0.4 },
             ].map((line, i) => (
               <motion.span
                 key={i}

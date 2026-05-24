@@ -11,7 +11,7 @@ export default function AboutPage() {
       <main>
         <PageHeader
           eyebrow="Kathy Morton"
-          title="Care shaped by animals, family, and real bodies."
+          title="About Kathy Morton."
           image="/photos/kathy-portrait.jpg"
           imageAlt="Kathy Morton"
           imagePosition="center top"
