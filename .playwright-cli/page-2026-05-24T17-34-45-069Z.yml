@@ -1,0 +1,162 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Pain & Wellness Solutions — home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - img "Pain & Wellness Solutions" [ref=e4]
+    - generic [ref=e5]:
+      - link "About" [ref=e6] [cursor=pointer]:
+        - /url: /about
+      - link "Personal Pain Management" [ref=e7] [cursor=pointer]:
+        - /url: /personal-pain-management
+      - link "Equine Body Work" [ref=e8] [cursor=pointer]:
+        - /url: /equine-body-work
+      - link "Services" [ref=e9] [cursor=pointer]:
+        - /url: /services
+      - link "Results" [ref=e10] [cursor=pointer]:
+        - /url: /results
+      - link "Blog" [ref=e11] [cursor=pointer]:
+        - /url: /blog
+      - link "Contact" [ref=e12] [cursor=pointer]:
+        - /url: /contact
+      - link "Book now" [ref=e13] [cursor=pointer]:
+        - /url: https://app.setmore.com/painandwellnesssolutions
+  - main [ref=e14]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - heading "Real changes clients can feel." [level=1] [ref=e18]
+        - generic [ref=e19]: Reviews from people who have booked with Kathy for pain, mobility, relaxation, recovery, and support for their animals.
+        - paragraph [ref=e20]: Reviews often mention pain relief, mobility, and feeling heard
+      - img "Gentle hands-on therapy session" [ref=e24]
+    - generic [ref=e27]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - img [ref=e31]
+          - generic [ref=e33]: Google Reviews
+        - heading "Real clients, real changes." [level=2] [ref=e34]
+        - paragraph [ref=e35]: Here's what people and their animals have to say after working with Kathy.
+        - generic [ref=e36]:
+          - button "View testimonial 1" [ref=e37] [cursor=pointer]
+          - button "View testimonial 2" [ref=e38] [cursor=pointer]
+          - button "View testimonial 3" [ref=e39] [cursor=pointer]
+      - generic [ref=e40]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - img [ref=e46]
+            - img [ref=e48]
+            - img [ref=e50]
+            - img [ref=e52]
+          - generic [ref=e54]:
+            - img [ref=e55]
+            - paragraph [ref=e58]: "\"After years of chiropractor, osteopath and massage, I have finally found that Bowen Therapy works best for my body. I no longer do any other therapy.\""
+          - generic [ref=e59]:
+            - generic [ref=e61]: T
+            - generic [ref=e62]:
+              - heading "Tiff" [level=3] [ref=e63]
+              - paragraph [ref=e64]: Pain & Wellness client
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - img [ref=e68]
+            - img [ref=e70]
+            - img [ref=e72]
+            - img [ref=e74]
+            - img [ref=e76]
+          - generic [ref=e78]:
+            - img [ref=e79]
+            - paragraph [ref=e82]: "\"Totally satisfied with results from Kathy. My neck had been bothering me for months. After the session the pain went from a 10 to a 3.\""
+          - generic [ref=e83]:
+            - generic [ref=e85]: L
+            - generic [ref=e86]:
+              - heading "Lyle" [level=3] [ref=e87]
+              - paragraph [ref=e88]: Pain & Wellness client
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - img [ref=e92]
+            - img [ref=e94]
+            - img [ref=e96]
+            - img [ref=e98]
+            - img [ref=e100]
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - paragraph [ref=e106]: "\"I was able to go to Campbellford shopping by myself for the first time in about 2 years. THANKS Kathy.\""
+          - generic [ref=e107]:
+            - generic [ref=e109]: L
+            - generic [ref=e110]:
+              - heading "Linda Robinson" [level=3] [ref=e111]
+              - paragraph [ref=e112]: Pain & Wellness client
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - heading "Book a session with Kathy." [level=2] [ref=e118]
+        - paragraph [ref=e119]: Book online for clinic appointments in Stirling. Call Kathy directly for equine, canine, and farm-visit questions.
+      - generic [ref=e120]:
+        - link "Book your appointment" [ref=e121] [cursor=pointer]:
+          - /url: https://app.setmore.com/painandwellnesssolutions
+        - link "613-885-1311" [ref=e122] [cursor=pointer]:
+          - /url: tel:6138851311
+          - img [ref=e123]
+          - text: 613-885-1311
+  - contentinfo [ref=e125]:
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - paragraph [ref=e129]: Pain & Wellness Solutions
+          - paragraph [ref=e130]: Certified Bowen and myoskeletal therapy for people, horses, and dogs. Serving Hastings County from Stirling, Ontario since 2017.
+          - generic [ref=e131]:
+            - link "Instagram" [ref=e132] [cursor=pointer]:
+              - /url: https://instagram.com/painandwellnesssolutions
+            - link "Facebook" [ref=e133] [cursor=pointer]:
+              - /url: https://facebook.com/painandwellnesssolutions
+            - link "YouTube" [ref=e134] [cursor=pointer]:
+              - /url: https://youtube.com/@painandwellnesssolutions5355
+        - generic [ref=e135]:
+          - paragraph [ref=e136]: Services
+          - link "Bowen & myoskeletal" [ref=e137] [cursor=pointer]:
+            - /url: /services/bowen-myoskeletal-therapy
+          - link "Healing with the Herd" [ref=e138] [cursor=pointer]:
+            - /url: /services/healing-with-the-herd
+          - link "Scar Tissue Release" [ref=e139] [cursor=pointer]:
+            - /url: /services/scar-tissue-release
+          - link "Reiki" [ref=e140] [cursor=pointer]:
+            - /url: /services/reiki
+          - link "Ionized Foot Detox" [ref=e141] [cursor=pointer]:
+            - /url: /services/ionized-foot-detox
+          - link "Equine Bodywork" [ref=e142] [cursor=pointer]:
+            - /url: /services/equine-bodywork
+          - link "Canine Bowen" [ref=e143] [cursor=pointer]:
+            - /url: /services/canine-bowen
+        - generic [ref=e144]:
+          - paragraph [ref=e145]: Explore
+          - link "About Kathy" [ref=e146] [cursor=pointer]:
+            - /url: /about
+          - link "Personal Pain Management" [ref=e147] [cursor=pointer]:
+            - /url: /personal-pain-management
+          - link "Equine Body Work" [ref=e148] [cursor=pointer]:
+            - /url: /equine-body-work
+          - link "Results & reviews" [ref=e149] [cursor=pointer]:
+            - /url: /results
+          - link "Contact" [ref=e150] [cursor=pointer]:
+            - /url: /contact
+          - link "Privacy policy" [ref=e151] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e152] [cursor=pointer]:
+            - /url: /terms
+        - generic [ref=e153]:
+          - paragraph [ref=e154]: Visit
+          - generic [ref=e155]:
+            - link "89 Salem Road Stirling, ON" [ref=e156] [cursor=pointer]:
+              - /url: https://maps.google.com/?q=89+Salem+Road+Stirling+ON
+              - text: 89 Salem Road
+              - text: Stirling, ON
+            - link "613-885-1311" [ref=e157] [cursor=pointer]:
+              - /url: tel:6138851311
+            - paragraph [ref=e158]: Mon–Fri · 9am–5pm
+            - generic [ref=e161]: New patients welcome
+      - generic [ref=e162]:
+        - paragraph [ref=e163]: © 2025 Pain & Wellness Solutions · Stirling, Ontario
+        - generic [ref=e164]:
+          - link "Privacy policy" [ref=e165] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e166] [cursor=pointer]:
+            - /url: /terms
+  - button "Open Next.js Dev Tools" [ref=e172] [cursor=pointer]:
+    - img [ref=e173]

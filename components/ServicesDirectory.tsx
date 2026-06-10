@@ -14,7 +14,7 @@ const services = [
     objectPosition: "60% 85%",
     href: "/services/bowen-myoskeletal-therapy",
     cta: "Book an appointment",
-    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   {
     name: "Scar Tissue Release",
@@ -24,7 +24,7 @@ const services = [
     objectPosition: "65% 85%",
     href: "/services/scar-tissue-release",
     cta: "Book an appointment",
-    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   {
     name: "Reiki",
@@ -34,7 +34,7 @@ const services = [
     objectPosition: "55% 90%",
     href: "/services/reiki",
     cta: "Book an appointment",
-    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   {
     name: "Healing with the Herd",
@@ -64,7 +64,7 @@ const services = [
     objectPosition: "center 85%",
     href: "/services/canine-bowen",
     cta: "Book a session",
-    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   {
     name: "Ionized Foot Detox",
@@ -74,7 +74,7 @@ const services = [
     objectPosition: "25% 75%",
     href: "/services/ionized-foot-detox",
     cta: "Book an appointment",
-    ctaHref: "https://app.setmore.com/painandwellnesssolutions",
+    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
 ];
 

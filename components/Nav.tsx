@@ -99,7 +99,7 @@ export default function Nav() {
           ))}
 
           <a
-            href="https://app.setmore.com/painandwellnesssolutions"
+            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -187,7 +187,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="https://app.setmore.com/painandwellnesssolutions"
+            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
             target="_blank"
             rel="noopener noreferrer"
             style={{

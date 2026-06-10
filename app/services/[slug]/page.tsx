@@ -27,7 +27,7 @@ const services: Record<string, {
     photo: "/photos/Bowenmyoskeletal.png",
     objectPosition: "60% 85%",
     zoom: 1.3,
-    bookHref: "https://app.setmore.com/painandwellnesssolutions",
+    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   "healing-with-the-herd": {
     name: "Healing with the Herd",
@@ -59,7 +59,7 @@ const services: Record<string, {
     photo: "/photos/scartissueservice.png",
     objectPosition: "65% 85%",
     zoom: 1.2,
-    bookHref: "https://app.setmore.com/painandwellnesssolutions",
+    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   "reiki": {
     name: "Reiki",
@@ -75,7 +75,7 @@ const services: Record<string, {
     photo: "/photos/Reiki.png",
     objectPosition: "55% 90%",
     zoom: 1.15,
-    bookHref: "https://app.setmore.com/painandwellnesssolutions",
+    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   "ionized-foot-detox": {
     name: "Ionized Foot Detox",
@@ -91,7 +91,7 @@ const services: Record<string, {
     photo: "/photos/ionized footbath.png",
     objectPosition: "25% 75%",
     zoom: 1.2,
-    bookHref: "https://app.setmore.com/painandwellnesssolutions",
+    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
   "equine-bodywork": {
     name: "Equine Bodywork",
@@ -123,7 +123,7 @@ const services: Record<string, {
     photo: "/photos/kathy dog.png",
     objectPosition: "center 85%",
     zoom: 1.4,
-    bookHref: "https://app.setmore.com/painandwellnesssolutions",
+    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
   },
 };
 

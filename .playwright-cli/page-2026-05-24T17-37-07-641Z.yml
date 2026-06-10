@@ -1,0 +1,129 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Pain & Wellness Solutions — home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - img "Pain & Wellness Solutions" [ref=e4]
+    - generic [ref=e5]:
+      - link "About" [ref=e6] [cursor=pointer]:
+        - /url: /about
+      - link "Personal Pain Management" [ref=e7] [cursor=pointer]:
+        - /url: /personal-pain-management
+      - link "Equine Body Work" [ref=e8] [cursor=pointer]:
+        - /url: /equine-body-work
+      - link "Services" [ref=e9] [cursor=pointer]:
+        - /url: /services
+      - link "Results" [ref=e10] [cursor=pointer]:
+        - /url: /results
+      - link "Blog" [ref=e11] [cursor=pointer]:
+        - /url: /blog
+      - link "Contact" [ref=e12] [cursor=pointer]:
+        - /url: /contact
+      - link "Book now" [ref=e13] [cursor=pointer]:
+        - /url: https://app.setmore.com/painandwellnesssolutions
+  - main [ref=e14]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - heading "Real changes clients can feel." [level=1] [ref=e18]
+        - generic [ref=e19]: Reviews from people who have booked with Kathy for pain, mobility, relaxation, recovery, and support for their animals.
+        - paragraph [ref=e20]: Reviews often mention pain relief, mobility, and feeling heard
+      - img "Gentle hands-on therapy session" [ref=e24]
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - paragraph [ref=e28]: Google Reviews
+        - heading "Real clients, real changes." [level=2] [ref=e29]:
+          - text: Real clients,
+          - text: real changes.
+        - paragraph [ref=e30]: Here's what people and their animals have to say after working with Kathy.
+        - generic [ref=e31]:
+          - button "View testimonial 1" [ref=e32] [cursor=pointer]
+          - button "View testimonial 2" [ref=e33] [cursor=pointer]
+          - button "View testimonial 3" [ref=e34] [cursor=pointer]
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - img [ref=e40]
+          - img [ref=e42]
+          - img [ref=e44]
+          - img [ref=e46]
+        - paragraph [ref=e48]: “After years of chiropractor, osteopath and massage, I have finally found that Bowen Therapy works best for my body. I no longer do any other therapy.”
+        - generic [ref=e49]:
+          - generic [ref=e50]: T
+          - generic [ref=e51]:
+            - paragraph [ref=e52]: Tiff
+            - paragraph [ref=e53]: Pain & Wellness client
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - heading "Book a session with Kathy." [level=2] [ref=e57]
+        - paragraph [ref=e58]: Book online for clinic appointments in Stirling. Call Kathy directly for equine, canine, and farm-visit questions.
+      - generic [ref=e59]:
+        - link "Book your appointment" [ref=e60] [cursor=pointer]:
+          - /url: https://app.setmore.com/painandwellnesssolutions
+        - link "613-885-1311" [ref=e61] [cursor=pointer]:
+          - /url: tel:6138851311
+          - img [ref=e62]
+          - text: 613-885-1311
+  - contentinfo [ref=e64]:
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: Pain & Wellness Solutions
+          - paragraph [ref=e69]: Certified Bowen and myoskeletal therapy for people, horses, and dogs. Serving Hastings County from Stirling, Ontario since 2017.
+          - generic [ref=e70]:
+            - link "Instagram" [ref=e71] [cursor=pointer]:
+              - /url: https://instagram.com/painandwellnesssolutions
+            - link "Facebook" [ref=e72] [cursor=pointer]:
+              - /url: https://facebook.com/painandwellnesssolutions
+            - link "YouTube" [ref=e73] [cursor=pointer]:
+              - /url: https://youtube.com/@painandwellnesssolutions5355
+        - generic [ref=e74]:
+          - paragraph [ref=e75]: Services
+          - link "Bowen & myoskeletal" [ref=e76] [cursor=pointer]:
+            - /url: /services/bowen-myoskeletal-therapy
+          - link "Healing with the Herd" [ref=e77] [cursor=pointer]:
+            - /url: /services/healing-with-the-herd
+          - link "Scar Tissue Release" [ref=e78] [cursor=pointer]:
+            - /url: /services/scar-tissue-release
+          - link "Reiki" [ref=e79] [cursor=pointer]:
+            - /url: /services/reiki
+          - link "Ionized Foot Detox" [ref=e80] [cursor=pointer]:
+            - /url: /services/ionized-foot-detox
+          - link "Equine Bodywork" [ref=e81] [cursor=pointer]:
+            - /url: /services/equine-bodywork
+          - link "Canine Bowen" [ref=e82] [cursor=pointer]:
+            - /url: /services/canine-bowen
+        - generic [ref=e83]:
+          - paragraph [ref=e84]: Explore
+          - link "About Kathy" [ref=e85] [cursor=pointer]:
+            - /url: /about
+          - link "Personal Pain Management" [ref=e86] [cursor=pointer]:
+            - /url: /personal-pain-management
+          - link "Equine Body Work" [ref=e87] [cursor=pointer]:
+            - /url: /equine-body-work
+          - link "Results & reviews" [ref=e88] [cursor=pointer]:
+            - /url: /results
+          - link "Contact" [ref=e89] [cursor=pointer]:
+            - /url: /contact
+          - link "Privacy policy" [ref=e90] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e91] [cursor=pointer]:
+            - /url: /terms
+        - generic [ref=e92]:
+          - paragraph [ref=e93]: Visit
+          - generic [ref=e94]:
+            - link "89 Salem Road Stirling, ON" [ref=e95] [cursor=pointer]:
+              - /url: https://maps.google.com/?q=89+Salem+Road+Stirling+ON
+              - text: 89 Salem Road
+              - text: Stirling, ON
+            - link "613-885-1311" [ref=e96] [cursor=pointer]:
+              - /url: tel:6138851311
+            - paragraph [ref=e97]: Mon–Fri · 9am–5pm
+            - generic [ref=e100]: New patients welcome
+      - generic [ref=e101]:
+        - paragraph [ref=e102]: © 2025 Pain & Wellness Solutions · Stirling, Ontario
+        - generic [ref=e103]:
+          - link "Privacy policy" [ref=e104] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e105] [cursor=pointer]:
+            - /url: /terms
+  - button "Open Next.js Dev Tools" [ref=e111] [cursor=pointer]:
+    - img [ref=e112]

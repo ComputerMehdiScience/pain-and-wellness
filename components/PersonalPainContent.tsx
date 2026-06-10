@@ -177,7 +177,7 @@ export default function PersonalPainContent() {
             ))}
 
             <motion.a
-              href="https://app.setmore.com/painandwellnesssolutions"
+              href="https://painandwellnesssolutions.setmore.com/katherinemorton"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 8 }}

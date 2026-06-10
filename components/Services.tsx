@@ -412,7 +412,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
           style={{ textAlign: "center", marginTop: "clamp(1.5rem, 2.5vw, 2rem)" }}
         >
           <a
-            href="https://app.setmore.com/painandwellnesssolutions"
+            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
             target="_blank"
             rel="noopener noreferrer"
             style={{

@@ -106,7 +106,7 @@ export default function Animals() {
 
         <div style={{ display: "flex", gap: "1.25rem", alignItems: "center", flexWrap: "wrap" }}>
           <a
-            href="https://app.setmore.com/painandwellnesssolutions"
+            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
             target="_blank"
             rel="noopener noreferrer"
             style={{
