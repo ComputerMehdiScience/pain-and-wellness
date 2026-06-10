@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import ContactForm from "@/components/ContactForm";
 
 export default function ContactPage() {
   return (
@@ -83,6 +84,28 @@ export default function ContactPage() {
             }
           `}</style>
         </section>
+
+        {/* Message form */}
+        <section
+          style={{
+            background: "var(--cream)",
+            padding: "clamp(3.5rem, 7vw, 6rem) clamp(1.5rem, 4vw, 3rem)",
+          }}
+        >
+          <div style={{ maxWidth: 640, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "clamp(1.75rem, 3vw, 2.5rem)" }}>
+              <h2 className="section-heading" style={{ marginBottom: "1rem" }}>
+                Send a message.
+              </h2>
+              <p className="section-subhead" style={{ maxWidth: 460, margin: "0 auto" }}>
+                Not sure where to start? Send a note and Kathy will point you in the
+                right direction.
+              </p>
+            </div>
+            <ContactForm />
+          </div>
+        </section>
+
         <CTA />
       </main>
       <Footer />
