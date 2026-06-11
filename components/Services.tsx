@@ -159,8 +159,12 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
     return () => obs.disconnect();
   }, []);
 
-  // Translate offset accounts for the leading PAD duplicates
-  const translateX = -(position + PAD) * (cardWidth + GAP_PX);
+  // Center the featured card in the viewport (neighbors peek on each side).
+  // Accounts for the leading PAD duplicates.
+  const translateX =
+    containerWidth / 2 -
+    cardWidth / 2 -
+    (position + PAD) * (cardWidth + GAP_PX);
 
   return (
     <section
