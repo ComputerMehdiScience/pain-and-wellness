@@ -23,8 +23,8 @@ export const posts: Post[] = [
       "Bowen therapy is a gentle, hands-on treatment for pain and stiffness. Learn how it works and who it helps, from a certified Bowen therapist in Stirling, Ontario.",
     date: "2026-05-02",
     readMin: 4,
-    photo: "/photos/Bowenmyoskeletal.png",
-    objectPosition: "60% 80%",
+    photo: "/photos/blog-bowen-therapy.png",
+    objectPosition: "center",
     excerpt:
       "A simple look at what Bowen therapy is, how the gentle moves work, and the kinds of pain it can help with.",
     body: [
@@ -54,8 +54,8 @@ export const posts: Post[] = [
       "Stiffness, uneven movement, and behaviour changes under saddle can point to a body that needs help. Five signs your horse could benefit from equine bodywork in Hastings County.",
     date: "2026-05-12",
     readMin: 4,
-    photo: "/photos/kathy-horse-barn.png",
-    objectPosition: "30% center",
+    photo: "/photos/blog-horse.png",
+    objectPosition: "center",
     excerpt:
       "Horses cannot tell us when something hurts, but their body and behaviour often will. Here are five signs to watch for.",
     body: [
@@ -81,8 +81,8 @@ export const posts: Post[] = [
       "Older dogs slowing down on the stairs or stiff after rest may benefit from Bowen therapy. Learn how this gentle technique helps dogs in Stirling and Hastings County.",
     date: "2026-05-22",
     readMin: 3,
-    photo: "/photos/kathy dog.png",
-    objectPosition: "center 80%",
+    photo: "/photos/blog-dog.png",
+    objectPosition: "center",
     excerpt:
       "The same gentle approach that helps people works beautifully for dogs. Here is how it can help your pet.",
     body: [
@@ -109,8 +109,8 @@ export const posts: Post[] = [
       "Wondering what happens at a Bowen therapy appointment? A simple walkthrough of your first visit, what to wear, and how you might feel afterward.",
     date: "2026-06-01",
     readMin: 3,
-    photo: "/photos/Reiki.png",
-    objectPosition: "55% 85%",
+    photo: "/photos/blog-what-to-expect.png",
+    objectPosition: "center",
     excerpt:
       "New to Bowen therapy? Here is exactly what happens at your first appointment so you can walk in relaxed.",
     body: [
