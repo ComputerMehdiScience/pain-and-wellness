@@ -4,8 +4,8 @@ import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
-  { q: "How many sessions will I need?", a: "Most people notice a real difference in 3 to 6 sessions. Ongoing or complicated issues may need more. Kathy will talk through that with you at your first appointment." },
   { q: "What makes Bowen different from massage or chiropractic?", a: "Bowen is not massage and it is not adjustment. Instead of constant rubbing or cracking joints, Kathy makes small, precise moves over the muscle and then pauses. Those pauses are the key part. They give your body a moment to respond and settle on its own. It is gentler than both, and the goal is to help your body hold the change itself rather than forcing it." },
+  { q: "How many sessions will I need?", a: "Most people notice a real difference in 3 to 6 sessions. Ongoing or complicated issues may need more. Kathy will talk through that with you at your first appointment." },
   { q: "What should I expect at my first visit?", a: "A session lasts 45 to 60 minutes. Wear comfortable, loose clothing. Kathy will ask about your pain and look at how you move before getting started. Most people leave feeling better than they expected." },
   { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County, no trailering required. Dogs are seen at your home, where they stay relaxed in a familiar place. Call to arrange animal appointments." },
   { q: "Can I keep seeing my doctor or chiropractor?", a: "Yes, though Kathy usually suggests starting with just Bowen for the first two or three sessions before adding other treatments back in. Giving it a fair run on its own makes it clear what is really helping, and most people find the Bowen is doing the work. After that, it sits comfortably alongside your doctor, physio, or chiropractor." },
