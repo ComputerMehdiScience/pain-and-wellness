@@ -147,15 +147,15 @@ export default function About() {
             a horse coming out of the barn, or a dog who is starting to slow down.
           </blockquote>
 
-          <div style={{ display: "flex", gap: "clamp(1.5rem, 4vw, 2.5rem)", flexWrap: "wrap" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: 440 }}>
             {[
               { v: "2017", l: "In practice since" },
               { v: "Certified", l: "Bowen Therapist" },
               { v: "ON", l: "Stirling area" },
             ].map(s => (
               <div key={s.l}>
-                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.5vw, 2.25rem)", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", fontWeight: 400, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--earth-faint)", marginTop: "0.3rem" }}>{s.l}</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.6vw, 1.95rem)", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", fontWeight: 400, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--earth-faint)", marginTop: "0.35rem", lineHeight: 1.3 }}>{s.l}</p>
               </div>
             ))}
           </div>
