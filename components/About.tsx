@@ -147,14 +147,14 @@ export default function About() {
             a horse coming out of the barn, or a dog who is starting to slow down.
           </blockquote>
 
-          <div style={{ display: "flex", gap: "2.5rem" }}>
+          <div style={{ display: "flex", gap: "clamp(1.5rem, 4vw, 2.5rem)", flexWrap: "wrap" }}>
             {[
               { v: "2017", l: "In practice since" },
-              { v: "3", l: "People, horses, dogs" },
+              { v: "Certified", l: "Bowen Therapist" },
               { v: "ON", l: "Stirling area" },
             ].map(s => (
               <div key={s.l}>
-                <p style={{ fontFamily: "var(--font-display)", fontSize: "2.25rem", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.5vw, 2.25rem)", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", fontWeight: 400, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--earth-faint)", marginTop: "0.3rem" }}>{s.l}</p>
               </div>
             ))}
