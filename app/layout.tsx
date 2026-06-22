@@ -20,11 +20,11 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://painandwellnesssolutions.ca"),
-  title: "Pain & Wellness Solutions | Bowen Therapy · Stirling, Ontario",
+  title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
   description:
     "Kathy Morton is a certified Bowen and myoskeletal therapist in Stirling, ON. Drug-free pain relief for people, horses, and dogs. Serving Hastings County.",
   openGraph: {
-    title: "Pain & Wellness Solutions | Bowen Therapy in Stirling, Ontario",
+    title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
     description:
       "Certified Bowen and myoskeletal therapy for people, horses, and dogs in Stirling and Hastings County, Ontario.",
     url: "https://painandwellnesssolutions.ca",
@@ -33,19 +33,19 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/photos/hero-photo.png",
-        width: 1254,
-        height: 1254,
-        alt: "Kathy Morton giving a Bowen therapy treatment",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pain & Wellness Solutions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pain & Wellness Solutions | Bowen Therapy · Stirling, Ontario",
+    title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
     description:
       "Certified Bowen and myoskeletal therapy for people, horses, and dogs in Stirling, Ontario.",
-    images: ["/photos/hero-photo.png"],
+    images: ["/og-image.jpg"],
   },
 };
 
