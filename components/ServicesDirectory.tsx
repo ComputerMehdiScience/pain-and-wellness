@@ -15,6 +15,7 @@ const services = [
     href: "/services/bowen-myoskeletal-therapy",
     cta: "Book an appointment",
     ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
+    price: "$110 per session",
   },
   {
     name: "Scar Tissue Release",
@@ -55,6 +56,7 @@ const services = [
     href: "/services/equine-bodywork",
     cta: "Call to arrange a visit",
     ctaHref: "tel:6138851311",
+    price: "$140 per visit, plus travel",
   },
   {
     name: "Canine Bowen",
@@ -65,6 +67,7 @@ const services = [
     href: "/services/canine-bowen",
     cta: "Book a session",
     ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
+    price: "$80 per visit, plus travel",
   },
   {
     name: "Ionized Foot Detox",
@@ -167,6 +170,30 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
         >
           {service.name}
         </motion.h2>
+
+        {service.price && (
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.24 }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.8125rem",
+              fontWeight: 700,
+              color: "var(--teal-deep)",
+              background: "oklch(78% 0.03 195 / 0.18)",
+              borderRadius: 999,
+              padding: "0.4rem 0.9rem",
+              marginBottom: "1.25rem",
+              width: "fit-content",
+            }}
+          >
+            {service.price}
+          </motion.p>
+        )}
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}

@@ -13,6 +13,7 @@ const services = [
     objectPosition: "60% 85%",
     zoom: 1.3,
     slug: "bowen-myoskeletal-therapy",
+    price: "$110",
   },
   {
     name: "Healing with the Herd",
@@ -53,6 +54,7 @@ const services = [
     objectPosition: "30% center",
     zoom: 1.1,
     slug: "equine-bodywork",
+    price: "$140 + travel",
   },
   {
     name: "Canine Bowen",
@@ -61,6 +63,7 @@ const services = [
     objectPosition: "center 85%",
     zoom: 1.4,
     slug: "canine-bowen",
+    price: "$80 + travel",
   },
 ];
 
@@ -293,6 +296,25 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                               color: "oklch(96% 0.012 82 / 0.92)",
                             }}>
                               Learn more →
+                            </div>
+                          )}
+
+                          {svc.price && (
+                            <div style={{
+                              position: "absolute",
+                              top: "1.25rem",
+                              left: "1.25rem",
+                              background: "var(--teal-deep)",
+                              borderRadius: 20,
+                              padding: "0.35rem 0.85rem",
+                              fontFamily: "var(--font-body)",
+                              fontSize: "0.75rem",
+                              fontWeight: 700,
+                              letterSpacing: "0.01em",
+                              color: "#fff",
+                              boxShadow: "0 4px 10px oklch(20% 0.01 240 / 0.3)",
+                            }}>
+                              {svc.price}
                             </div>
                           )}
 
