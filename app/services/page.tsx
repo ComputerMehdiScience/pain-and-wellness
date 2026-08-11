@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
 import ServicesDirectory from "@/components/ServicesDirectory";
+import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function ServicesPage() {
           different reasons people come to Pain & Wellness Solutions.
         </PageHeader>
         <ServicesDirectory />
+        <Pricing />
         <FAQ />
         <CTA />
       </main>

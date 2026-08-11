@@ -13,6 +13,7 @@ const services: Record<string, {
   objectPosition: string;
   zoom: number;
   bookHref: string;
+  price?: string;
 }> = {
   "bowen-myoskeletal-therapy": {
     name: "Bowen & Myoskeletal Therapy",
@@ -28,6 +29,7 @@ const services: Record<string, {
     objectPosition: "60% 85%",
     zoom: 1.3,
     bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
+    price: "$110 per session · $100 per session on the 6-month bundle",
   },
   "healing-with-the-herd": {
     name: "Healing with the Herd",
@@ -108,6 +110,7 @@ const services: Record<string, {
     objectPosition: "30% center",
     zoom: 1.1,
     bookHref: "tel:6138851311",
+    price: "$140 per visit, plus travel",
   },
   "canine-bowen": {
     name: "Canine Bowen",
@@ -124,6 +127,7 @@ const services: Record<string, {
     objectPosition: "center 85%",
     zoom: 1.4,
     bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
+    price: "$80 per visit, plus travel",
   },
 };
 
@@ -214,6 +218,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           }}>
             {svc.description}
           </p>
+
+          {svc.price && (
+            <p style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "0.9375rem",
+              fontWeight: 600,
+              color: "var(--teal-deep)",
+              marginBottom: "1.5rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--teal-deep)", display: "inline-block" }} />
+              {svc.price}
+            </p>
+          )}
 
           <a
             href={svc.bookHref}
