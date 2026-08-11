@@ -171,7 +171,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           {service.name}
         </motion.h2>
 
-        {service.price && (
+        {service.price ? (
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -193,6 +193,34 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           >
             {service.price}
           </motion.p>
+        ) : (
+          <motion.a
+            href="tel:6138851311"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.24 }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.8125rem",
+              fontWeight: 700,
+              color: "var(--earth-soft)",
+              background: "transparent",
+              border: "1.5px solid var(--cream-edge)",
+              borderRadius: 999,
+              padding: "0.4rem 0.9rem",
+              marginBottom: "1.25rem",
+              width: "fit-content",
+              textDecoration: "none",
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83a19.79 19.79 0 01-3.07-8.67A2 2 0 012.4 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.5 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="var(--teal-deep)" />
+            </svg>
+            Call for pricing
+          </motion.a>
         )}
 
         <motion.p

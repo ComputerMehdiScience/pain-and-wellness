@@ -299,7 +299,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                             </div>
                           )}
 
-                          {svc.price && (
+                          {svc.price ? (
                             <div style={{
                               position: "absolute",
                               top: "1.25rem",
@@ -316,6 +316,34 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                             }}>
                               {svc.price}
                             </div>
+                          ) : (
+                            <a
+                              href="tel:6138851311"
+                              style={{
+                                position: "absolute",
+                                top: "1.25rem",
+                                left: "1.25rem",
+                                background: "oklch(18% 0.04 200 / 0.4)",
+                                backdropFilter: "blur(10px)",
+                                border: "1px solid oklch(96% 0.012 82 / 0.5)",
+                                borderRadius: 20,
+                                padding: "0.35rem 0.85rem",
+                                fontFamily: "var(--font-body)",
+                                fontSize: "0.6875rem",
+                                fontWeight: 700,
+                                letterSpacing: "0.01em",
+                                color: "#fff",
+                                textDecoration: "none",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "0.35rem",
+                              }}
+                            >
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83a19.79 19.79 0 01-3.07-8.67A2 2 0 012.4 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.5 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="#fff" />
+                              </svg>
+                              Call for pricing
+                            </a>
                           )}
 
                           <div style={{
