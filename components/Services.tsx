@@ -54,7 +54,7 @@ const services = [
     objectPosition: "30% center",
     zoom: 1.1,
     slug: "equine-bodywork",
-    price: "$140 + travel",
+    price: "$140 + travel may apply",
   },
   {
     name: "Canine Bowen",
@@ -63,7 +63,7 @@ const services = [
     objectPosition: "center 85%",
     zoom: 1.4,
     slug: "canine-bowen",
-    price: "$80 + travel",
+    price: "$80 + travel may apply",
   },
 ];
 

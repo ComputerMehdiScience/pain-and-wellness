@@ -110,7 +110,7 @@ const services: Record<string, {
     objectPosition: "30% center",
     zoom: 1.1,
     bookHref: "tel:6138851311",
-    price: "$140 per visit, plus travel",
+    price: "$140 per visit, plus travel may apply",
   },
   "canine-bowen": {
     name: "Canine Bowen",
@@ -127,7 +127,7 @@ const services: Record<string, {
     objectPosition: "center 85%",
     zoom: 1.4,
     bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$80 per visit, plus travel",
+    price: "$80 per visit, plus travel may apply",
   },
 };
 

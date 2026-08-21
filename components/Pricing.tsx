@@ -13,20 +13,20 @@ const rows = [
   {
     label: "A house call",
     note: "Kathy comes to you, for people who cannot easily get to the clinic.",
-    price: "$145–150",
-    unit: "per visit",
+    price: "$140",
+    unit: "+ travel may apply",
   },
   {
     label: "Canine Bowen",
-    note: "At your home. Travel charged separately.",
+    note: "At your home.",
     price: "$80",
-    unit: "+ travel",
+    unit: "+ travel may apply",
   },
   {
     label: "Equine Bodywork",
-    note: "Farm visits across Hastings County. Travel charged separately.",
+    note: "Farm visits across Hastings County.",
     price: "$140",
-    unit: "+ travel",
+    unit: "+ travel may apply",
   },
 ];
 

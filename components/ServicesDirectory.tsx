@@ -56,7 +56,7 @@ const services = [
     href: "/services/equine-bodywork",
     cta: "Call to arrange a visit",
     ctaHref: "tel:6138851311",
-    price: "$140 per visit, plus travel",
+    price: "$140 per visit, plus travel may apply",
   },
   {
     name: "Canine Bowen",
@@ -67,7 +67,7 @@ const services = [
     href: "/services/canine-bowen",
     cta: "Book a session",
     ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$80 per visit, plus travel",
+    price: "$80 per visit, plus travel may apply",
   },
   {
     name: "Ionized Foot Detox",
