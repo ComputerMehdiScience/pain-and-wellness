@@ -45,7 +45,7 @@ export default function Animals() {
             fill
             sizes="(max-width: 860px) 100vw, 50vw"
             priority
-            style={{ objectFit: "cover", objectPosition: "center 30%" }}
+            style={{ objectFit: "cover", objectPosition: "0% 30%" }}
           />
         </motion.div>
         <div style={{

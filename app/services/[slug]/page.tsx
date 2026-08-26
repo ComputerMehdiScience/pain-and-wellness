@@ -43,7 +43,7 @@ const services: Record<string, {
       "No horse experience required",
     ],
     photo: "/photos/as-we-stand-in-their-presence.png",
-    objectPosition: "25% center",
+    objectPosition: "0% center",
     zoom: 1,
     bookHref: "tel:6138851311",
   },

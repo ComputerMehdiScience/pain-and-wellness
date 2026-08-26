@@ -42,7 +42,7 @@ const services = [
     description: "One of the only experiences of its kind in Ontario. Horse wisdom, tuning fork sound therapy, and fresh air on Kathy's farm. A nervous system reset unlike anything else.",
     details: ["Held at Kathy's farm near Stirling", "Seasonal availability", "Call to arrange booking"],
     photo: "/photos/as-we-stand-in-their-presence.png",
-    objectPosition: "30% center",
+    objectPosition: "0% center",
     href: "/services/healing-with-the-herd",
     cta: "Call to arrange a visit",
     ctaHref: "tel:6138851311",
