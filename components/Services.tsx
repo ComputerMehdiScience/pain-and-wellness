@@ -18,8 +18,8 @@ const services = [
   {
     name: "Healing with the Herd",
     description: "Time with Kathy's horses and tuning forks on the farm. Good for people carrying stress, grief, or just needing a break.",
-    photo: "/photos/as-we-stand-in-their-presence.png",
-    objectPosition: "0% center",
+    photo: "/photos/healing-with-the-herd-services.png",
+    objectPosition: "40% center",
     zoom: 1,
     slug: "healing-with-the-herd",
   },
