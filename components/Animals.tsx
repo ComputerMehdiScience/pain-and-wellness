@@ -40,8 +40,8 @@ export default function Animals() {
       <div style={{ position: "relative", overflow: "hidden", minHeight: 480 }}>
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
           <Image
-            src="/photos/kathy-horse-barn.png"
-            alt="Kathy Morton doing equine Bowen therapy in a barn"
+            src="/photos/as-we-stand-in-their-presence.png"
+            alt="Kathy Morton standing with her horses in their presence"
             fill
             sizes="(max-width: 860px) 100vw, 50vw"
             priority
