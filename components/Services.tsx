@@ -50,8 +50,8 @@ const services = [
   {
     name: "Equine Bodywork",
     description: "Farm-visit bodywork for horses showing stiffness, uneven movement, soreness, or performance changes.",
-    photo: "/photos/kathy-horse-barn.png",
-    objectPosition: "30% center",
+    photo: "/photos/kathy-working-on-reya.png",
+    objectPosition: "27% center",
     zoom: 1.1,
     slug: "equine-bodywork",
     price: "$140 + travel may apply",

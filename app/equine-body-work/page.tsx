@@ -12,9 +12,9 @@ export default function EquineBodyWorkPage() {
         <PageHeader
           eyebrow="Equine Body Work"
           title="Bodywork for the horse you know best."
-          image="/photos/kathy-horse.jpg"
-          imageAlt="Kathy with a horse"
-          imagePosition="center"
+          image="/photos/kathy-working-on-reya.png"
+          imageAlt="Kathy doing equine bodywork on Reya"
+          imagePosition="38% center"
           note="Farm visits arranged directly with Kathy"
         >
           Gentle, observant care for horses showing stiffness, soreness,
@@ -23,7 +23,7 @@ export default function EquineBodyWorkPage() {
         <SplitPanel
           eyebrow="For horse owners"
           title="When something looks off, even if you cannot name it yet."
-          image="/photos/placeholders/equine-bodywork-barn.png"
+          image="/photos/kathy-working-on-reya.png"
           imageAlt="Gentle equine bodywork in a rural barn"
         >
           <p>
