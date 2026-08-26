@@ -42,7 +42,7 @@ const services: Record<string, {
       "Seasonal availability. Call to discuss booking.",
       "No horse experience required",
     ],
-    photo: "/photos/Family-is-Everything-1-819x1024.png",
+    photo: "/photos/as-we-stand-in-their-presence.png",
     objectPosition: "25% center",
     zoom: 1,
     bookHref: "tel:6138851311",
