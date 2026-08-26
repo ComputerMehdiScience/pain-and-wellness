@@ -40,12 +40,12 @@ export default function Animals() {
       <div style={{ position: "relative", overflow: "hidden", minHeight: 480 }}>
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
           <Image
-            src="/photos/as-we-stand-in-their-presence.png"
+            src="/photos/healing-with-the-herd-services.png"
             alt="Kathy Morton standing with her horses in their presence"
             fill
             sizes="(max-width: 860px) 100vw, 50vw"
             priority
-            style={{ objectFit: "cover", objectPosition: "0% 30%" }}
+            style={{ objectFit: "cover", objectPosition: "40% center" }}
           />
         </motion.div>
         <div style={{
