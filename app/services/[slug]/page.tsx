@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getService, getServiceSlugsForBuild, getSiteSettings, bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { stegaClean } from "next-sanity";
 
 export const revalidate = 60;
 
@@ -17,6 +18,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const [svc, settings] = await Promise.all([getService(slug), getSiteSettings()]);
   if (!svc) notFound();
+  const bookingMethod = stegaClean(svc.bookingMethod);
 
   return (
     <>
@@ -133,8 +135,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
           <a
             href={bookHref(svc, settings)}
-            target={svc.bookingMethod === "online" ? "_blank" : undefined}
-            rel={svc.bookingMethod === "online" ? "noopener noreferrer" : undefined}
+            target={bookingMethod === "online" ? "_blank" : undefined}
+            rel={bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "0.9375rem",
@@ -149,7 +151,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               transition: "transform 0.2s, box-shadow 0.2s",
             }}
           >
-            {svc.bookingMethod === "call" ? "Call to book" : "Book this service"}
+            {bookingMethod === "call" ? "Call to book" : "Book this service"}
           </a>
         </div>
 

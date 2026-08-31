@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { SanityService } from "@/sanity/lib/types";
+import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
@@ -174,7 +175,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                         flexShrink: 0,
                       }}
                     >
-                      <Link href={`/services/${svc.slug}`} style={{ textDecoration: "none", display: "block" }}>
+                      <Link href={`/services/${stegaClean(svc.slug)}`} style={{ textDecoration: "none", display: "block" }}>
                         <div
                           style={{
                             borderRadius: 16,

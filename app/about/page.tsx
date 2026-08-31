@@ -5,6 +5,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { stegaClean } from "next-sanity";
 
 export const revalidate = 60;
 
@@ -26,7 +27,7 @@ export default async function AboutPage() {
         </PageHeader>
 
         {sections.map((section, i) => {
-          const imageLeft = section.imageSide === "left";
+          const imageLeft = stegaClean(section.imageSide) === "left";
           return (
             <section
               key={section.heading}

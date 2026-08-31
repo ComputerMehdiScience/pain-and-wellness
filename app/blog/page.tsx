@@ -6,6 +6,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { getPosts, getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { stegaClean } from "next-sanity";
 
 export const metadata = {
   title: "Blog | Pain & Wellness Solutions · Bowen Therapy in Stirling, Ontario",
@@ -60,7 +61,7 @@ export default async function BlogPage() {
             {sortedPosts.map((post) => (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${stegaClean(post.slug)}`}
                 className="blog-card"
                 style={{
                   background: "var(--cream)",

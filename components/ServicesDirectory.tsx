@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { SanityService } from "@/sanity/lib/types";
 import { bookHref } from "@/sanity/lib/types";
+import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
@@ -13,6 +14,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const flip = index % 2 === 1;
+  const bookingMethod = stegaClean(service.bookingMethod);
 
   useEffect(() => {
     const el = ref.current;
@@ -194,8 +196,8 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
         >
           <a
             href={bookHref(service, settings)}
-            target={service.bookingMethod === "online" ? "_blank" : undefined}
-            rel={service.bookingMethod === "online" ? "noopener noreferrer" : undefined}
+            target={bookingMethod === "online" ? "_blank" : undefined}
+            rel={bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -212,7 +214,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--teal-deep)"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--teal)"}
           >
-            {service.bookingMethod === "online" ? "Book an appointment" : "Call to arrange a visit"}
+            {bookingMethod === "online" ? "Book an appointment" : "Call to arrange a visit"}
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
               <path d="M1 5h11M12 5L8 1M12 5L8 9" stroke="#fff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

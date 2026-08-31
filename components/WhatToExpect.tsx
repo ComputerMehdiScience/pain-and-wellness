@@ -3,7 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { Homepage } from "@/sanity/lib/queries";
+import type { Homepage } from "@/sanity/lib/types";
+import { stegaClean } from "next-sanity";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 import { urlForImage } from "@/sanity/lib/image";
 
@@ -36,7 +37,7 @@ export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpec
 
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(4rem, 7vw, 6rem)" }}>
           {blocks.map((b, i) => {
-            const photoFirst = b.imageSide === "left";
+            const photoFirst = stegaClean(b.imageSide) === "left";
             return (
               <motion.div
                 key={i}

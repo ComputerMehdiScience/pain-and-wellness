@@ -1,4 +1,5 @@
 import type { Image, PortableTextBlock } from "sanity";
+import { stegaClean } from "next-sanity";
 
 export type SanityService = {
   _id: string;
@@ -112,5 +113,5 @@ export function bookHref(
   service: Pick<SanityService, "bookingMethod">,
   settings: Pick<SiteSettings, "bookingUrl" | "phoneTel">
 ) {
-  return service.bookingMethod === "online" ? settings.bookingUrl : `tel:${settings.phoneTel}`;
+  return stegaClean(service.bookingMethod) === "online" ? settings.bookingUrl : `tel:${settings.phoneTel}`;
 }
