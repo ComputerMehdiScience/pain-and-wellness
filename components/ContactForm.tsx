@@ -5,7 +5,7 @@ import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 // Web3Forms access key. Get a free key at https://web3forms.com (enter Kathy's
 // email, they email you a key). It is safe to expose this key publicly.
-const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+const ACCESS_KEY = "00f3da65-33ce-4635-a7f8-c439e13ed402";
 
 type Status = "idle" | "sending" | "success" | "error";
 
