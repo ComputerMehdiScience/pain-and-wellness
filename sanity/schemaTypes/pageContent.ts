@@ -24,7 +24,8 @@ export const pageContent = defineType({
     }),
     defineField({
       name: "header",
-      title: "Page Header",
+      title: "Page Header (top banner)",
+      description: "The big banner at the top of this page only — separate from the homepage.",
       type: "object",
       fields: [
         { name: "eyebrow", title: "Eyebrow", type: "string" },
@@ -36,8 +37,8 @@ export const pageContent = defineType({
     }),
     defineField({
       name: "sections",
-      title: "Content Sections",
-      description: "Image + text blocks shown below the header, in order.",
+      title: "Content Sections (below the header)",
+      description: "Image + text blocks shown below the page header, in order.",
       type: "array",
       of: [{
         type: "object",

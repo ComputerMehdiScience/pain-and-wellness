@@ -18,7 +18,7 @@ export const structure: StructureResolver = (S) =>
         .title("Site Settings")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       S.listItem()
-        .title("Homepage")
+        .title("Homepage (Hero, About, Herd sections)")
         .child(S.document().schemaType("homepage").documentId("homepage")),
       S.divider(),
       S.listItem().title("Services").child(S.documentTypeList("service").title("Services")),
@@ -28,10 +28,10 @@ export const structure: StructureResolver = (S) =>
       S.listItem().title("Pricing").child(S.documentTypeList("pricingRow").title("Pricing")),
       S.divider(),
       S.listItem()
-        .title("Inner Pages")
+        .title("Other Pages (header banner + sections)")
         .child(
           S.list()
-            .title("Inner Pages")
+            .title("Other Pages (header banner + sections)")
             .items(
               Object.entries(PAGE_LABELS).map(([slug, label]) =>
                 S.listItem()
