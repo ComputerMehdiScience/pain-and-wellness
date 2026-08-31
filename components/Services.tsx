@@ -239,68 +239,6 @@ export default function Services({ services, showHeader = true }: { services: Sa
                             </div>
                           )}
 
-                          {svc.price ? (
-                            <div style={{
-                              position: "absolute",
-                              top: "1.25rem",
-                              left: "1.25rem",
-                              maxWidth: isFeatured ? "calc(100% - 8rem)" : "calc(100% - 2.5rem)",
-                              background: "var(--teal-deep)",
-                              borderRadius: 14,
-                              padding: "0.35rem 0.85rem",
-                              fontFamily: "var(--font-body)",
-                              fontSize: "0.75rem",
-                              fontWeight: 700,
-                              letterSpacing: "0.01em",
-                              lineHeight: 1.4,
-                              color: "#fff",
-                              boxShadow: "0 4px 10px oklch(20% 0.01 240 / 0.3)",
-                            }}>
-                              {svc.price}
-                            </div>
-                          ) : (
-                            <div
-                              role="link"
-                              tabIndex={0}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                window.location.href = `tel:${settings.phoneTel}`;
-                              }}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  window.location.href = `tel:${settings.phoneTel}`;
-                                }
-                              }}
-                              style={{
-                                position: "absolute",
-                                top: "1.25rem",
-                                left: "1.25rem",
-                                background: "oklch(18% 0.04 200 / 0.4)",
-                                backdropFilter: "blur(10px)",
-                                border: "1px solid oklch(96% 0.012 82 / 0.5)",
-                                borderRadius: 20,
-                                padding: "0.35rem 0.85rem",
-                                fontFamily: "var(--font-body)",
-                                fontSize: "0.6875rem",
-                                fontWeight: 700,
-                                letterSpacing: "0.01em",
-                                color: "#fff",
-                                textDecoration: "none",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "0.35rem",
-                                cursor: "pointer",
-                              }}
-                            >
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83a19.79 19.79 0 01-3.07-8.67A2 2 0 012.4 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.5 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="#fff" />
-                              </svg>
-                              Call for pricing
-                            </div>
-                          )}
 
                           <div style={{
                             position: "absolute",
