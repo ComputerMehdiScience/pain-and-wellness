@@ -18,7 +18,6 @@ const serviceProjection = `{
   _id,
   name,
   "slug": slug.current,
-  order,
   photo,
   tagline,
   shortDescription,
@@ -41,7 +40,7 @@ const postProjection = `{
 }`;
 
 export async function getServices(): Promise<SanityService[]> {
-  const { data } = await sanityFetch({ query: `*[_type == "service"] | order(order asc) ${serviceProjection}` });
+  const { data } = await sanityFetch({ query: `*[_type == "service"] | order(orderRank asc) ${serviceProjection}` });
   return data as SanityService[];
 }
 
@@ -92,21 +91,21 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 export async function getTestimonials(): Promise<Testimonial[]> {
   const { data } = await sanityFetch({
-    query: `*[_type == "testimonial"] | order(order asc){ _id, name, quote, photo }`,
+    query: `*[_type == "testimonial"] | order(orderRank asc){ _id, name, quote, photo }`,
   });
   return data as Testimonial[];
 }
 
 export async function getFaqItems(): Promise<FaqItem[]> {
   const { data } = await sanityFetch({
-    query: `*[_type == "faqItem"] | order(order asc){ _id, question, answer }`,
+    query: `*[_type == "faqItem"] | order(orderRank asc){ _id, question, answer }`,
   });
   return data as FaqItem[];
 }
 
 export async function getPricingRows(): Promise<PricingRow[]> {
   const { data } = await sanityFetch({
-    query: `*[_type == "pricingRow"] | order(order asc){ _id, label, note, price, unit }`,
+    query: `*[_type == "pricingRow"] | order(orderRank asc){ _id, label, note, price, unit }`,
   });
   return data as PricingRow[];
 }

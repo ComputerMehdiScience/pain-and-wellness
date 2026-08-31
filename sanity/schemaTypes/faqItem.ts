@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField } from "@sanity/orderable-document-list";
 
 export const faqItem = defineType({
   name: "faqItem",
@@ -7,7 +8,7 @@ export const faqItem = defineType({
   fields: [
     defineField({ name: "question", title: "Question", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "answer", title: "Answer", type: "text", rows: 4, validation: (Rule) => Rule.required() }),
-    defineField({ name: "order", title: "Display Order", type: "number", validation: (Rule) => Rule.required() }),
+    orderRankField({ type: "faqItem" }),
   ],
   preview: {
     select: { title: "question" },

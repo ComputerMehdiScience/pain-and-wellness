@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField } from "@sanity/orderable-document-list";
 import { validateImageQuality } from "./validateImageQuality";
 
 export const service = defineType({
@@ -19,13 +20,7 @@ export const service = defineType({
       options: { source: "name" },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "order",
-      title: "Display Order",
-      description: "Lower numbers show first in the homepage carousel and services list.",
-      type: "number",
-      validation: (Rule) => Rule.required(),
-    }),
+    orderRankField({ type: "service" }),
     defineField({
       name: "photo",
       title: "Photo",

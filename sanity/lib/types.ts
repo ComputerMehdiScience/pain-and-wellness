@@ -5,7 +5,6 @@ export type SanityService = {
   _id: string;
   name: string;
   slug: string;
-  order: number;
   photo: Image;
   tagline: string;
   shortDescription: string;

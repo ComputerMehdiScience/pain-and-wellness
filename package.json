@@ -12,6 +12,7 @@
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-separator": "^1.1.8",
     "@sanity/image-url": "^2.1.1",
+    "@sanity/orderable-document-list": "^2.0.23",
     "@sanity/vision": "^6.11.0",
     "@tailwindcss/postcss": "^4.3.0",
     "clsx": "^2.1.1",

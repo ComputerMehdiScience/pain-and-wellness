@@ -1,4 +1,5 @@
 import type { StructureResolver } from "sanity/structure";
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 
 const PAGE_LABELS: Record<string, string> = {
   services: "Services Page",
@@ -10,7 +11,7 @@ const PAGE_LABELS: Record<string, string> = {
   "equine-body-work": "Equine Body Work Page",
 };
 
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title("Content")
     .items([
@@ -21,11 +22,11 @@ export const structure: StructureResolver = (S) =>
         .title("Homepage (Hero, About, Herd sections)")
         .child(S.document().schemaType("homepage").documentId("homepage")),
       S.divider(),
-      S.listItem().title("Services").child(S.documentTypeList("service").title("Services")),
+      orderableDocumentListDeskItem({ type: "service", title: "Services (drag to reorder)", S, context }),
       S.listItem().title("Blog Posts").child(S.documentTypeList("post").title("Blog Posts")),
-      S.listItem().title("Testimonials").child(S.documentTypeList("testimonial").title("Testimonials")),
-      S.listItem().title("FAQ").child(S.documentTypeList("faqItem").title("FAQ")),
-      S.listItem().title("Pricing").child(S.documentTypeList("pricingRow").title("Pricing")),
+      orderableDocumentListDeskItem({ type: "testimonial", title: "Testimonials (drag to reorder)", S, context }),
+      orderableDocumentListDeskItem({ type: "faqItem", title: "FAQ (drag to reorder)", S, context }),
+      orderableDocumentListDeskItem({ type: "pricingRow", title: "Pricing (drag to reorder)", S, context }),
       S.divider(),
       S.listItem()
         .title("Other Pages (header banner + sections)")
