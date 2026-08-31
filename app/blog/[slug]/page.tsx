@@ -6,13 +6,13 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
-import { getPost, getPosts, getSiteSettings } from "@/sanity/lib/queries";
+import { getPost, getPostSlugsForBuild, getSiteSettings } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
+  const posts = await getPostSlugsForBuild();
   return posts.map((p) => ({ slug: p.slug }));
 }
 

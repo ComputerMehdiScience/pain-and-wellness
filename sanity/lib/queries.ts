@@ -1,5 +1,6 @@
 import "server-only";
 import { sanityFetch } from "./live";
+import { client } from "./client";
 import type {
   SanityService,
   SanityPost,
@@ -63,6 +64,19 @@ export async function getPost(slug: string): Promise<SanityPost | null> {
     params: { slug },
   });
   return data as SanityPost | null;
+}
+
+/**
+ * Build-time only: generateStaticParams runs with no HTTP request, so it
+ * can't use sanityFetch (which needs draftMode()/cookies to resolve preview
+ * state). These use the plain published-only client instead.
+ */
+export async function getServiceSlugsForBuild(): Promise<{ slug: string }[]> {
+  return client.fetch(`*[_type == "service"]{"slug": slug.current}`);
+}
+
+export async function getPostSlugsForBuild(): Promise<{ slug: string }[]> {
+  return client.fetch(`*[_type == "post"]{"slug": slug.current}`);
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

@@ -3,13 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { getService, getServices, getSiteSettings, bookHref } from "@/sanity/lib/queries";
+import { getService, getServiceSlugsForBuild, getSiteSettings, bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const services = await getServices();
+  const services = await getServiceSlugsForBuild();
   return services.map((s) => ({ slug: s.slug }));
 }
 
