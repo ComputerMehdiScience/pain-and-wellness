@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 const links = [
   { label: "About", href: "/about" },
@@ -15,6 +16,7 @@ const links = [
 ];
 
 export default function Nav() {
+  const settings = useSiteSettings();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -99,7 +101,7 @@ export default function Nav() {
           ))}
 
           <a
-            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+            href={settings.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -187,7 +189,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+            href={settings.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{

@@ -1,6 +1,9 @@
 "use client";
 
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+
 export default function Footer() {
+  const settings = useSiteSettings();
   return (
     <footer
       style={{
@@ -54,15 +57,15 @@ export default function Footer() {
                 maxWidth: "36ch",
               }}
             >
-              Certified Bowen and myoskeletal therapy for people, horses, and dogs. Serving Hastings County from Stirling, Ontario since 2017.
+              {settings.footerTagline}
             </p>
 
             <div style={{ display: "flex", gap: "0.5rem" }}>
               {[
-                { label: "Instagram", href: "https://instagram.com/painandwellnesssolutions" },
-                { label: "Facebook", href: "https://facebook.com/painandwellnesssolutions" },
-                { label: "YouTube", href: "https://youtube.com/@painandwellnesssolutions5355" },
-              ].map((s) => (
+                { label: "Instagram", href: settings.instagramUrl },
+                { label: "Facebook", href: settings.facebookUrl },
+                { label: "YouTube", href: settings.youtubeUrl },
+              ].filter((s): s is { label: string; href: string } => Boolean(s.href)).map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
@@ -208,7 +211,7 @@ export default function Footer() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
               <a
-                href="https://maps.google.com/?q=89+Salem+Road+Stirling+ON"
+                href={settings.addressMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -220,10 +223,10 @@ export default function Footer() {
                   textDecoration: "none",
                 }}
               >
-                89 Salem Road<br />Stirling, ON
+                {settings.address}
               </a>
               <a
-                href="tel:6138851311"
+                href={`tel:${settings.phoneTel}`}
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "1.25rem",
@@ -238,10 +241,10 @@ export default function Footer() {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderBottomColor = "var(--teal-deep)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderBottomColor = "var(--cream-edge)"; }}
               >
-                613-885-1311
+                {settings.phoneDisplay}
               </a>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8125rem", fontWeight: 400, color: "var(--ink-faint)" }}>
-                Mon–Fri · 9am–5pm
+                {settings.hours}
               </p>
               <div style={{
                 display: "inline-flex",

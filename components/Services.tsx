@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SanityService } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 const GAP_PX = 16;
 
@@ -17,6 +18,7 @@ function getVisible(w: number) {
 }
 
 export default function Services({ services, showHeader = true }: { services: SanityService[]; showHeader?: boolean }) {
+  const settings = useSiteSettings();
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -255,7 +257,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                             </div>
                           ) : (
                             <a
-                              href="tel:6138851311"
+                              href={`tel:${settings.phoneTel}`}
                               style={{
                                 position: "absolute",
                                 top: "1.25rem",
@@ -403,7 +405,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
           style={{ textAlign: "center", marginTop: "clamp(1.5rem, 2.5vw, 2rem)" }}
         >
           <a
-            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+            href={settings.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{

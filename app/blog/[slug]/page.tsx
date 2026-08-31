@@ -6,7 +6,7 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
-import { getPost, getPosts } from "@/sanity/lib/queries";
+import { getPost, getPosts, getSiteSettings } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
@@ -101,7 +101,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const [post, settings] = await Promise.all([getPost(slug), getSiteSettings()]);
   if (!post) notFound();
 
   return (
@@ -177,7 +177,7 @@ export default async function BlogPostPage({
           {/* Inline book CTA */}
           <div style={{ marginTop: "2.5rem" }}>
             <a
-              href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+              href={settings.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{

@@ -3,46 +3,12 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import type { Homepage } from "@/sanity/lib/queries";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { urlForImage } from "@/sanity/lib/image";
 
-type Block = {
-  heading: string;
-  body: string[];
-  ctaText: string;
-  ctaHref: string;
-  photo: string;
-  objectPosition: string;
-  zoom: number;
-  imageSide: "left" | "right";
-};
-
-const blocks: Block[] = [
-  {
-    heading: "Pain is not always where the problem started.",
-    body: [
-      "Kathy looks at your posture, how you move, old injuries, and scar tissue. A lot of pain comes from your body working around something it has been protecting for a long time. She works to find the source.",
-    ],
-    ctaText: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    photo: "/photos/Bowenmyoskeletal.png",
-    objectPosition: "60% 85%",
-    zoom: 1.3,
-    imageSide: "left",
-  },
-  {
-    heading: "Every session is different.",
-    body: [
-      "Some people come in with back pain or headaches. Some call because their horse is off, or their dog is struggling on the stairs. The work changes depending on who Kathy is treating.",
-    ],
-    ctaText: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    photo: "/photos/kathy-horse-barn.png",
-    objectPosition: "30% center",
-    zoom: 1.1,
-    imageSide: "right",
-  },
-];
-
-export default function WhatToExpect() {
+export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpectBlocks"] }) {
+  const settings = useSiteSettings();
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -96,16 +62,11 @@ export default function WhatToExpect() {
                     background: "var(--warm-stone)",
                   }}>
                     <Image
-                      src={b.photo}
+                      src={urlForImage(b.photo).width(1100).height(825).fit("crop").url()}
                       alt={b.heading}
                       fill
                       sizes="(max-width: 760px) 90vw, 55vw"
-                      style={{
-                        objectFit: "cover",
-                        objectPosition: b.objectPosition,
-                        transform: `scale(${b.zoom})`,
-                        transformOrigin: b.objectPosition,
-                      }}
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                 </div>
@@ -127,24 +88,22 @@ export default function WhatToExpect() {
                     {b.heading}
                   </h2>
 
-                  {b.body.map((p, j) => (
-                    <p key={j} style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "1rem",
-                      fontWeight: 300,
-                      lineHeight: 1.8,
-                      color: "var(--earth-soft)",
-                      marginBottom: j < b.body.length - 1 ? "1.125rem" : "2rem",
-                      maxWidth: "52ch",
-                    }}>
-                      {p}
-                    </p>
-                  ))}
+                  <p style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "1rem",
+                    fontWeight: 300,
+                    lineHeight: 1.8,
+                    color: "var(--earth-soft)",
+                    marginBottom: "2rem",
+                    maxWidth: "52ch",
+                  }}>
+                    {b.paragraph}
+                  </p>
 
                   <a
-                    href={b.ctaHref}
-                    target={b.ctaHref.startsWith("http") ? "_blank" : undefined}
-                    rel={b.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                    href={settings.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       fontFamily: "var(--font-body)",
                       fontSize: "0.9375rem",
@@ -171,7 +130,7 @@ export default function WhatToExpect() {
                       a.style.background = "var(--teal)";
                     }}
                   >
-                    {b.ctaText}
+                    Book an appointment
                   </a>
                 </div>
               </motion.div>

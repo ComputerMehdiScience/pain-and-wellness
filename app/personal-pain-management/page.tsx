@@ -1,47 +1,52 @@
 import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
-import PersonalPainContent from "@/components/PersonalPainContent";
 import { SplitPanel } from "@/components/JourneySections";
+import PersonalPainContent from "@/components/PersonalPainContent";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { getPageContent, getFaqItems } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function PersonalPainManagementPage() {
+export const revalidate = 60;
+
+export default async function PersonalPainManagementPage() {
+  const [content, faqs] = await Promise.all([
+    getPageContent("personal-pain-management"),
+    getFaqItems(),
+  ]);
+  const { header, sections, listSections } = content;
+  const panel = sections[0];
+
   return (
     <>
       <Nav />
       <main>
         <PageHeader
-          eyebrow="Personal Pain Management"
-          title="Relief that does not force the body."
-          image="/photos/Bowenmyoskeletal.png"
-          imageAlt="Gentle hands-on therapy in a calm treatment room"
-          imagePosition="center"
-          note="Bowen, myoskeletal therapy, scar tissue release, Reiki, and foot detox"
+          eyebrow={header.eyebrow}
+          title={header.title}
+          image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageAlt={header.title}
+          note={header.note}
         >
-          Bowen and myoskeletal therapy for people dealing with chronic pain,
-          headaches, sciatica, jaw tension, scar tissue, stress, or movement
-          that no longer feels right.
+          {header.body}
         </PageHeader>
-        <SplitPanel
-          eyebrow="What it feels like"
-          title="Quiet work, clear intention."
-          image="/photos/placeholders/therapy-room-hands.png"
-          imageAlt="Gentle hands-on therapy in a calm treatment room"
-        >
-          <p>
-            A session is not deep-tissue massage and it is not chiropractic
-            adjustment. Kathy uses small, precise moves with pauses between
-            them, giving the nervous system time to respond.
-          </p>
-          <p style={{ marginTop: "1rem" }}>
-            Most people stay clothed, wear something comfortable, and leave
-            feeling calmer or looser. The goal is not to overpower the body. It
-            is to help it stop bracing.
-          </p>
-        </SplitPanel>
-        <PersonalPainContent />
-        <FAQ />
+
+        {panel && (
+          <SplitPanel
+            eyebrow={panel.eyebrow}
+            title={panel.heading}
+            image={panel.image ? urlForImage(panel.image).width(1120).height(840).fit("crop").url() : ""}
+            imageAlt={panel.heading}
+          >
+            {panel.paragraphs.map((p) => (
+              <p key={p} style={{ marginTop: p === panel.paragraphs[0] ? 0 : "1rem" }}>{p}</p>
+            ))}
+          </SplitPanel>
+        )}
+
+        <PersonalPainContent listSections={listSections} />
+        <FAQ faqs={faqs} />
         <CTA />
       </main>
       <Footer />

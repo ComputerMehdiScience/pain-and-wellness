@@ -75,10 +75,125 @@ export async function getPost(slug: string): Promise<SanityPost | null> {
   );
 }
 
-export const SETMORE_URL = "https://painandwellnesssolutions.setmore.com/katherinemorton";
-export const PHONE_TEL = "tel:6138851311";
-export const PHONE_DISPLAY = "613-885-1311";
+export type SiteSettings = {
+  phoneDisplay: string;
+  phoneTel: string;
+  address: string;
+  addressMapUrl: string;
+  hours: string;
+  bookingUrl: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  youtubeUrl?: string;
+  footerTagline: string;
+  defaultCtaTitle: string;
+  defaultCtaBody: string;
+};
 
-export function bookHref(service: Pick<SanityService, "bookingMethod">) {
-  return service.bookingMethod === "online" ? SETMORE_URL : PHONE_TEL;
+export type Testimonial = {
+  _id: string;
+  name: string;
+  quote: string;
+  photo: Image;
+};
+
+export type FaqItem = {
+  _id: string;
+  question: string;
+  answer: string;
+};
+
+export type PricingRow = {
+  _id: string;
+  label: string;
+  note: string;
+  price: string;
+  unit: string;
+};
+
+export type Homepage = {
+  heroHeadline: [string, string, string];
+  heroSubheading: string;
+  heroPhoto: Image;
+  heroCards: { eyebrow: string; title: string }[];
+  aboutHeading: string;
+  aboutParagraph: string;
+  aboutQuote: string;
+  aboutPhoto: Image;
+  whatToExpectBlocks: { heading: string; paragraph: string; photo: Image; imageSide: "left" | "right" }[];
+  herdHeading: string;
+  herdParagraph: string;
+  herdPhoto: Image;
+  herdDetails: { label: string; value: string }[];
+};
+
+export type PageContentSection = {
+  eyebrow?: string;
+  heading: string;
+  paragraphs: string[];
+  image?: Image;
+  imageSide?: "left" | "right";
+};
+
+export type PageContentListSection = {
+  heading: string;
+  items: string[];
+  footnote?: string;
+  image?: Image;
+  imageSide?: "left" | "right";
+};
+
+export type PageContent = {
+  page: string;
+  header: {
+    eyebrow: string;
+    title: string;
+    image?: Image;
+    note: string;
+    body: string;
+  };
+  sections: PageContentSection[];
+  listSections: PageContentListSection[];
+  ctaOverride?: { title: string; body: string };
+};
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  return client.fetch(`*[_type == "siteSettings"][0]{
+    phoneDisplay, phoneTel, address, addressMapUrl, hours, bookingUrl,
+    instagramUrl, facebookUrl, youtubeUrl, footerTagline,
+    defaultCtaTitle, defaultCtaBody
+  }`);
+}
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  return client.fetch(`*[_type == "testimonial"] | order(order asc){ _id, name, quote, photo }`);
+}
+
+export async function getFaqItems(): Promise<FaqItem[]> {
+  return client.fetch(`*[_type == "faqItem"] | order(order asc){ _id, question, answer }`);
+}
+
+export async function getPricingRows(): Promise<PricingRow[]> {
+  return client.fetch(`*[_type == "pricingRow"] | order(order asc){ _id, label, note, price, unit }`);
+}
+
+export async function getHomepage(): Promise<Homepage> {
+  return client.fetch(`*[_type == "homepage"][0]{
+    heroHeadline, heroSubheading, heroPhoto, heroCards,
+    aboutHeading, aboutParagraph, aboutQuote, aboutPhoto,
+    whatToExpectBlocks, herdHeading, herdParagraph, herdPhoto, herdDetails
+  }`);
+}
+
+export async function getPageContent(page: string): Promise<PageContent> {
+  return client.fetch(`*[_type == "pageContent" && page == $page][0]{
+    page, header, sections, listSections, ctaOverride
+  }`, { page });
+}
+
+export function bookHref(
+  service: Pick<SanityService, "bookingMethod">,
+  settings: Pick<SiteSettings, "bookingUrl" | "phoneTel">
+) {
+  return service.bookingMethod === "online" ? settings.bookingUrl : `tel:${settings.phoneTel}`;
 }

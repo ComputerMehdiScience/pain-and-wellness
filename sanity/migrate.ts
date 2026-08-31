@@ -287,9 +287,347 @@ function cryptoKey() {
   return Math.random().toString(36).slice(2, 10);
 }
 
+async function migrateSiteSettings() {
+  await client.createOrReplace({
+    _id: "siteSettings",
+    _type: "siteSettings",
+    phoneDisplay: "613-885-1311",
+    phoneTel: "6138851311",
+    address: "89 Salem Road, Stirling, ON",
+    addressMapUrl: "https://maps.google.com/?q=89+Salem+Road+Stirling+ON",
+    hours: "Mon–Fri · 9am–5pm",
+    bookingUrl: "https://painandwellnesssolutions.setmore.com/katherinemorton",
+    instagramUrl: "https://instagram.com/painandwellnesssolutions",
+    facebookUrl: "https://facebook.com/painandwellnesssolutions",
+    youtubeUrl: "https://youtube.com/@painandwellnesssolutions5355",
+    footerTagline: "Certified Bowen and myoskeletal therapy for people, horses, and dogs. Serving Hastings County from Stirling, Ontario since 2017.",
+    defaultCtaTitle: "Book a session with Kathy.",
+    defaultCtaBody: "Book online for clinic appointments in Stirling. Call for horse, dog, and farm-visit bookings.",
+  });
+  console.log("✓ Site Settings");
+}
+
+async function migrateHomepage() {
+  const heroPhoto = await uploadPhoto("hero-photo.png");
+  const aboutPhoto = await uploadPhoto("kathy-portrait.jpg");
+  const wte1Photo = await uploadPhoto("Bowenmyoskeletal.png");
+  const wte2Photo = await uploadPhoto("kathy-horse-barn.png");
+  const herdPhoto = await uploadPhoto("healing-with-the-herd-services.png");
+
+  await client.createOrReplace({
+    _id: "homepage",
+    _type: "homepage",
+    heroHeadline: ["Bowen therapy", "for you and", "your animals."],
+    heroSubheading: "Gentle, hands-on care in Stirling and Hastings County for pain, stiffness, scar tissue, stress, and animals that are not moving like themselves.",
+    heroPhoto,
+    heroCards: [
+      { eyebrow: "Certified", title: "Bowen Therapist" },
+      { eyebrow: "Stirling, ON", title: "Mobile farm visits" },
+      { eyebrow: "Drug-free", title: "Hands-on therapy" },
+    ],
+    aboutHeading: "Meet Kathy Morton.",
+    aboutParagraph: "Kathy has been helping people and animals since 2017. Her work is quiet and practical. She looks at the whole picture, not just the spot that is hurting.",
+    aboutQuote: "She brings the same careful eye to a person walking into the clinic, a horse coming out of the barn, or a dog who is starting to slow down.",
+    aboutPhoto,
+    whatToExpectBlocks: [
+      {
+        _key: cryptoKey(),
+        heading: "Pain is not always where the problem started.",
+        paragraph: "Kathy looks at your posture, how you move, old injuries, and scar tissue. A lot of pain comes from your body working around something it has been protecting for a long time. She works to find the source.",
+        photo: wte1Photo,
+        imageSide: "left",
+      },
+      {
+        _key: cryptoKey(),
+        heading: "Every session is different.",
+        paragraph: "Some people come in with back pain or headaches. Some call because their horse is off, or their dog is struggling on the stairs. The work changes depending on who Kathy is treating.",
+        photo: wte2Photo,
+        imageSide: "right",
+      },
+    ],
+    herdHeading: "Healing with\nthe Herd",
+    herdParagraph: "One of the only things like it in Ontario. Time with Kathy's horses and tuning fork sound therapy on the farm. Hard to describe, easy to feel.",
+    herdPhoto,
+    herdDetails: [
+      { _key: cryptoKey(), label: "Private sessions", value: "Held at Kathy's farm near Stirling" },
+      { _key: cryptoKey(), label: "Who it helps", value: "Burnout, anxiety, grief, chronic stress" },
+      { _key: cryptoKey(), label: "Seasonal availability", value: "Call to discuss booking" },
+    ],
+  });
+  console.log("✓ Homepage");
+}
+
+async function migrateTestimonials() {
+  const items = [
+    {
+      slug: "crooked-posture",
+      name: "Crooked posture & sore knees",
+      quote: "I came to Kathy because I had sore knees. I didn't realize I was so crooked and that my shoulders were out. After her treatments, my shoulders are square and my knee doesn't hurt anymore. Thank you Kathy!",
+      photoFile: "crooked result.webp",
+    },
+    {
+      slug: "bells-palsy",
+      name: "Bell's Palsy recovery",
+      quote: "Bowen Therapy healed my Bell's Palsy in just three sessions. Just look at the difference in my feet! My sleep improved, jaw tension disappeared, and my stress levels dropped. Truly life-changing! Huge thanks to Kathy for this incredible healing experience. I didn't realize the effects of what proper balance can do for my body!",
+      photoFile: "bells palsy result.webp",
+    },
+    {
+      slug: "jaw-grinding",
+      name: "Jaw grinding & tension",
+      quote: "The work Kathy does on my jaw bones and the exercises she gave me have helped me a lot from grinding my teeth at night. Thank you so much Kathy!",
+      photoFile: "jaw result.webp",
+    },
+  ];
+  for (let i = 0; i < items.length; i++) {
+    const t = items[i];
+    const photo = await uploadPhoto(t.photoFile);
+    await client.createOrReplace({
+      _id: `testimonial-${t.slug}`,
+      _type: "testimonial",
+      name: t.name,
+      quote: t.quote,
+      photo,
+      order: i + 1,
+    });
+  }
+  console.log("✓ Testimonials");
+}
+
+async function migrateFaq() {
+  const items = [
+    { q: "What makes Bowen different from massage or chiropractic?", a: "Bowen is not massage and it is not adjustment. Instead of constant rubbing or cracking joints, Kathy makes small, precise moves over the muscle and then pauses. Those pauses are the key part. They give your body a moment to respond and settle on its own. It is gentler than both, and the goal is to help your body hold the change itself rather than forcing it." },
+    { q: "How many sessions will I need?", a: "Most people notice a real difference in 3 to 6 sessions. Ongoing or complicated issues may need more. Kathy will talk through that with you at your first appointment." },
+    { q: "What should I expect at my first visit?", a: "A session lasts 45 to 60 minutes. Wear comfortable, loose clothing. Kathy will ask about your pain and look at how you move before getting started. Most people leave feeling better than they expected." },
+    { q: "Do you treat horses and dogs?", a: "Yes. Horse visits are done at your farm across Hastings County, no trailering required. Dogs are seen at your home, where they stay relaxed in a familiar place. Call to arrange animal appointments." },
+    { q: "Can I keep seeing my doctor or chiropractor?", a: "Yes, though Kathy usually suggests starting with just Bowen for the first two or three sessions before adding other treatments back in. Giving it a fair run on its own makes it clear what is really helping, and most people find the Bowen is doing the work. After that, it sits comfortably alongside your doctor, physio, or chiropractor." },
+    { q: "Does Bowen therapy hurt?", a: "It can a little, especially over a muscle that is tight. The amount of pressure Kathy uses depends on how tight the muscle is, so a tense spot may feel firmer. It is never rough and there is no cracking, and most people still find the session relaxing. Any soreness usually settles quickly." },
+  ];
+  for (let i = 0; i < items.length; i++) {
+    await client.createOrReplace({
+      _id: `faqItem-${i + 1}`,
+      _type: "faqItem",
+      question: items[i].q,
+      answer: items[i].a,
+      order: i + 1,
+    });
+  }
+  console.log("✓ FAQ");
+}
+
+async function migratePricing() {
+  const rows = [
+    { label: "A session at the clinic", note: "In Stirling. $100 per session when you book the 6-month bundle.", price: "$110", unit: "per session" },
+    { label: "A house call", note: "Kathy comes to you, for people who cannot easily get to the clinic.", price: "$140", unit: "+ travel may apply" },
+    { label: "Canine Bowen", note: "At your home.", price: "$80", unit: "+ travel may apply" },
+    { label: "Equine Bodywork", note: "Farm visits across Hastings County.", price: "$140", unit: "+ travel may apply" },
+  ];
+  for (let i = 0; i < rows.length; i++) {
+    await client.createOrReplace({
+      _id: `pricingRow-${i + 1}`,
+      _type: "pricingRow",
+      ...rows[i],
+      order: i + 1,
+    });
+  }
+  console.log("✓ Pricing");
+}
+
+async function migratePageContent() {
+  const herdPasturePhoto = await uploadPhoto("placeholders/herd-pasture.png");
+  const aboutHeaderPhoto = await uploadPhoto("kathy-portrait.jpg");
+  const kathyFamilyPhoto = await uploadPhoto("kathy-family.png");
+  const therapyRoomPhoto = await uploadPhoto("placeholders/therapy-room-hands.png");
+  const scarTissuePhoto = await uploadPhoto("scartissueservice.png");
+  const bowenPhoto = await uploadPhoto("Bowenmyoskeletal.png");
+  const kathyHorseBarnPhoto = await uploadPhoto("kathy-horse-barn.png");
+  const reyaPhoto1 = await uploadPhoto("kathy-working-on-reya.png");
+  const reyaPhoto2 = await uploadPhoto("kathy-working-on-reya.png");
+
+  await client.createOrReplace({
+    _id: "pageContent-services",
+    _type: "pageContent",
+    page: "services",
+    header: {
+      eyebrow: "Services",
+      title: "Choose the care that fits the moment.",
+      image: herdPasturePhoto,
+      note: "Clinic appointments, farm visits, and animal sessions",
+      body: "Clinic appointments, farm visits, and gentle hands-on care for the different reasons people come to Pain & Wellness Solutions.",
+    },
+    sections: [],
+    listSections: [],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-blog",
+    _type: "pageContent",
+    page: "blog",
+    header: {
+      eyebrow: "Blog",
+      title: "Gentle guidance for people and animals.",
+      image: herdPasturePhoto,
+      note: "Plain-language articles on Bowen therapy and bodywork",
+      body: "Short, practical reads on how Bowen therapy works, what to expect, and how to tell when you or your animals could use a hand.",
+    },
+    sections: [],
+    listSections: [],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-about",
+    _type: "pageContent",
+    page: "about",
+    header: {
+      eyebrow: "Kathy Morton",
+      title: "About Kathy Morton.",
+      image: aboutHeaderPhoto,
+      note: "Certified Bowen therapist since 2017",
+      body: "Kathy's work is personal, practical, and rooted in years of helping people and animals move with less pain and more ease.",
+    },
+    sections: [
+      {
+        _key: cryptoKey(),
+        heading: "From animal Bowen to whole-body care.",
+        paragraphs: [
+          "Kathy began with Animal Bowen certification in 2017, then continued into Bowen therapy, myoskeletal therapy, scar tissue release, and equine-focused bodywork.",
+          "That blend matters. Instead of treating one sore spot in isolation, she looks for the way the whole body is adapting: posture, compensation, old injuries, stress, and movement habits.",
+        ],
+        image: herdPasturePhoto,
+        imageSide: "right",
+      },
+      {
+        _key: cryptoKey(),
+        heading: "A farm, animals, and a steady way of working.",
+        paragraphs: [
+          "Kathy lives in Stirling with her husband, Marlo, surrounded by the animals and rural life that shape her work every day.",
+          "Her practice is not trying to feel like a spa or a clinic chain. It is local care from someone who understands people, horses, dogs, and the life that happens around them.",
+        ],
+        image: kathyFamilyPhoto,
+        imageSide: "left",
+      },
+    ],
+    listSections: [],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-contact",
+    _type: "pageContent",
+    page: "contact",
+    header: {
+      eyebrow: "Contact",
+      title: "The right next step should be obvious.",
+      image: kathyHorseBarnPhoto,
+      note: "Book online for clinic care. Call for animals and farm visits.",
+      body: "Clinic appointments can be booked online. For equine bodywork, canine Bowen, Healing with the Herd, or farm visits, call Kathy directly.",
+    },
+    sections: [],
+    listSections: [],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-personal-pain-management",
+    _type: "pageContent",
+    page: "personal-pain-management",
+    header: {
+      eyebrow: "Personal Pain Management",
+      title: "Relief that does not force the body.",
+      image: bowenPhoto,
+      note: "Bowen, myoskeletal therapy, scar tissue release, Reiki, and foot detox",
+      body: "Bowen and myoskeletal therapy for people dealing with chronic pain, headaches, sciatica, jaw tension, scar tissue, stress, or movement that no longer feels right.",
+    },
+    sections: [
+      {
+        _key: cryptoKey(),
+        eyebrow: "What it feels like",
+        heading: "Quiet work, clear intention.",
+        paragraphs: [
+          "A session is not deep-tissue massage and it is not chiropractic adjustment. Kathy uses small, precise moves with pauses between them, giving the nervous system time to respond.",
+          "Most people stay clothed, wear something comfortable, and leave feeling calmer or looser. The goal is not to overpower the body. It is to help it stop bracing.",
+        ],
+        image: therapyRoomPhoto,
+        imageSide: "left",
+      },
+    ],
+    listSections: [
+      {
+        _key: cryptoKey(),
+        heading: "What people come in for.",
+        items: [
+          "Back pain & sciatica", "Headaches & migraines", "Jaw tension (TMJ)", "Neck & shoulder tension",
+          "Hip & knee pain", "Frozen shoulder", "Sports injuries", "Post-surgical recovery",
+          "Scar tissue tightness", "Stress & anxiety", "Sleep disruption", "Nerve pain",
+        ],
+        footnote: "If yours isn't on the list, call anyway.",
+        image: scarTissuePhoto,
+        imageSide: "left",
+      },
+      {
+        _key: cryptoKey(),
+        heading: "At your first visit.",
+        items: [
+          "You'll talk through what's going on: history, current pain patterns, what you've already tried. Kathy listens for the whole picture, not just the symptom.",
+          "She'll look at how your body is holding itself. Posture, movement, old injuries, the ways your body has been compensating. Most people are surprised by what she finds.",
+          "Then treatment begins. Small, precise moves with deliberate pauses between them. No cracking, no sustained pressure. Most people feel calmer and looser before they leave.",
+        ],
+        image: bowenPhoto,
+        imageSide: "right",
+      },
+    ],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-results",
+    _type: "pageContent",
+    page: "results",
+    header: {
+      eyebrow: "Results",
+      title: "Real changes clients can feel.",
+      image: therapyRoomPhoto,
+      note: "Reviews often mention pain relief, mobility, and feeling heard",
+      body: "Reviews from people who have booked with Kathy for pain, mobility, relaxation, recovery, and support for their animals.",
+    },
+    sections: [],
+    listSections: [],
+  });
+
+  await client.createOrReplace({
+    _id: "pageContent-equine-body-work",
+    _type: "pageContent",
+    page: "equine-body-work",
+    header: {
+      eyebrow: "Equine Body Work",
+      title: "Bodywork for the horse you know best.",
+      image: reyaPhoto1,
+      note: "Farm visits arranged directly with Kathy",
+      body: "Gentle, observant care for horses showing stiffness, soreness, uneven movement, reluctance, or changes in performance.",
+    },
+    sections: [
+      {
+        _key: cryptoKey(),
+        eyebrow: "For horse owners",
+        heading: "When something looks off, even if you cannot name it yet.",
+        paragraphs: [
+          "Horse owners often notice small changes first: a shorter stride, reluctance to bend, unevenness, tension under saddle, or behaviour that does not feel like their horse.",
+          "Kathy works on the farm so your horse can stay in a familiar place. Her job is to read the body, move slowly, and help release patterns that may be affecting comfort and performance.",
+        ],
+        image: reyaPhoto2,
+        imageSide: "left",
+      },
+    ],
+    listSections: [],
+    ctaOverride: {
+      title: "Talk with Kathy about your horse.",
+      body: "Farm visits are arranged directly so Kathy can understand your horse, your location, and what you have been noticing.",
+    },
+  });
+
+  console.log("✓ Page Content (7 pages)");
+}
+
 async function run() {
   console.log(`Migrating into project ${client.config().projectId}, dataset ${client.config().dataset}`);
 
+  if (!process.env.SKIP_SERVICES_POSTS) {
   for (const s of services) {
     console.log(`Uploading photo for ${s.name}...`);
     const photo = await uploadPhoto(s.photoFile);
@@ -327,6 +665,14 @@ async function run() {
     });
     console.log(`✓ ${p.title}`);
   }
+  }
+
+  await migrateSiteSettings();
+  await migrateHomepage();
+  await migrateTestimonials();
+  await migrateFaq();
+  await migratePricing();
+  await migratePageContent();
 
   console.log("Migration complete.");
 }

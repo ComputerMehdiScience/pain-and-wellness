@@ -5,30 +5,35 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { getServices } from "@/sanity/lib/queries";
+import { getServices, getPricingRows, getFaqItems, getPageContent } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const [services, pricing, faqs, content] = await Promise.all([
+    getServices(),
+    getPricingRows(),
+    getFaqItems(),
+    getPageContent("services"),
+  ]);
+  const { header } = content;
   return (
     <>
       <Nav />
       <main>
         <PageHeader
-          eyebrow="Services"
-          title="Choose the care that fits the moment."
-          image="/photos/placeholders/herd-pasture.png"
-          imageAlt="Horses in a quiet rural pasture"
-          imagePosition="center"
-          note="Clinic appointments, farm visits, and animal sessions"
+          eyebrow={header.eyebrow}
+          title={header.title}
+          image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageAlt={header.title}
+          note={header.note}
         >
-          Clinic appointments, farm visits, and gentle hands-on care for the
-          different reasons people come to Pain & Wellness Solutions.
+          {header.body}
         </PageHeader>
         <ServicesDirectory services={services} />
-        <Pricing />
-        <FAQ />
+        <Pricing rows={pricing} />
+        <FAQ faqs={faqs} />
         <CTA />
       </main>
       <Footer />

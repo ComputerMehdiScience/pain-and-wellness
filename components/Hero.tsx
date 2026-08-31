@@ -3,6 +3,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
+import type { Homepage } from "@/sanity/lib/queries";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { urlForImage } from "@/sanity/lib/image";
 
 function CheckShieldIcon({ color = "var(--teal)" }: { color?: string }) {
   return (
@@ -141,7 +144,18 @@ function FloatingCard({
   );
 }
 
-export default function Hero() {
+export default function Hero({
+  headline,
+  subheading,
+  photo,
+  cards,
+}: {
+  headline: [string, string, string];
+  subheading: string;
+  photo: Homepage["heroPhoto"];
+  cards: Homepage["heroCards"];
+}) {
+  const settings = useSiteSettings();
   const [mounted, setMounted] = useState(false);
 
   /* Mouse parallax for orb layer */
@@ -338,9 +352,9 @@ export default function Hero() {
             }}
           >
             {[
-              { text: "Bowen therapy", accent: false, delay: 0.05 },
-              { text: "for you and", accent: true, delay: 0.22 },
-              { text: "your animals.", accent: false, delay: 0.4 },
+              { text: headline[0], accent: false, delay: 0.05 },
+              { text: headline[1], accent: true, delay: 0.22 },
+              { text: headline[2], accent: false, delay: 0.4 },
             ].map((line, i) => (
               <motion.span
                 key={i}
@@ -375,9 +389,7 @@ export default function Hero() {
               marginBottom: "clamp(2rem, 3.5vw, 2.75rem)",
             }}
           >
-            Gentle, hands-on care in Stirling and Hastings County for pain,
-            stiffness, scar tissue, stress, and animals that are not moving like
-            themselves.
+            {subheading}
           </motion.p>
 
           <motion.div
@@ -392,7 +404,7 @@ export default function Hero() {
             }}
           >
             <a
-              href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+              href={settings.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -518,34 +530,34 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/photos/hero-photo.png"
+              src={urlForImage(photo).width(1240).height(1240).fit("crop").url()}
               alt="Kathy Morton smiling while working on a client — Pain & Wellness Solutions"
               fill
               sizes="(max-width: 960px) 90vw, 620px"
               priority
-              style={{ objectFit: "cover", objectPosition: "center 22%" }}
+              style={{ objectFit: "cover" }}
             />
           </div>
 
           {/* Floating cards — hidden on small screens */}
           <FloatingCard
             icon={<CheckShieldIcon />}
-            eyebrow="Certified"
-            title="Bowen Therapist"
+            eyebrow={cards[0].eyebrow}
+            title={cards[0].title}
             delay={0.95}
             style={{ top: "6%", left: "-10%" }}
           />
           <FloatingCard
             icon={<PinIcon />}
-            eyebrow="Stirling, ON"
-            title="Mobile farm visits"
+            eyebrow={cards[1].eyebrow}
+            title={cards[1].title}
             delay={1.1}
             style={{ top: "44%", right: "-5%" }}
           />
           <FloatingCard
             icon={<LeafIcon />}
-            eyebrow="Drug-free"
-            title="Hands-on therapy"
+            eyebrow={cards[2].eyebrow}
+            title={cards[2].title}
             delay={1.25}
             style={{ bottom: "4%", left: "-4%" }}
           />

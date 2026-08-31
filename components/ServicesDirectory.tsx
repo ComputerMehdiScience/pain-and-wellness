@@ -6,8 +6,10 @@ import Image from "next/image";
 import type { SanityService } from "@/sanity/lib/queries";
 import { bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 function ServiceRow({ service, index }: { service: SanityService; index: number }) {
+  const settings = useSiteSettings();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const flip = index % 2 === 1;
@@ -121,7 +123,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
           </motion.p>
         ) : (
           <motion.a
-            href="tel:6138851311"
+            href={`tel:${settings.phoneTel}`}
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.24 }}
@@ -191,7 +193,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.44 }}
         >
           <a
-            href={bookHref(service)}
+            href={bookHref(service, settings)}
             target={service.bookingMethod === "online" ? "_blank" : undefined}
             rel={service.bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{

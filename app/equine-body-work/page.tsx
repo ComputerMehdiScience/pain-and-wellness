@@ -3,44 +3,42 @@ import PageHeader from "@/components/PageHeader";
 import { SplitPanel } from "@/components/JourneySections";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { getPageContent } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function EquineBodyWorkPage() {
+export const revalidate = 60;
+
+export default async function EquineBodyWorkPage() {
+  const content = await getPageContent("equine-body-work");
+  const { header, sections, ctaOverride } = content;
+  const panel = sections[0];
+
   return (
     <>
       <Nav />
       <main>
         <PageHeader
-          eyebrow="Equine Body Work"
-          title="Bodywork for the horse you know best."
-          image="/photos/kathy-working-on-reya.png"
-          imageAlt="Kathy doing equine bodywork on Reya"
-          imagePosition="38% center"
-          note="Farm visits arranged directly with Kathy"
+          eyebrow={header.eyebrow}
+          title={header.title}
+          image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageAlt={header.title}
+          note={header.note}
         >
-          Gentle, observant care for horses showing stiffness, soreness,
-          uneven movement, reluctance, or changes in performance.
+          {header.body}
         </PageHeader>
-        <SplitPanel
-          eyebrow="For horse owners"
-          title="When something looks off, even if you cannot name it yet."
-          image="/photos/kathy-working-on-reya.png"
-          imageAlt="Gentle equine bodywork in a rural barn"
-        >
-          <p>
-            Horse owners often notice small changes first: a shorter stride,
-            reluctance to bend, unevenness, tension under saddle, or behaviour
-            that does not feel like their horse.
-          </p>
-          <p style={{ marginTop: "1rem" }}>
-            Kathy works on the farm so your horse can stay in a familiar place.
-            Her job is to read the body, move slowly, and help release patterns
-            that may be affecting comfort and performance.
-          </p>
-        </SplitPanel>
-        <CTA
-          title="Talk with Kathy about your horse."
-          body="Farm visits are arranged directly so Kathy can understand your horse, your location, and what you have been noticing."
-        />
+        {panel && (
+          <SplitPanel
+            eyebrow={panel.eyebrow}
+            title={panel.heading}
+            image={panel.image ? urlForImage(panel.image).width(1120).height(840).fit("crop").url() : ""}
+            imageAlt={panel.heading}
+          >
+            {panel.paragraphs.map((p) => (
+              <p key={p} style={{ marginTop: p === panel.paragraphs[0] ? 0 : "1rem" }}>{p}</p>
+            ))}
+          </SplitPanel>
+        )}
+        <CTA title={ctaOverride?.title} body={ctaOverride?.body} />
       </main>
       <Footer />
     </>

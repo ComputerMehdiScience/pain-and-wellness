@@ -2,35 +2,11 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import type { PricingRow } from "@/sanity/lib/queries";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
-const rows = [
-  {
-    label: "A session at the clinic",
-    note: "In Stirling. $100 per session when you book the 6-month bundle.",
-    price: "$110",
-    unit: "per session",
-  },
-  {
-    label: "A house call",
-    note: "Kathy comes to you, for people who cannot easily get to the clinic.",
-    price: "$140",
-    unit: "+ travel may apply",
-  },
-  {
-    label: "Canine Bowen",
-    note: "At your home.",
-    price: "$80",
-    unit: "+ travel may apply",
-  },
-  {
-    label: "Equine Bodywork",
-    note: "Farm visits across Hastings County.",
-    price: "$140",
-    unit: "+ travel may apply",
-  },
-];
-
-export default function Pricing() {
+export default function Pricing({ rows }: { rows: PricingRow[] }) {
+  const settings = useSiteSettings();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -83,7 +59,7 @@ export default function Pricing() {
         >
           {rows.map((r, i) => (
             <div
-              key={r.label}
+              key={r._id}
               style={{
                 borderTop: i === 0 ? "none" : "1px solid var(--cream-edge)",
                 padding: "1.625rem clamp(1.25rem, 4vw, 2.25rem)",
@@ -158,7 +134,7 @@ export default function Pricing() {
           }}
         >
           Reiki, Scar Tissue Release, and Ionized Foot Detox are priced individually.{" "}
-          <a href="tel:6138851311" style={{ color: "var(--teal-deep)", fontWeight: 600, borderBottom: "1px solid var(--teal-light)", paddingBottom: 1 }}>
+          <a href={`tel:${settings.phoneTel}`} style={{ color: "var(--teal-deep)", fontWeight: 600, borderBottom: "1px solid var(--teal-light)", paddingBottom: 1 }}>
             Call Kathy
           </a>{" "}
           to ask.

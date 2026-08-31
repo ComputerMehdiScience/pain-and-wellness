@@ -3,8 +3,20 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import type { Homepage } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function About() {
+export default function About({
+  heading,
+  paragraph,
+  quote,
+  photo,
+}: {
+  heading: string;
+  paragraph: string;
+  quote: string;
+  photo: Homepage["aboutPhoto"];
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -71,10 +83,10 @@ export default function About() {
             }}
           >
             <Image
-              src="/photos/kathy-portrait.jpg"
+              src={urlForImage(photo).width(900).height(1200).fit("crop").url()}
               alt="Kathy Morton"
               fill
-              style={{ objectFit: "cover", objectPosition: "center top", filter: "contrast(1.05) saturate(1.1)" }}
+              style={{ objectFit: "cover", filter: "contrast(1.05) saturate(1.1)" }}
               sizes="(max-width: 860px) 80vw, 40vw"
             />
           </motion.div>
@@ -115,7 +127,7 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            Meet Kathy Morton.
+            {heading}
           </h2>
 
           <p style={{
@@ -127,9 +139,7 @@ export default function About() {
             marginBottom: "2.5rem",
             maxWidth: "52ch",
           }}>
-            Kathy has been helping people and animals since 2017. Her work is
-            quiet and practical. She looks at the whole picture, not just the
-            spot that is hurting.
+            {paragraph}
           </p>
 
           <blockquote style={{
@@ -143,8 +153,7 @@ export default function About() {
             paddingLeft: "1.25rem",
             marginBottom: "2.5rem",
           }}>
-            She brings the same careful eye to a person walking into the clinic,
-            a horse coming out of the barn, or a dog who is starting to slow down.
+            {quote}
           </blockquote>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: 440 }}>

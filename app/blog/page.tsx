@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { getPosts } from "@/sanity/lib/queries";
+import { getPosts, getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const metadata = {
@@ -24,21 +24,20 @@ function formatDate(iso: string) {
 }
 
 export default async function BlogPage() {
-  const sortedPosts = await getPosts();
+  const [sortedPosts, content] = await Promise.all([getPosts(), getPageContent("blog")]);
+  const { header } = content;
   return (
     <>
       <Nav />
       <main>
         <PageHeader
-          eyebrow="Blog"
-          title="Gentle guidance for people and animals."
-          image="/photos/placeholders/herd-pasture.png"
-          imageAlt="Quiet rural pasture with horses"
-          imagePosition="center"
-          note="Plain-language articles on Bowen therapy and bodywork"
+          eyebrow={header.eyebrow}
+          title={header.title}
+          image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageAlt={header.title}
+          note={header.note}
         >
-          Short, practical reads on how Bowen therapy works, what to expect, and
-          how to tell when you or your animals could use a hand.
+          {header.body}
         </PageHeader>
 
         <section

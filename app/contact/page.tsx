@@ -3,22 +3,34 @@ import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import { getPageContent, getSiteSettings } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function ContactPage() {
+export const revalidate = 60;
+
+export default async function ContactPage() {
+  const [content, settings] = await Promise.all([getPageContent("contact"), getSiteSettings()]);
+  const { header } = content;
+
+  const contactLinks = [
+    ["Phone", settings.phoneDisplay, `tel:${settings.phoneTel}`],
+    ["Clinic", settings.address, settings.addressMapUrl],
+    ...(settings.instagramUrl ? [["Instagram", "@painandwellnesssolutions", settings.instagramUrl]] : []),
+    ...(settings.facebookUrl ? [["Facebook", "@painandwellnesssolutions", settings.facebookUrl]] : []),
+  ];
+
   return (
     <>
       <Nav />
       <main>
         <PageHeader
-          eyebrow="Contact"
-          title="The right next step should be obvious."
-          image="/photos/kathy-horse-barn.png"
-          imageAlt="Kathy working with a horse"
-          imagePosition="center 30%"
-          note="Book online for clinic care. Call for animals and farm visits."
+          eyebrow={header.eyebrow}
+          title={header.title}
+          image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageAlt={header.title}
+          note={header.note}
         >
-          Clinic appointments can be booked online. For equine bodywork, canine
-          Bowen, Healing with the Herd, or farm visits, call Kathy directly.
+          {header.body}
         </PageHeader>
         <section
           style={{
@@ -36,12 +48,7 @@ export default function ContactPage() {
             }}
             className="contact-grid"
           >
-            {[
-              ["Phone", "613-885-1311", "tel:6138851311"],
-              ["Clinic", "89 Salem Road, Stirling, ON", "https://maps.google.com/?q=89+Salem+Road+Stirling+ON"],
-              ["Instagram", "@painandwellnesssolutions", "https://instagram.com/painandwellnesssolutions"],
-              ["Facebook", "@painandwellnesssolutions", "https://facebook.com/painandwellnesssolutions"],
-            ].map(([label, value, href]) => (
+            {contactLinks.map(([label, value, href]) => (
               <a
                 key={label}
                 href={href}

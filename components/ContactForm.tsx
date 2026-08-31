@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 // Web3Forms access key. Get a free key at https://web3forms.com (enter Kathy's
 // email, they email you a key). It is safe to expose this key publicly.
@@ -9,6 +10,7 @@ const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
+  const settings = useSiteSettings();
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -79,7 +81,7 @@ export default function ContactForm() {
           Thank you, your message is on its way.
         </p>
         <p style={{ fontFamily: "var(--font-body)", color: "var(--ink-soft)", lineHeight: 1.7 }}>
-          Kathy will get back to you soon. For anything urgent, call 613-885-1311.
+          Kathy will get back to you soon. For anything urgent, call {settings.phoneDisplay}.
         </p>
       </div>
     );
@@ -125,7 +127,7 @@ export default function ContactForm() {
 
       {status === "error" && (
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "oklch(55% 0.18 25)" }}>
-          Something went wrong sending your message. Please try again, or call 613-885-1311.
+          Something went wrong sending your message. Please try again, or call {settings.phoneDisplay}.
         </p>
       )}
 

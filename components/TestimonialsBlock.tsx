@@ -3,26 +3,15 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CircularTestimonials } from "@/components/circular-testimonials";
+import type { Testimonial } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-const testimonials = [
-  {
-    name: "Crooked posture & sore knees",
-    quote: "I came to Kathy because I had sore knees. I didn't realize I was so crooked and that my shoulders were out. After her treatments, my shoulders are square and my knee doesn't hurt anymore. Thank you Kathy!",
-    src: "/photos/crooked result.webp",
-  },
-  {
-    name: "Bell's Palsy recovery",
-    quote: "Bowen Therapy healed my Bell's Palsy in just three sessions. Just look at the difference in my feet! My sleep improved, jaw tension disappeared, and my stress levels dropped. Truly life-changing! Huge thanks to Kathy for this incredible healing experience. I didn't realize the effects of what proper balance can do for my body!",
-    src: "/photos/bells palsy result.webp",
-  },
-  {
-    name: "Jaw grinding & tension",
-    quote: "The work Kathy does on my jaw bones and the exercises she gave me have helped me a lot from grinding my teeth at night. Thank you so much Kathy!",
-    src: "/photos/jaw result.webp",
-  },
-];
-
-export default function TestimonialsBlock() {
+export default function TestimonialsBlock({ testimonials }: { testimonials: Testimonial[] }) {
+  const slides = testimonials.map((t) => ({
+    name: t.name,
+    quote: t.quote,
+    src: urlForImage(t.photo).width(900).height(900).fit("crop").url(),
+  }));
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -81,7 +70,7 @@ export default function TestimonialsBlock() {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <CircularTestimonials
-          testimonials={testimonials}
+          testimonials={slides}
           autoplay={true}
           colors={{
             testimony: "var(--ink)",

@@ -2,14 +2,18 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 export default function CTA({
-  title = "Book a session with Kathy.",
-  body = "Book online for clinic appointments in Stirling. Call for horse, dog, and farm-visit bookings.",
+  title,
+  body,
 }: {
   title?: string;
   body?: string;
 }) {
+  const settings = useSiteSettings();
+  const resolvedTitle = title ?? settings.defaultCtaTitle;
+  const resolvedBody = body ?? settings.defaultCtaBody;
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -88,7 +92,7 @@ export default function CTA({
             className="section-heading"
             style={{ color: "var(--cream)", marginBottom: "1.25rem" }}
           >
-            {title}
+            {resolvedTitle}
           </h2>
           <p
             className="section-subhead"
@@ -97,7 +101,7 @@ export default function CTA({
               maxWidth: "44ch",
             }}
           >
-            {body}
+            {resolvedBody}
           </p>
         </motion.div>
 
@@ -113,7 +117,7 @@ export default function CTA({
           }}
         >
           <a
-            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+            href={settings.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -146,7 +150,7 @@ export default function CTA({
           </a>
 
           <a
-            href="tel:6138851311"
+            href={`tel:${settings.phoneTel}`}
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "0.9375rem",
@@ -166,7 +170,7 @@ export default function CTA({
                 strokeLinejoin="round"
               />
             </svg>
-            613-885-1311
+            {settings.phoneDisplay}
           </a>
         </motion.div>
       </div>

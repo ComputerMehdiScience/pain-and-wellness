@@ -3,21 +3,9 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-const conditions = [
-  "Back pain & sciatica",
-  "Headaches & migraines",
-  "Jaw tension (TMJ)",
-  "Neck & shoulder tension",
-  "Hip & knee pain",
-  "Frozen shoulder",
-  "Sports injuries",
-  "Post-surgical recovery",
-  "Scar tissue tightness",
-  "Stress & anxiety",
-  "Sleep disruption",
-  "Nerve pain",
-];
+import type { PageContentListSection } from "@/sanity/lib/queries";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { urlForImage } from "@/sanity/lib/image";
 
 function useInView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,9 +23,11 @@ function useInView() {
   return { ref, inView };
 }
 
-export default function PersonalPainContent() {
+export default function PersonalPainContent({ listSections }: { listSections: PageContentListSection[] }) {
+  const settings = useSiteSettings();
   const a$ = useInView();
   const b$ = useInView();
+  const [conditionsSection, firstVisitSection] = listSections;
 
   return (
     <>
@@ -63,13 +53,15 @@ export default function PersonalPainContent() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="photo-pop" style={{ width: "100%", aspectRatio: "4/3", position: "relative" }}>
-              <Image
-                src="/photos/scartissueservice.png"
-                alt="Scar tissue and pain treatment"
-                fill
-                sizes="(max-width: 760px) 90vw, 50vw"
-                style={{ objectFit: "cover", objectPosition: "65% 85%", transform: "scale(1.2)", transformOrigin: "65% 85%" }}
-              />
+              {conditionsSection?.image && (
+                <Image
+                  src={urlForImage(conditionsSection.image).width(900).height(675).fit("crop").url()}
+                  alt={conditionsSection.heading}
+                  fill
+                  sizes="(max-width: 760px) 90vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
             </div>
           </motion.div>
 
@@ -89,7 +81,7 @@ export default function PersonalPainContent() {
               marginBottom: "1.75rem",
               maxWidth: "18ch",
             }}>
-              What people come in for.
+              {conditionsSection?.heading}
             </h2>
 
             <div style={{
@@ -98,7 +90,7 @@ export default function PersonalPainContent() {
               gap: "0.5rem 1.5rem",
               marginBottom: "2rem",
             }}>
-              {conditions.map((c) => (
+              {conditionsSection?.items.map((c) => (
                 <div key={c} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
                   <span style={{ width: 16, height: 2, background: "var(--teal-accent)", display: "inline-block", borderRadius: 1, flexShrink: 0 }} />
                   <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink-soft)", lineHeight: 1.5 }}>{c}</span>
@@ -112,7 +104,7 @@ export default function PersonalPainContent() {
               color: "var(--ink-faint)",
               lineHeight: 1.7,
             }}>
-              If yours isn't on the list, call anyway.
+              {conditionsSection?.footnote}
             </p>
           </motion.div>
         </div>
@@ -149,14 +141,10 @@ export default function PersonalPainContent() {
               marginBottom: "1.75rem",
               maxWidth: "18ch",
             }}>
-              At your first visit.
+              {firstVisitSection?.heading}
             </h2>
 
-            {[
-              "You'll talk through what's going on: history, current pain patterns, what you've already tried. Kathy listens for the whole picture, not just the symptom.",
-              "She'll look at how your body is holding itself. Posture, movement, old injuries, the ways your body has been compensating. Most people are surprised by what she finds.",
-              "Then treatment begins. Small, precise moves with deliberate pauses between them. No cracking, no sustained pressure. Most people feel calmer and looser before they leave.",
-            ].map((p, i) => (
+            {firstVisitSection?.items.map((p, i) => (
               <motion.p
                 key={i}
                 initial={{ opacity: 0, y: 12 }}
@@ -168,7 +156,7 @@ export default function PersonalPainContent() {
                   fontWeight: 300,
                   lineHeight: 1.8,
                   color: "var(--earth-soft)",
-                  marginBottom: i < 2 ? "1.125rem" : "2rem",
+                  marginBottom: i < firstVisitSection.items.length - 1 ? "1.125rem" : "2rem",
                   maxWidth: "52ch",
                 }}
               >
@@ -177,7 +165,7 @@ export default function PersonalPainContent() {
             ))}
 
             <motion.a
-              href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+              href={settings.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 8 }}
@@ -218,13 +206,15 @@ export default function PersonalPainContent() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
             <div className="photo-pop" style={{ width: "100%", aspectRatio: "4/3", position: "relative" }}>
-              <Image
-                src="/photos/Bowenmyoskeletal.png"
-                alt="Bowen therapy session"
-                fill
-                sizes="(max-width: 760px) 90vw, 50vw"
-                style={{ objectFit: "cover", objectPosition: "60% 85%", transform: "scale(1.3)", transformOrigin: "60% 85%" }}
-              />
+              {firstVisitSection?.image && (
+                <Image
+                  src={urlForImage(firstVisitSection.image).width(900).height(675).fit("crop").url()}
+                  alt={firstVisitSection.heading}
+                  fill
+                  sizes="(max-width: 760px) 90vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
             </div>
           </motion.div>
         </div>

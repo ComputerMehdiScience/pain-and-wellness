@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { getService, getServices, bookHref } from "@/sanity/lib/queries";
+import { getService, getServices, getSiteSettings, bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const svc = await getService(slug);
+  const [svc, settings] = await Promise.all([getService(slug), getSiteSettings()]);
   if (!svc) notFound();
 
   return (
@@ -111,7 +111,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </p>
           ) : (
             <a
-              href="tel:6138851311"
+              href={`tel:${settings.phoneTel}`}
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "0.9375rem",
@@ -132,7 +132,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           )}
 
           <a
-            href={bookHref(svc)}
+            href={bookHref(svc, settings)}
             target={svc.bookingMethod === "online" ? "_blank" : undefined}
             rel={svc.bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{

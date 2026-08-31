@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Nunito } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import { SiteSettingsProvider } from "@/sanity/lib/SiteSettingsProvider";
+import { getSiteSettings } from "@/sanity/lib/queries";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -49,16 +51,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSiteSettings();
   return (
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
       <body>
         <SmoothScroll />
-        {children}
+        <SiteSettingsProvider settings={settings}>{children}</SiteSettingsProvider>
       </body>
     </html>
   );

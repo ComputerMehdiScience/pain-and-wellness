@@ -3,8 +3,22 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import type { Homepage } from "@/sanity/lib/queries";
+import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { urlForImage } from "@/sanity/lib/image";
 
-export default function Animals() {
+export default function Animals({
+  heading,
+  paragraph,
+  photo,
+  details,
+}: {
+  heading: string;
+  paragraph: string;
+  photo: Homepage["herdPhoto"];
+  details: Homepage["herdDetails"];
+}) {
+  const settings = useSiteSettings();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -40,12 +54,12 @@ export default function Animals() {
       <div style={{ position: "relative", overflow: "hidden", minHeight: 480 }}>
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
           <Image
-            src="/photos/healing-with-the-herd-services.png"
+            src={urlForImage(photo).width(1200).height(1080).fit("crop").url()}
             alt="Kathy Morton standing with her horses in their presence"
             fill
             sizes="(max-width: 860px) 100vw, 50vw"
             priority
-            style={{ objectFit: "cover", objectPosition: "40% center" }}
+            style={{ objectFit: "cover" }}
           />
         </motion.div>
         <div style={{
@@ -70,8 +84,9 @@ export default function Animals() {
         <h2 className="section-heading" style={{
           color: "var(--cream)",
           marginBottom: "1.5rem",
+          whiteSpace: "pre-line",
         }}>
-          Healing with<br />the Herd
+          {heading}
         </h2>
 
         <p style={{
@@ -83,22 +98,17 @@ export default function Animals() {
           marginBottom: "2rem",
           maxWidth: "44ch",
         }}>
-          One of the only things like it in Ontario. Time with Kathy's horses and
-          tuning fork sound therapy on the farm. Hard to describe, easy to feel.
+          {paragraph}
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "2.5rem" }}>
-          {[
-            ["Private sessions", "Held at Kathy's farm near Stirling"],
-            ["Who it helps", "Burnout, anxiety, grief, chronic stress"],
-            ["Seasonal availability", "Call to discuss booking"],
-          ].map(([label, val]) => (
+          {details.map(({ label, value }) => (
             <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "baseline" }}>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6875rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "oklch(72% 0.065 150)", minWidth: 120 }}>
                 {label}
               </span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", fontWeight: 300, color: "oklch(96% 0.012 82 / 0.55)" }}>
-                {val}
+                {value}
               </span>
             </div>
           ))}
@@ -106,7 +116,7 @@ export default function Animals() {
 
         <div style={{ display: "flex", gap: "1.25rem", alignItems: "center", flexWrap: "wrap" }}>
           <a
-            href="https://painandwellnesssolutions.setmore.com/katherinemorton"
+            href={settings.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -137,13 +147,13 @@ export default function Animals() {
           >
             Book a Herd session
           </a>
-          <a href="tel:6138851311" style={{
+          <a href={`tel:${settings.phoneTel}`} style={{
             fontFamily: "var(--font-body)",
             fontSize: "0.875rem",
             fontWeight: 400,
             color: "oklch(96% 0.012 82 / 0.45)",
           }}>
-            or call 613-885-1311
+            or call {settings.phoneDisplay}
           </a>
         </div>
       </motion.div>
