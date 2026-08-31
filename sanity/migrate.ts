@@ -321,9 +321,9 @@ async function migrateHomepage() {
     heroSubheading: "Gentle, hands-on care in Stirling and Hastings County for pain, stiffness, scar tissue, stress, and animals that are not moving like themselves.",
     heroPhoto,
     heroCards: [
-      { eyebrow: "Certified", title: "Bowen Therapist" },
-      { eyebrow: "Stirling, ON", title: "Mobile farm visits" },
-      { eyebrow: "Drug-free", title: "Hands-on therapy" },
+      { _key: cryptoKey(), eyebrow: "Certified", title: "Bowen Therapist" },
+      { _key: cryptoKey(), eyebrow: "Stirling, ON", title: "Mobile farm visits" },
+      { _key: cryptoKey(), eyebrow: "Drug-free", title: "Hands-on therapy" },
     ],
     aboutHeading: "Meet Kathy Morton.",
     aboutParagraph: "Kathy has been helping people and animals since 2017. Her work is quiet and practical. She looks at the whole picture, not just the spot that is hurting.",
