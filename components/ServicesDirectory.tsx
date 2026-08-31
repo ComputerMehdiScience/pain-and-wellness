@@ -3,85 +3,11 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import type { SanityService } from "@/sanity/lib/queries";
+import { bookHref } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-const services = [
-  {
-    name: "Bowen & Myoskeletal Therapy",
-    description: "Kathy looks at the whole body: posture, old injuries, compensation patterns, and where the tension actually originates. Most people feel a shift within the first session.",
-    details: ["Drug-free and non-invasive", "Works on pain, stiffness, and restricted movement", "60–75 minute sessions"],
-    photo: "/photos/Bowenmyoskeletal.png",
-    objectPosition: "60% 85%",
-    href: "/services/bowen-myoskeletal-therapy",
-    cta: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$110 per session",
-  },
-  {
-    name: "Scar Tissue Release",
-    description: "Scars that feel tight, numb, or seem to pull on surrounding areas can affect movement far from the original site. McLoughlin Method work addresses the tissue directly.",
-    details: ["Surgical and injury scars", "Reduces tightness and sensitivity", "Can improve nearby mobility"],
-    photo: "/photos/scartissueservice.png",
-    objectPosition: "65% 85%",
-    href: "/services/scar-tissue-release",
-    cta: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-  {
-    name: "Reiki",
-    description: "A quiet, hands-off session for people whose nervous system won't settle. Stress, anxiety, grief, burnout. Reiki gives the body a chance to slow down and reset.",
-    details: ["Fully clothed, no pressure applied", "Good for stress and emotional exhaustion", "Can be combined with Bowen"],
-    photo: "/photos/Reiki.png",
-    objectPosition: "55% 90%",
-    href: "/services/reiki",
-    cta: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-  {
-    name: "Healing with the Herd",
-    description: "One of the only experiences of its kind in Ontario. Horse wisdom, tuning fork sound therapy, and fresh air on Kathy's farm. A nervous system reset unlike anything else.",
-    details: ["Held at Kathy's farm near Stirling", "Seasonal availability", "Call to arrange booking"],
-    photo: "/photos/healing-with-the-herd-services.png",
-    objectPosition: "40% center",
-    href: "/services/healing-with-the-herd",
-    cta: "Call to arrange a visit",
-    ctaHref: "tel:6138851311",
-  },
-  {
-    name: "Equine Bodywork",
-    description: "Farm visits for horses showing stiffness, uneven movement, soreness after work, or performance changes under saddle. No trailering. Kathy comes to you.",
-    details: ["Mobile visits across Hastings County", "Post-injury and maintenance sessions", "Works alongside your vet"],
-    photo: "/photos/kathy-working-on-reya.png",
-    objectPosition: "30% center",
-    href: "/services/equine-bodywork",
-    cta: "Call to arrange a visit",
-    ctaHref: "tel:6138851311",
-    price: "$140 per visit, plus travel may apply",
-  },
-  {
-    name: "Canine Bowen",
-    description: "The same gentle nervous-system approach, adapted for dogs. Hip dysplasia, post-surgical recovery, age-related stiffness, anxiety. In-clinic or home visits available.",
-    details: ["Dogs of any size or age", "Hip, joint, and mobility issues", "Post-surgical recovery"],
-    photo: "/photos/kathy dog.png",
-    objectPosition: "center 85%",
-    href: "/services/canine-bowen",
-    cta: "Book a session",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$80 per visit, plus travel may apply",
-  },
-  {
-    name: "Ionized Foot Detox",
-    description: "A warm, relaxing foot soak offered as an add-on at the end of a session. Simple, restorative, and a nice way to finish a longer appointment.",
-    details: ["Add-on to any session", "Roughly 30 minutes", "Ask about it when booking"],
-    photo: "/photos/ionized footbath.png",
-    objectPosition: "25% 75%",
-    href: "/services/ionized-foot-detox",
-    cta: "Book an appointment",
-    ctaHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-];
-
-function ServiceRow({ service, index }: { service: typeof services[0]; index: number }) {
+function ServiceRow({ service, index }: { service: SanityService; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const flip = index % 2 === 1;
@@ -122,11 +48,11 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           style={{ position: "absolute", inset: 0 }}
         >
           <Image
-            src={service.photo}
+            src={urlForImage(service.photo).width(1200).height(1000).fit("crop").url()}
             alt={service.name}
             fill
             sizes="50vw"
-            style={{ objectFit: "cover", objectPosition: service.objectPosition }}
+            style={{ objectFit: "cover" }}
           />
         </motion.div>
         {/* Subtle gradient toward text side */}
@@ -236,7 +162,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
             marginBottom: "1.75rem",
           }}
         >
-          {service.description}
+          {service.fullDescription}
         </motion.p>
 
         <motion.ul
@@ -265,9 +191,9 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.44 }}
         >
           <a
-            href={service.ctaHref}
-            target={service.ctaHref.startsWith("http") ? "_blank" : undefined}
-            rel={service.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+            href={bookHref(service)}
+            target={service.bookingMethod === "online" ? "_blank" : undefined}
+            rel={service.bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -284,7 +210,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--teal-deep)"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--teal)"}
           >
-            {service.cta}
+            {service.bookingMethod === "online" ? "Book an appointment" : "Call to arrange a visit"}
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
               <path d="M1 5h11M12 5L8 1M12 5L8 9" stroke="#fff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -295,12 +221,12 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
   );
 }
 
-export default function ServicesDirectory() {
+export default function ServicesDirectory({ services }: { services: SanityService[] }) {
   return (
     <section style={{ background: "var(--cream)" }}>
       {/* Thin divider between rows */}
       {services.map((service, i) => (
-        <div key={service.name}>
+        <div key={service._id}>
           <ServiceRow service={service} index={i} />
           {i < services.length - 1 && (
             <div style={{ height: 1, background: "var(--cream-edge)", margin: "0 clamp(2.5rem, 6vw, 6rem)" }} />

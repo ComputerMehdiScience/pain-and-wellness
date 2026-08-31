@@ -4,13 +4,16 @@ import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { sortedPosts } from "./posts";
+import { getPosts } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
 export const metadata = {
   title: "Blog | Pain & Wellness Solutions · Bowen Therapy in Stirling, Ontario",
   description:
     "Gentle, practical guidance on Bowen therapy, equine bodywork, and drug-free pain relief for people and animals in Stirling and Hastings County, Ontario.",
 };
+
+export const revalidate = 60;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-CA", {
@@ -20,7 +23,8 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const sortedPosts = await getPosts();
   return (
     <>
       <Nav />
@@ -73,14 +77,11 @@ export default function BlogPage() {
               >
                 <div style={{ position: "relative", aspectRatio: "16 / 10" }}>
                   <Image
-                    src={post.photo}
+                    src={urlForImage(post.photo).width(760).height(475).fit("crop").url()}
                     alt={post.title}
                     fill
                     sizes="(max-width: 760px) 90vw, 380px"
-                    style={{
-                      objectFit: "cover",
-                      objectPosition: post.objectPosition ?? "center",
-                    }}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
                 <div

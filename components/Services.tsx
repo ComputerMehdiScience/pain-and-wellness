@@ -4,71 +4,10 @@ import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-
-const services = [
-  {
-    name: "Bowen & Myoskeletal Therapy",
-    description: "Gentle hands-on work for pain, stiffness, tension, and movement that feels restricted or off.",
-    photo: "/photos/Bowenmyoskeletal.png",
-    objectPosition: "60% 85%",
-    zoom: 1.15,
-    slug: "bowen-myoskeletal-therapy",
-    price: "$110",
-  },
-  {
-    name: "Healing with the Herd",
-    description: "Time with Kathy's horses and tuning forks on the farm. Good for people carrying stress, grief, or just needing a break.",
-    photo: "/photos/healing-with-the-herd-services.png",
-    objectPosition: "40% center",
-    zoom: 1,
-    slug: "healing-with-the-herd",
-  },
-  {
-    name: "Scar Tissue Release",
-    description: "McLoughlin Method work for scars that feel tight, sensitive, numb, or seem to affect nearby movement.",
-    photo: "/photos/scartissueservice.png",
-    objectPosition: "65% 85%",
-    zoom: 1.1,
-    slug: "scar-tissue-release",
-  },
-  {
-    name: "Reiki",
-    description: "A hands-off session for people dealing with stress, anxiety, grief, or trouble sleeping.",
-    photo: "/photos/Reiki.png",
-    objectPosition: "55% 90%",
-    zoom: 1.08,
-    slug: "reiki",
-  },
-  {
-    name: "Ionized Foot Detox",
-    description: "A warm foot soak offered as a simple add-on for clients who want a slower, restorative appointment.",
-    photo: "/photos/ionized footbath.png",
-    objectPosition: "25% 75%",
-    zoom: 1.1,
-    slug: "ionized-foot-detox",
-  },
-  {
-    name: "Equine Bodywork",
-    description: "Farm-visit bodywork for horses showing stiffness, uneven movement, soreness, or performance changes.",
-    photo: "/photos/kathy-working-on-reya.png",
-    objectPosition: "35% center",
-    zoom: 1,
-    slug: "equine-bodywork",
-    price: "$140 + travel may apply",
-  },
-  {
-    name: "Canine Bowen",
-    description: "Gentle Bowen work for dogs dealing with aging, stiffness, recovery, anxiety, or mobility concerns.",
-    photo: "/photos/kathy dog.png",
-    objectPosition: "center 85%",
-    zoom: 1.2,
-    slug: "canine-bowen",
-    price: "$80 + travel may apply",
-  },
-];
+import type { SanityService } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
 const GAP_PX = 16;
-const N = services.length;
 
 function getVisible(w: number) {
   if (w < 640) return 1;
@@ -77,7 +16,7 @@ function getVisible(w: number) {
   return 4;
 }
 
-export default function Services({ showHeader = true }: { showHeader?: boolean }) {
+export default function Services({ services, showHeader = true }: { services: SanityService[]; showHeader?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -87,13 +26,14 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
   const [visible, setVisible] = useState(3);
   const [transitioning, setTransitioning] = useState(true);
 
+  const N = services.length;
   const PAD = visible;
   // Track: [last PAD services][all services][first PAD services]
   const track = useMemo(() => [
     ...services.slice(N - PAD),
     ...services,
     ...services.slice(0, PAD),
-  ], [PAD]);
+  ], [services, N, PAD]);
 
   const cardWidth = containerWidth > 0 ? (containerWidth - (visible - 1) * GAP_PX) / visible : 0;
   const active = ((position % N) + N) % N;
@@ -250,15 +190,12 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                           }}
                         >
                           <Image
-                            src={svc.photo}
+                            src={urlForImage(svc.photo).width(900).height(1080).fit("crop").url()}
                             alt={svc.name}
                             fill
                             sizes="(max-width: 640px) 90vw, (max-width: 900px) 50vw, (max-width: 1200px) 33vw, 390px"
                             style={{
                               objectFit: "cover",
-                              objectPosition: svc.objectPosition,
-                              transform: `scale(${svc.zoom})`,
-                              transformOrigin: svc.objectPosition,
                               filter: "contrast(1.05) saturate(1.1)",
                             }}
                           />
@@ -371,7 +308,7 @@ export default function Services({ showHeader = true }: { showHeader?: boolean }
                                 lineHeight: 1.55,
                                 textShadow: "0 1px 4px oklch(8% 0.02 200 / 0.5)",
                               }}>
-                                {svc.description}
+                                {svc.shortDescription}
                               </p>
                             )}
                           </div>

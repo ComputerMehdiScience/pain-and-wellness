@@ -3,143 +3,19 @@ import Link from "next/link";
 import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { getService, getServices, bookHref } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-const services: Record<string, {
-  name: string;
-  tagline: string;
-  description: string;
-  details: string[];
-  photo: string;
-  objectPosition: string;
-  zoom: number;
-  bookHref: string;
-  price?: string;
-}> = {
-  "bowen-myoskeletal-therapy": {
-    name: "Bowen & Myoskeletal Therapy",
-    tagline: "Gets to the root of it, not just where it hurts.",
-    description: "Bowen therapy uses small, precise moves on your muscles and connective tissue, with rests in between that give your body time to respond. No cracking. No heavy pressure. No pain. Most people are surprised by how much better they feel, even after the first session.",
-    details: [
-      "Addresses chronic back pain, sciatica, migraines, jaw tension, and sports injuries",
-      "First sessions are 60–75 minutes",
-      "Wear comfortable, loose clothing",
-      "No referral needed",
-    ],
-    photo: "/photos/Bowenmyoskeletal.png",
-    objectPosition: "60% 85%",
-    zoom: 1.3,
-    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$110 per session · $100 per session on the 6-month bundle",
-  },
-  "healing-with-the-herd": {
-    name: "Healing with the Herd",
-    tagline: "One of the only things like it in Ontario.",
-    description: "Time with Kathy's horses and tuning fork sound therapy on the farm. Horses pick up on how you are feeling and respond to it. There is nothing quite like it for people who are burned out, grieving, or just running on empty.",
-    details: [
-      "Private sessions held at Kathy's farm near Stirling",
-      "Ideal for burnout, anxiety, grief, and chronic stress",
-      "Combines equine-assisted work with sound therapy",
-      "Seasonal availability. Call to discuss booking.",
-      "No horse experience required",
-    ],
-    photo: "/photos/as-we-stand-in-their-presence.png",
-    objectPosition: "0% center",
-    zoom: 1,
-    bookHref: "tel:6138851311",
-  },
-  "scar-tissue-release": {
-    name: "Scar Tissue Release",
-    tagline: "McLoughlin Scar Tissue Release Method.",
-    description: "Old scars can quietly cause problems far from where they are. This gentle technique works on the scar tissue itself, not just the surface. It reduces tenderness, helps the tissue move freely again, and often brings back movement people had written off years ago.",
-    details: [
-      "Effective on surgical, traumatic, and burn scars",
-      "Works on scars of any age, even decades old",
-      "Painless and non-invasive",
-      "Often produces immediate change in tissue feel and mobility",
-      "Can be combined with Bowen therapy in the same session",
-    ],
-    photo: "/photos/scartissueservice.png",
-    objectPosition: "65% 85%",
-    zoom: 1.2,
-    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-  "reiki": {
-    name: "Reiki",
-    tagline: "Quiet. Gentle. Does more than it looks like.",
-    description: "Reiki is a hands-off or very light touch practice that a lot of people have not tried before. Good for stress, anxiety, trouble sleeping, and recovery from hard times. Fully clothed, no pressure, nothing uncomfortable. Most people walk out feeling noticeably calmer.",
-    details: [
-      "Ideal for stress, anxiety, trauma recovery, and burnout",
-      "Fully clothed, gentle touch or no-touch technique",
-      "Sessions typically 45–60 minutes",
-      "Can be combined with other therapies",
-      "Safe for all ages including children and seniors",
-    ],
-    photo: "/photos/Reiki.png",
-    objectPosition: "55% 90%",
-    zoom: 1.15,
-    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-  "ionized-foot-detox": {
-    name: "Ionized Foot Detox",
-    tagline: "A warm soak that does a little more than relax your feet.",
-    description: "A warm foot bath with ionized water. Comfortable, simple, and a good add-on to any session. The water changes colour as it works. A lot of people just book it because it feels good.",
-    details: [
-      "30-minute session",
-      "Warm, comfortable foot bath",
-      "Often combined with other treatments",
-      "Supports detoxification and energy flow",
-      "Visible results in the water. Your session is unique to you.",
-    ],
-    photo: "/photos/ionized footbath.png",
-    objectPosition: "25% 75%",
-    zoom: 1.2,
-    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-  },
-  "equine-bodywork": {
-    name: "Equine Bodywork",
-    tagline: "Your horse deserves the same care you do.",
-    description: "Kathy has been around horses her whole life. She addresses stiffness, uneven movement, reluctance under saddle, and behaviour changes that showed up after an injury. Horses settle quickly with her. She comes to you.",
-    details: [
-      "Farm visits across Hastings County. No trailering required.",
-      "Addresses reluctance, stiffness, head-shying, and gait irregularities",
-      "Post-surgical recovery and rehabilitation",
-      "Call to arrange a farm visit",
-      "Kathy has been working with horses since childhood",
-    ],
-    photo: "/photos/kathy-working-on-reya.png",
-    objectPosition: "37% center",
-    zoom: 1.1,
-    bookHref: "tel:6138851311",
-    price: "$140 per visit, plus travel may apply",
-  },
-  "canine-bowen": {
-    name: "Canine Bowen",
-    tagline: "The same gentle approach, adapted for dogs.",
-    description: "The same gentle moves Kathy uses on people, adapted for dogs. Small, precise touches with rest in between. Dogs often show a real change after just one session.",
-    details: [
-      "In-clinic or home visits available",
-      "Addresses hip dysplasia, joint issues, and mobility",
-      "Post-surgical recovery and rehabilitation",
-      "Helps with anxiety and nervous system dysregulation",
-      "Safe for dogs of all ages and sizes",
-    ],
-    photo: "/photos/kathy dog.png",
-    objectPosition: "center 85%",
-    zoom: 1.4,
-    bookHref: "https://painandwellnesssolutions.setmore.com/katherinemorton",
-    price: "$80 per visit, plus travel may apply",
-  },
-};
+export const revalidate = 60;
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return Object.keys(services).map(slug => ({ slug }));
+export async function generateStaticParams() {
+  const services = await getServices();
+  return services.map((s) => ({ slug: s.slug }));
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const svc = services[slug];
+  const svc = await getService(slug);
   if (!svc) notFound();
 
   return (
@@ -216,7 +92,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             marginBottom: "2.5rem",
             maxWidth: "52ch",
           }}>
-            {svc.description}
+            {svc.fullDescription}
           </p>
 
           {svc.price ? (
@@ -256,9 +132,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           )}
 
           <a
-            href={svc.bookHref}
-            target={svc.bookHref.startsWith("http") ? "_blank" : undefined}
-            rel={svc.bookHref.startsWith("http") ? "noopener noreferrer" : undefined}
+            href={bookHref(svc)}
+            target={svc.bookingMethod === "online" ? "_blank" : undefined}
+            rel={svc.bookingMethod === "online" ? "noopener noreferrer" : undefined}
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "0.9375rem",
@@ -273,23 +149,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               transition: "transform 0.2s, box-shadow 0.2s",
             }}
           >
-            {svc.bookHref.startsWith("tel") ? "Call to book" : "Book this service"}
+            {svc.bookingMethod === "call" ? "Call to book" : "Book this service"}
           </a>
         </div>
 
         <div className="photo-pop" style={{ aspectRatio: "4/5", position: "relative" }}>
           <Image
-            src={svc.photo}
+            src={urlForImage(svc.photo).width(960).height(1200).fit("crop").url()}
             alt={svc.name}
             fill
             priority
             sizes="(max-width: 860px) 90vw, 45vw"
-            style={{
-              objectFit: "cover",
-              objectPosition: svc.objectPosition,
-              transform: `scale(${svc.zoom})`,
-              transformOrigin: svc.objectPosition,
-            }}
+            style={{ objectFit: "cover" }}
           />
         </div>
       </div>

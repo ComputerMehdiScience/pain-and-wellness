@@ -5,8 +5,12 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { getServices } from "@/sanity/lib/queries";
 
-export default function ServicesPage() {
+export const revalidate = 60;
+
+export default async function ServicesPage() {
+  const services = await getServices();
   return (
     <>
       <Nav />
@@ -22,7 +26,7 @@ export default function ServicesPage() {
           Clinic appointments, farm visits, and gentle hands-on care for the
           different reasons people come to Pain & Wellness Solutions.
         </PageHeader>
-        <ServicesDirectory />
+        <ServicesDirectory services={services} />
         <Pricing />
         <FAQ />
         <CTA />

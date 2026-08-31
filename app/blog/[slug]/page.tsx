@@ -2,14 +2,17 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
-import { posts, getPost } from "../posts";
+import { getPost, getPosts } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 
-export const dynamicParams = false;
+export const revalidate = 60;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const posts = await getPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
 
@@ -19,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) return { title: "Blog | Pain & Wellness Solutions" };
   return {
     title: `${post.title} | Pain & Wellness Solutions`,
@@ -27,11 +30,62 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      images: [post.photo],
+      images: [urlForImage(post.photo).width(1200).height(630).fit("crop").url()],
       type: "article",
     },
   };
 }
+
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    h2: ({ children }) => (
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(1.4rem, 2.4vw, 1.85rem)",
+          fontWeight: 500,
+          lineHeight: 1.2,
+          letterSpacing: "-0.01em",
+          color: "var(--deep-forest)",
+          margin: "2.25rem 0 0.9rem",
+        }}
+      >
+        {children}
+      </h2>
+    ),
+    normal: ({ children }) => (
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "1.0625rem",
+          fontWeight: 300,
+          lineHeight: 1.85,
+          color: "var(--earth-soft)",
+          marginBottom: "1.25rem",
+        }}
+      >
+        {children}
+      </p>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul style={{ display: "flex", flexDirection: "column", gap: "0.6rem", listStyle: "none", margin: "0.5rem 0 1.25rem" }}>
+        {children}
+      </ul>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => (
+      <li style={{ display: "flex", gap: "0.85rem", alignItems: "flex-start" }}>
+        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sage)", flexShrink: 0, marginTop: "0.6rem" }} />
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "1.0625rem", lineHeight: 1.75, color: "var(--earth-soft)" }}>
+          {children}
+        </span>
+      </li>
+    ),
+  },
+};
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-CA", {
@@ -47,7 +101,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) notFound();
 
   return (
@@ -106,66 +160,18 @@ export default async function BlogPostPage({
             style={{ position: "relative", aspectRatio: "16 / 9", marginBottom: "2.5rem" }}
           >
             <Image
-              src={post.photo}
+              src={urlForImage(post.photo).width(1520).height(855).fit("crop").url()}
               alt={post.title}
               fill
               priority
               sizes="(max-width: 800px) 92vw, 760px"
-              style={{ objectFit: "cover", objectPosition: post.objectPosition ?? "center" }}
+              style={{ objectFit: "cover" }}
             />
           </div>
 
           {/* Body */}
           <div>
-            {post.body.map((block, i) => {
-              if (block.type === "h2") {
-                return (
-                  <h2
-                    key={i}
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "clamp(1.4rem, 2.4vw, 1.85rem)",
-                      fontWeight: 500,
-                      lineHeight: 1.2,
-                      letterSpacing: "-0.01em",
-                      color: "var(--deep-forest)",
-                      margin: "2.25rem 0 0.9rem",
-                    }}
-                  >
-                    {block.text}
-                  </h2>
-                );
-              }
-              if (block.type === "list") {
-                return (
-                  <ul key={i} style={{ display: "flex", flexDirection: "column", gap: "0.6rem", listStyle: "none", margin: "0.5rem 0 1.25rem" }}>
-                    {block.items.map((item) => (
-                      <li key={item} style={{ display: "flex", gap: "0.85rem", alignItems: "flex-start" }}>
-                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sage)", flexShrink: 0, marginTop: "0.6rem" }} />
-                        <span style={{ fontFamily: "var(--font-body)", fontSize: "1.0625rem", lineHeight: 1.75, color: "var(--earth-soft)" }}>
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-              return (
-                <p
-                  key={i}
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "1.0625rem",
-                    fontWeight: 300,
-                    lineHeight: 1.85,
-                    color: "var(--earth-soft)",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  {block.text}
-                </p>
-              );
-            })}
+            <PortableText value={post.body} components={portableTextComponents} />
           </div>
 
           {/* Inline book CTA */}
