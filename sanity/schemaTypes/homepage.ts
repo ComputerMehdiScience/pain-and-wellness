@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { validateImageQuality } from "./validateImageQuality";
 
 export const homepage = defineType({
   name: "homepage",
@@ -20,7 +21,7 @@ export const homepage = defineType({
       group: "hero",
     }),
     defineField({ name: "heroSubheading", title: "Subheading", type: "text", rows: 3, validation: (Rule) => Rule.required(), group: "hero" }),
-    defineField({ name: "heroPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required(), group: "hero" }),
+    defineField({ name: "heroPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required().custom(validateImageQuality).warning(), group: "hero" }),
     defineField({
       name: "heroCards",
       title: "Floating Cards (3)",
@@ -38,7 +39,7 @@ export const homepage = defineType({
     defineField({ name: "aboutHeading", title: "Heading", type: "string", validation: (Rule) => Rule.required(), group: "about" }),
     defineField({ name: "aboutParagraph", title: "Paragraph", type: "text", rows: 3, validation: (Rule) => Rule.required(), group: "about" }),
     defineField({ name: "aboutQuote", title: "Quote", type: "text", rows: 3, validation: (Rule) => Rule.required(), group: "about" }),
-    defineField({ name: "aboutPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required(), group: "about" }),
+    defineField({ name: "aboutPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required().custom(validateImageQuality).warning(), group: "about" }),
     defineField({
       name: "whatToExpectBlocks",
       title: "Blocks (2)",
@@ -48,7 +49,7 @@ export const homepage = defineType({
         fields: [
           { name: "heading", title: "Heading", type: "string" },
           { name: "paragraph", title: "Paragraph", type: "text", rows: 3 },
-          { name: "photo", title: "Photo", type: "image", options: { hotspot: true } },
+          { name: "photo", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.custom(validateImageQuality).warning() },
           {
             name: "imageSide",
             title: "Image Side",
@@ -62,7 +63,7 @@ export const homepage = defineType({
     }),
     defineField({ name: "herdHeading", title: "Heading", type: "string", validation: (Rule) => Rule.required(), group: "herd" }),
     defineField({ name: "herdParagraph", title: "Paragraph", type: "text", rows: 3, validation: (Rule) => Rule.required(), group: "herd" }),
-    defineField({ name: "herdPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required(), group: "herd" }),
+    defineField({ name: "herdPhoto", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required().custom(validateImageQuality).warning(), group: "herd" }),
     defineField({
       name: "herdDetails",
       title: "Detail Rows (3)",

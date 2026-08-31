@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { SanityService } from "@/sanity/lib/queries";
+import type { SanityService } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 

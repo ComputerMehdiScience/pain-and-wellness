@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { validateImageQuality } from "./validateImageQuality";
 
 export const testimonial = defineType({
   name: "testimonial",
@@ -7,7 +8,7 @@ export const testimonial = defineType({
   fields: [
     defineField({ name: "name", title: "Client Name / Result Label", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "quote", title: "Quote", type: "text", rows: 4, validation: (Rule) => Rule.required() }),
-    defineField({ name: "photo", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required() }),
+    defineField({ name: "photo", title: "Photo", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.required().custom(validateImageQuality).warning() }),
     defineField({ name: "order", title: "Display Order", type: "number", validation: (Rule) => Rule.required() }),
   ],
   preview: {

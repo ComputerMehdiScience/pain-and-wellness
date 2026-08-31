@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import type { PricingRow } from "@/sanity/lib/queries";
+import type { PricingRow } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 export default function Pricing({ rows }: { rows: PricingRow[] }) {

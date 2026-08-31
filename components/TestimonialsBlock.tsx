@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CircularTestimonials } from "@/components/circular-testimonials";
-import type { Testimonial } from "@/sanity/lib/queries";
+import type { Testimonial } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
 
 export default function TestimonialsBlock({ testimonials }: { testimonials: Testimonial[] }) {

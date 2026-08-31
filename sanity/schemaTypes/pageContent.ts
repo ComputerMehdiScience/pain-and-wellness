@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { validateImageQuality } from "./validateImageQuality";
 
 export const pageContent = defineType({
   name: "pageContent",
@@ -52,7 +53,7 @@ export const pageContent = defineType({
             type: "array",
             of: [{ type: "text", rows: 3 }],
           },
-          { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+          { name: "image", title: "Image", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.custom(validateImageQuality).warning() },
           {
             name: "imageSide",
             title: "Image Side",
@@ -75,7 +76,7 @@ export const pageContent = defineType({
           { name: "heading", title: "Heading", type: "string" },
           { name: "items", title: "List Items", type: "array", of: [{ type: "string" }] },
           { name: "footnote", title: "Footnote", type: "string" },
-          { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+          { name: "image", title: "Image", type: "image", options: { hotspot: true }, validation: (Rule) => Rule.custom(validateImageQuality).warning() },
           {
             name: "imageSide",
             title: "Image Side",

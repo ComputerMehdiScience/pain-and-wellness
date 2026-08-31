@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { FaqItem } from "@/sanity/lib/queries";
+import type { FaqItem } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 export default function FAQ({ faqs }: { faqs: FaqItem[] }) {

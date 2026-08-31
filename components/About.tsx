@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { Homepage } from "@/sanity/lib/queries";
+import type { Homepage } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
 
 export default function About({

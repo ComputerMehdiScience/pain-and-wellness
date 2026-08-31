@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { validateImageQuality } from "./validateImageQuality";
 
 export const post = defineType({
   name: "post",
@@ -35,7 +36,7 @@ export const post = defineType({
       title: "Photo",
       type: "image",
       options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().custom(validateImageQuality).warning(),
     }),
     defineField({
       name: "excerpt",

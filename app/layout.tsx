@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Fraunces, Nunito } from "next/font/google";
+import { VisualEditing } from "next-sanity/visual-editing";
 import SmoothScroll from "@/components/SmoothScroll";
 import { SiteSettingsProvider } from "@/sanity/lib/SiteSettingsProvider";
 import { getSiteSettings } from "@/sanity/lib/queries";
+import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -62,6 +64,8 @@ export default async function RootLayout({
       <body>
         <SmoothScroll />
         <SiteSettingsProvider settings={settings}>{children}</SiteSettingsProvider>
+        <SanityLive />
+        <VisualEditing />
       </body>
     </html>
   );
