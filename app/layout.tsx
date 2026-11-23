@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { Fraunces, Nunito } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
 import SmoothScroll from "@/components/SmoothScroll";
 import { SiteSettingsProvider } from "@/sanity/lib/SiteSettingsProvider";
+import { EditModeProvider } from "@/sanity/lib/EditMode";
 import { getSiteSettings } from "@/sanity/lib/queries";
 import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
@@ -59,11 +61,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSiteSettings();
+  const { isEnabled: editing } = await draftMode();
   return (
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
       <body>
         <SmoothScroll />
-        <SiteSettingsProvider settings={settings}>{children}</SiteSettingsProvider>
+        <EditModeProvider editing={editing}>
+          <SiteSettingsProvider settings={settings}>{children}</SiteSettingsProvider>
+        </EditModeProvider>
         <SanityLive />
         <VisualEditing />
       </body>

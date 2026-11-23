@@ -9,6 +9,7 @@ import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useEditMode } from "@/sanity/lib/EditMode";
 
 const GAP_PX = 16;
 
@@ -21,6 +22,7 @@ function getVisible(w: number) {
 
 export default function Services({ services, showHeader = true }: { services: SanityService[]; showHeader?: boolean }) {
   const settings = useSiteSettings();
+  const editing = useEditMode();
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -74,12 +76,12 @@ export default function Services({ services, showHeader = true }: { services: Sa
 
   // Auto-advance
   useEffect(() => {
-    if (paused || containerWidth === 0) return;
+    if (paused || editing || containerWidth === 0) return;
     const id = setInterval(() => {
       setPosition(p => p + 1);
     }, 3800);
     return () => clearInterval(id);
-  }, [paused, containerWidth]);
+  }, [paused, editing, containerWidth]);
 
   // Measure
   useEffect(() => {
@@ -176,7 +178,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                         flexShrink: 0,
                       }}
                     >
-                      <Link href={`/services/${stegaClean(svc.slug)}`} style={{ textDecoration: "none", display: "block" }}>
+                      <Link href={`/services/${stegaClean(svc.slug)}`} data-edit-block style={{ textDecoration: "none", display: "block" }}>
                         <div
                           style={{
                             borderRadius: 16,
