@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { getPageContent, getSiteSettings } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -27,6 +28,7 @@ export default async function ContactPage() {
           eyebrow={header.eyebrow}
           title={header.title}
           image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageEditAttr={editAttr("pageContent-contact", "pageContent", "header.image")}
           imageAlt={header.title}
           note={header.note}
         >

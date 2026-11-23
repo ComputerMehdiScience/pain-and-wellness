@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 function CheckShieldIcon({ color = "var(--teal)" }: { color?: string }) {
   return (
@@ -531,6 +532,7 @@ export default function Hero({
           >
             <Image
               src={urlForImage(photo).width(1240).height(1240).fit("crop").url()}
+              data-sanity={editAttr("homepage", "homepage", "heroPhoto")}
               alt="Kathy Morton smiling while working on a client — Pain & Wellness Solutions"
               fill
               sizes="(max-width: 960px) 90vw, 620px"

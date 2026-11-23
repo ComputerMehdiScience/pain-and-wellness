@@ -5,6 +5,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -21,6 +22,7 @@ export default async function EquineBodyWorkPage() {
           eyebrow={header.eyebrow}
           title={header.title}
           image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageEditAttr={editAttr("pageContent-equine-body-work", "pageContent", "header.image")}
           imageAlt={header.title}
           note={header.note}
         >
@@ -31,6 +33,7 @@ export default async function EquineBodyWorkPage() {
             eyebrow={panel.eyebrow}
             title={panel.heading}
             image={panel.image ? urlForImage(panel.image).width(1120).height(840).fit("crop").url() : ""}
+            imageEditAttr={editAttr("pageContent-equine-body-work", "pageContent", itemPath("sections", panel._key, "image"))}
             imageAlt={panel.heading}
           >
             {panel.paragraphs.map((p) => (

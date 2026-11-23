@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
 import { getPost, getPostSlugsForBuild, getSiteSettings } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -161,6 +162,7 @@ export default async function BlogPostPage({
           >
             <Image
               src={urlForImage(post.photo).width(1520).height(855).fit("crop").url()}
+              data-sanity={editAttr(post._id, "post", "photo")}
               alt={post.title}
               fill
               priority

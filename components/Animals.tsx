@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export default function Animals({
   heading,
@@ -55,6 +56,7 @@ export default function Animals({
         <motion.div style={{ position: "absolute", inset: "-5%", scale: photoScale, y: photoY }}>
           <Image
             src={urlForImage(photo).width(1200).height(1080).fit("crop").url()}
+            data-sanity={editAttr("homepage", "homepage", "herdPhoto")}
             alt="Kathy Morton standing with her horses in their presence"
             fill
             sizes="(max-width: 860px) 100vw, 50vw"

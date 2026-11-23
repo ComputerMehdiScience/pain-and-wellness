@@ -71,7 +71,7 @@ export type Homepage = {
   aboutParagraph: string;
   aboutQuote: string;
   aboutPhoto: Image;
-  whatToExpectBlocks: { heading: string; paragraph: string; photo: Image; imageSide: "left" | "right" }[];
+  whatToExpectBlocks: { _key: string; heading: string; paragraph: string; photo: Image; imageSide: "left" | "right" }[];
   herdHeading: string;
   herdParagraph: string;
   herdPhoto: Image;
@@ -79,6 +79,7 @@ export type Homepage = {
 };
 
 export type PageContentSection = {
+  _key: string;
   eyebrow?: string;
   heading: string;
   paragraphs: string[];
@@ -87,6 +88,7 @@ export type PageContentSection = {
 };
 
 export type PageContentListSection = {
+  _key: string;
   heading: string;
   items: string[];
   footnote?: string;

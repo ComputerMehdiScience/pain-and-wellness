@@ -139,6 +139,7 @@ export function CustomerPaths({ cards }: { cards: PathCard[] }) {
 export function SplitPanel({
   title,
   image,
+  imageEditAttr,
   imageAlt,
   reverse = false,
   children,
@@ -146,6 +147,7 @@ export function SplitPanel({
   eyebrow?: string;
   title: string;
   image: string;
+  imageEditAttr?: string;
   imageAlt: string;
   reverse?: boolean;
   children: ReactNode;
@@ -177,7 +179,7 @@ export function SplitPanel({
           style={{ order: reverse ? 2 : 1 }}
         >
           <div className="photo-pop" style={{ position: "relative", aspectRatio: "4 / 3" }}>
-            <Image src={image} alt={imageAlt} fill sizes="(max-width: 800px) 90vw, 560px" style={{ objectFit: "cover" }} />
+            <Image src={image} data-sanity={imageEditAttr} alt={imageAlt} fill sizes="(max-width: 800px) 90vw, 560px" style={{ objectFit: "cover" }} />
           </div>
         </motion.div>
         <motion.div

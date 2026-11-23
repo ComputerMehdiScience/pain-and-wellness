@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { getPosts, getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const metadata = {
   title: "Blog | Pain & Wellness Solutions · Bowen Therapy in Stirling, Ontario",
@@ -35,6 +36,7 @@ export default async function BlogPage() {
           eyebrow={header.eyebrow}
           title={header.title}
           image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageEditAttr={editAttr("pageContent-blog", "pageContent", "header.image")}
           imageAlt={header.title}
           note={header.note}
         >
@@ -78,6 +80,7 @@ export default async function BlogPage() {
                 <div style={{ position: "relative", aspectRatio: "16 / 10" }}>
                   <Image
                     src={urlForImage(post.photo).width(760).height(475).fit("crop").url()}
+                    data-sanity={editAttr(post._id, "post", "photo")}
                     alt={post.title}
                     fill
                     sizes="(max-width: 760px) 90vw, 380px"

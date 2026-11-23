@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { getService, getServiceSlugsForBuild, getSiteSettings, bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -158,6 +159,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="photo-pop" style={{ aspectRatio: "4/5", position: "relative" }}>
           <Image
             src={urlForImage(svc.photo).width(960).height(1200).fit("crop").url()}
+            data-sanity={editAttr(svc._id, "service", "photo")}
             alt={svc.name}
             fill
             priority

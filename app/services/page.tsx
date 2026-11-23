@@ -7,6 +7,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { getServices, getPricingRows, getFaqItems, getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -26,6 +27,7 @@ export default async function ServicesPage() {
           eyebrow={header.eyebrow}
           title={header.title}
           image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageEditAttr={editAttr("pageContent-services", "pageContent", "header.image")}
           imageAlt={header.title}
           note={header.note}
         >

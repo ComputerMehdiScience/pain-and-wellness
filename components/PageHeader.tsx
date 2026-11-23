@@ -6,6 +6,7 @@ type PageHeaderProps = {
   title: string;
   children: ReactNode;
   image?: string;
+  imageEditAttr?: string;
   imageAlt?: string;
   imagePosition?: string;
   note?: string;
@@ -16,6 +17,7 @@ export default function PageHeader({
   title,
   children,
   image,
+  imageEditAttr,
   imageAlt = "",
   imagePosition = "center",
   note,
@@ -115,6 +117,7 @@ export default function PageHeader({
             >
               <Image
                 src={image}
+                data-sanity={imageEditAttr}
                 alt={imageAlt}
                 fill
                 priority

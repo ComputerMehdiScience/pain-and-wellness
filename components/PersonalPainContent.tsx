@@ -6,6 +6,7 @@ import Image from "next/image";
 import type { PageContentListSection } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 function useInView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -56,6 +57,7 @@ export default function PersonalPainContent({ listSections }: { listSections: Pa
               {conditionsSection?.image && (
                 <Image
                   src={urlForImage(conditionsSection.image).width(900).height(675).fit("crop").url()}
+                  data-sanity={editAttr("pageContent-personal-pain-management", "pageContent", itemPath("listSections", conditionsSection._key, "image"))}
                   alt={conditionsSection.heading}
                   fill
                   sizes="(max-width: 760px) 90vw, 50vw"
@@ -209,6 +211,7 @@ export default function PersonalPainContent({ listSections }: { listSections: Pa
               {firstVisitSection?.image && (
                 <Image
                   src={urlForImage(firstVisitSection.image).width(900).height(675).fit("crop").url()}
+                  data-sanity={editAttr("pageContent-personal-pain-management", "pageContent", itemPath("listSections", firstVisitSection._key, "image"))}
                   alt={firstVisitSection.heading}
                   fill
                   sizes="(max-width: 760px) 90vw, 50vw"

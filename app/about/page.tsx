@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { getPageContent } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
@@ -20,6 +21,7 @@ export default async function AboutPage() {
           eyebrow={header.eyebrow}
           title={header.title}
           image={header.image ? urlForImage(header.image).width(860).height(1075).fit("crop").url() : undefined}
+          imageEditAttr={editAttr("pageContent-about", "pageContent", "header.image")}
           imageAlt={header.title}
           note={header.note}
         >
@@ -51,6 +53,7 @@ export default async function AboutPage() {
                   <div className="photo-pop" style={{ position: "relative", aspectRatio: "4 / 5", borderRadius: 16 }}>
                     <Image
                       src={urlForImage(section.image).width(900).height(1125).fit("crop").url()}
+                      data-sanity={editAttr("pageContent-about", "pageContent", itemPath("sections", section._key, "image"))}
                       alt={section.heading}
                       fill
                       sizes="(max-width: 860px) 90vw, 520px"
@@ -90,6 +93,7 @@ export default async function AboutPage() {
                   <div className="photo-pop" style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 16 }}>
                     <Image
                       src={urlForImage(section.image).width(1120).height(840).fit("crop").url()}
+                      data-sanity={editAttr("pageContent-about", "pageContent", itemPath("sections", section._key, "image"))}
                       alt={section.heading}
                       fill
                       sizes="(max-width: 860px) 90vw, 560px"

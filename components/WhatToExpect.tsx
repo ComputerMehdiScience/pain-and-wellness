@@ -7,6 +7,7 @@ import type { Homepage } from "@/sanity/lib/types";
 import { stegaClean } from "next-sanity";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpectBlocks"] }) {
   const settings = useSiteSettings();
@@ -64,6 +65,7 @@ export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpec
                   }}>
                     <Image
                       src={urlForImage(b.photo).width(1100).height(825).fit("crop").url()}
+                      data-sanity={editAttr("homepage", "homepage", itemPath("whatToExpectBlocks", b._key, "photo"))}
                       alt={b.heading}
                       fill
                       sizes="(max-width: 760px) 90vw, 55vw"

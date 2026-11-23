@@ -1,4 +1,5 @@
 import "server-only";
+import { stegaClean } from "next-sanity";
 import { sanityFetch } from "./live";
 import { client } from "./client";
 import type {
@@ -86,7 +87,18 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       defaultCtaTitle, defaultCtaBody
     }`,
   });
-  return data as SiteSettings;
+  const settings = data as SiteSettings;
+  // These become link targets (tel:, https://), so they must never carry
+  // stega markers. Visible text fields (address, hours, tagline) keep them.
+  return {
+    ...settings,
+    phoneTel: stegaClean(settings.phoneTel),
+    addressMapUrl: stegaClean(settings.addressMapUrl),
+    bookingUrl: stegaClean(settings.bookingUrl),
+    instagramUrl: settings.instagramUrl ? stegaClean(settings.instagramUrl) : undefined,
+    facebookUrl: settings.facebookUrl ? stegaClean(settings.facebookUrl) : undefined,
+    youtubeUrl: settings.youtubeUrl ? stegaClean(settings.youtubeUrl) : undefined,
+  };
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {

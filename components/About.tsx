@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export default function About({
   heading,
@@ -84,6 +85,7 @@ export default function About({
           >
             <Image
               src={urlForImage(photo).width(900).height(1200).fit("crop").url()}
+              data-sanity={editAttr("homepage", "homepage", "aboutPhoto")}
               alt="Kathy Morton"
               fill
               style={{ objectFit: "cover", filter: "contrast(1.05) saturate(1.1)" }}

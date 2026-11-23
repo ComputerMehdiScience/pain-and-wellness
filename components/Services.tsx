@@ -7,6 +7,7 @@ import Link from "next/link";
 import type { SanityService } from "@/sanity/lib/types";
 import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 const GAP_PX = 16;
@@ -194,6 +195,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                         >
                           <Image
                             src={urlForImage(svc.photo).width(900).height(1080).fit("crop").url()}
+                            data-sanity={editAttr(svc._id, "service", "photo")}
                             alt={svc.name}
                             fill
                             sizes="(max-width: 640px) 90vw, (max-width: 900px) 50vw, (max-width: 1200px) 33vw, 390px"

@@ -7,6 +7,7 @@ import type { SanityService } from "@/sanity/lib/types";
 import { bookHref } from "@/sanity/lib/types";
 import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
+import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
 
 function ServiceRow({ service, index }: { service: SanityService; index: number }) {
@@ -53,6 +54,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
         >
           <Image
             src={urlForImage(service.photo).width(1200).height(1000).fit("crop").url()}
+            data-sanity={editAttr(service._id, "service", "photo")}
             alt={service.name}
             fill
             sizes="50vw"
