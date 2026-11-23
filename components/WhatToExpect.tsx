@@ -6,11 +6,13 @@ import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { stegaClean } from "next-sanity";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpectBlocks"] }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -133,7 +135,7 @@ export default function WhatToExpect({ blocks }: { blocks: Homepage["whatToExpec
                       a.style.background = "var(--teal)";
                     }}
                   >
-                    Book an appointment
+                    {t.expectButton}
                   </a>
                 </div>
               </motion.div>

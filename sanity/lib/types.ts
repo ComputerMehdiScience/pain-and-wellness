@@ -39,6 +39,10 @@ export type SiteSettings = {
   footerTagline: string;
   defaultCtaTitle: string;
   defaultCtaBody: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  logo?: Image;
+  ogImage?: Image;
 };
 
 export type Testimonial = {

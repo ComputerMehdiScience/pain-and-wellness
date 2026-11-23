@@ -2,6 +2,7 @@ import "server-only";
 import { stegaClean } from "next-sanity";
 import { sanityFetch } from "./live";
 import { client } from "./client";
+import { mergeSiteText, type LinkItem, type SiteText } from "./siteTextSpec";
 import type {
   SanityService,
   SanityPost,
@@ -84,7 +85,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     query: `*[_type == "siteSettings"][0]{
       phoneDisplay, phoneTel, address, addressMapUrl, hours, bookingUrl,
       instagramUrl, facebookUrl, youtubeUrl, footerTagline,
-      defaultCtaTitle, defaultCtaBody
+      defaultCtaTitle, defaultCtaBody,
+      seoTitle, seoDescription, logo, ogImage
     }`,
   });
   const settings = data as SiteSettings;
@@ -98,6 +100,22 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     instagramUrl: settings.instagramUrl ? stegaClean(settings.instagramUrl) : undefined,
     facebookUrl: settings.facebookUrl ? stegaClean(settings.facebookUrl) : undefined,
     youtubeUrl: settings.youtubeUrl ? stegaClean(settings.youtubeUrl) : undefined,
+  };
+}
+
+export async function getSiteText(): Promise<SiteText> {
+  const { data } = await sanityFetch({ query: `*[_type == "siteText"][0]` });
+  const t = mergeSiteText(data as Record<string, unknown> | null);
+  // hrefs become link targets, so they must never carry stega markers
+  const clean = (list: LinkItem[]) => list.map((l) => ({ label: l.label, href: stegaClean(l.href) }));
+  return {
+    ...t,
+    heroSecondaryHref: stegaClean(t.heroSecondaryHref),
+    navLinks: clean(t.navLinks),
+    footerServiceLinks: clean(t.footerServiceLinks),
+    footerExploreLinks: clean(t.footerExploreLinks),
+    footerLegalLinks: clean(t.footerLegalLinks),
+    aboutStats: t.aboutStats.map((s) => ({ value: s.value, label: s.label })),
   };
 }
 

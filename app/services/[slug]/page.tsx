@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { getService, getServiceSlugsForBuild, getSiteSettings, bookHref } from "@/sanity/lib/queries";
+import { getService, getServiceSlugsForBuild, getSiteSettings, getSiteText, bookHref } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [svc, settings] = await Promise.all([getService(slug), getSiteSettings()]);
+  const [svc, settings, t] = await Promise.all([getService(slug), getSiteSettings(), getSiteText()]);
   if (!svc) notFound();
   const bookingMethod = stegaClean(svc.bookingMethod);
 
@@ -38,7 +38,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           gap: "0.375rem",
           textDecoration: "none",
         }}>
-          ← Back
+          {t.serviceBack}
         </Link>
       </div>
 
@@ -63,7 +63,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             color: "var(--sage)",
             marginBottom: "1rem",
           }}>
-            Service
+            {t.serviceEyebrow}
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",
@@ -130,7 +130,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83a19.79 19.79 0 01-3.07-8.67A2 2 0 012.4 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.5 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="var(--teal-deep)" />
               </svg>
-              Priced individually. Call for pricing.
+              {t.servicePricingNote}
             </a>
           )}
 
@@ -152,7 +152,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               transition: "transform 0.2s, box-shadow 0.2s",
             }}
           >
-            {bookingMethod === "call" ? "Call to book" : "Book this service"}
+            {bookingMethod === "call" ? t.serviceCallButton : t.serviceBookButton}
           </a>
         </div>
 
@@ -183,7 +183,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             marginBottom: "2rem",
             letterSpacing: "-0.01em",
           }}>
-            What to know
+            {t.serviceDetailsHeading}
           </h2>
           <ul style={{ display: "flex", flexDirection: "column", gap: "1rem", listStyle: "none" }}>
             {svc.details.map(d => (

@@ -3,20 +3,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { urlForImage } from "@/sanity/lib/image";
+import { editAttr } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
-
-const links = [
-  { label: "About", href: "/about" },
-  { label: "Personal Pain Management", href: "/personal-pain-management" },
-  { label: "Equine Body Work", href: "/equine-body-work" },
-  { label: "Services", href: "/services" },
-  { label: "Results", href: "/results" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function Nav() {
   const settings = useSiteSettings();
+  const t = useSiteText();
+  const links = t.navLinks;
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -57,7 +52,8 @@ export default function Nav() {
           style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
         >
           <Image
-            src="/logotransparent.png"
+            src={settings.logo ? urlForImage(settings.logo).width(440).url() : "/logotransparent.png"}
+            data-sanity={editAttr("siteSettings", "siteSettings", "logo")}
             alt="Pain & Wellness Solutions"
             width={220}
             height={60}
@@ -125,7 +121,7 @@ export default function Nav() {
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
-            Book now
+            {t.navBookButton}
           </a>
         </div>
 
@@ -204,7 +200,7 @@ export default function Nav() {
               marginTop: "0.5rem",
             }}
           >
-            Book an appointment
+            {t.navBookButtonMobile}
           </a>
         </div>
       )}

@@ -6,7 +6,7 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
-import { getPost, getPostSlugsForBuild, getSiteSettings } from "@/sanity/lib/queries";
+import { getPost, getPostSlugsForBuild, getSiteSettings, getSiteText } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
@@ -102,7 +102,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [post, settings] = await Promise.all([getPost(slug), getSiteSettings()]);
+  const [post, settings, t] = await Promise.all([getPost(slug), getSiteSettings(), getSiteText()]);
   if (!post) notFound();
 
   return (
@@ -123,7 +123,7 @@ export default async function BlogPostPage({
               gap: "0.375rem",
             }}
           >
-            ← All posts
+            {t.blogBack}
           </Link>
         </div>
 
@@ -140,7 +140,7 @@ export default async function BlogPostPage({
               marginBottom: "1rem",
             }}
           >
-            {formatDate(post.date)} · {post.readMin} min read
+            {formatDate(post.date)} · {post.readMin} {t.blogMinRead}
           </p>
           <h1
             style={{
@@ -195,7 +195,7 @@ export default async function BlogPostPage({
                 boxShadow: "0 6px 16px oklch(20% 0.01 240 / 0.2)",
               }}
             >
-              Book an appointment
+              {t.blogBookButton}
             </a>
           </div>
         </article>

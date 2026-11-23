@@ -5,12 +5,14 @@ import { motion } from "framer-motion";
 import { CircularTestimonials } from "@/components/circular-testimonials";
 import type { Testimonial } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function TestimonialsBlock({ testimonials }: { testimonials: Testimonial[] }) {
-  const slides = testimonials.map((t) => ({
-    name: t.name,
-    quote: t.quote,
-    src: urlForImage(t.photo).width(900).height(900).fit("crop").url(),
+  const t = useSiteText();
+  const slides = testimonials.map((item) => ({
+    name: item.name,
+    quote: item.quote,
+    src: urlForImage(item.photo).width(900).height(900).fit("crop").url(),
   }));
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -49,7 +51,7 @@ export default function TestimonialsBlock({ testimonials }: { testimonials: Test
           letterSpacing: "-0.01em",
           color: "var(--teal-accent)",
         }}>
-          Real clients, real changes.
+          {t.testimonialsHeading}
         </h2>
         <p style={{
           fontFamily: "var(--font-body)",
@@ -58,7 +60,7 @@ export default function TestimonialsBlock({ testimonials }: { testimonials: Test
           marginTop: "0.875rem",
           lineHeight: 1.65,
         }}>
-          Here's what people have to say after working with Kathy.
+          {t.testimonialsSubheading}
         </p>
       </motion.div>
 

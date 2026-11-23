@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { PageContentListSection } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
@@ -26,6 +27,7 @@ function useInView() {
 
 export default function PersonalPainContent({ listSections }: { listSections: PageContentListSection[] }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const a$ = useInView();
   const b$ = useInView();
   const [conditionsSection, firstVisitSection] = listSections;
@@ -197,7 +199,7 @@ export default function PersonalPainContent({ listSections }: { listSections: Pa
                 a.style.background = "var(--teal)";
               }}
             >
-              Book your first visit
+              {t.firstVisitButton}
             </motion.a>
           </motion.div>
 

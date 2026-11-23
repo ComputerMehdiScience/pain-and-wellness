@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
@@ -20,6 +21,7 @@ export default function Animals({
   details: Homepage["herdDetails"];
 }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -147,7 +149,7 @@ export default function Animals({
               a.style.background = "var(--cream)";
             }}
           >
-            Book a Herd session
+            {t.herdButton}
           </a>
           <a href={`tel:${settings.phoneTel}`} style={{
             fontFamily: "var(--font-body)",
@@ -155,7 +157,7 @@ export default function Animals({
             fontWeight: 400,
             color: "oklch(96% 0.012 82 / 0.45)",
           }}>
-            or call {settings.phoneDisplay}
+            {t.herdCallPrefix} {settings.phoneDisplay}
           </a>
         </div>
       </motion.div>

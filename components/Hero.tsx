@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
@@ -157,6 +158,7 @@ export default function Hero({
   cards: Homepage["heroCards"];
 }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const [mounted, setMounted] = useState(false);
 
   /* Mouse parallax for orb layer */
@@ -431,7 +433,7 @@ export default function Hero({
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              Book an appointment
+              {t.heroPrimaryButton}
               <svg width="18" height="14" viewBox="0 0 16 12" fill="none" aria-hidden>
                 <path
                   d="M1 6h13M14 6L9 1M14 6L9 11"
@@ -444,7 +446,7 @@ export default function Hero({
             </a>
 
             <a
-              href="/services"
+              href={t.heroSecondaryHref}
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "1rem",
@@ -465,7 +467,7 @@ export default function Hero({
                 (e.currentTarget.style.borderBottomColor = "transparent")
               }
             >
-              View services
+              {t.heroSecondaryButton}
               <svg width="16" height="12" viewBox="0 0 14 10" fill="none" aria-hidden>
                 <path
                   d="M1 5h12M13 5L9 1M13 5L9 9"

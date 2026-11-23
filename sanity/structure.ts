@@ -19,6 +19,9 @@ export const structure: StructureResolver = (S, context) =>
         .title("Site Settings")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       S.listItem()
+        .title("Buttons & Labels (every button, heading and menu link)")
+        .child(S.document().schemaType("siteText").documentId("siteText")),
+      S.listItem()
         .title("Homepage (Hero, About, Herd sections)")
         .child(S.document().schemaType("homepage").documentId("homepage")),
       S.divider(),

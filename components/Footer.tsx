@@ -1,9 +1,11 @@
 "use client";
 
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function Footer() {
   const settings = useSiteSettings();
+  const t = useSiteText();
   return (
     <footer
       style={{
@@ -44,7 +46,7 @@ export default function Footer() {
                 lineHeight: 1.1,
               }}
             >
-              Pain & Wellness Solutions
+              {t.footerBrand}
             </p>
             <p
               style={{
@@ -118,17 +120,9 @@ export default function Footer() {
                 marginBottom: "1.25rem",
               }}
             >
-              Services
+              {t.footerServicesHeading}
             </p>
-            {[
-              { label: "Bowen & myoskeletal", href: "/services/bowen-myoskeletal-therapy" },
-              { label: "Healing with the Herd", href: "/services/healing-with-the-herd" },
-              { label: "Scar Tissue Release", href: "/services/scar-tissue-release" },
-              { label: "Reiki", href: "/services/reiki" },
-              { label: "Ionized Foot Detox", href: "/services/ionized-foot-detox" },
-              { label: "Equine Bodywork", href: "/services/equine-bodywork" },
-              { label: "Canine Bowen", href: "/services/canine-bowen" },
-            ].map((s) => (
+            {t.footerServiceLinks.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
@@ -163,17 +157,9 @@ export default function Footer() {
                 marginBottom: "1.25rem",
               }}
             >
-              Explore
+              {t.footerExploreHeading}
             </p>
-            {[
-              { label: "About Kathy", href: "/about" },
-              { label: "Personal Pain Management", href: "/personal-pain-management" },
-              { label: "Equine Body Work", href: "/equine-body-work" },
-              { label: "Results & reviews", href: "/results" },
-              { label: "Contact", href: "/contact" },
-              { label: "Privacy policy", href: "/privacy" },
-              { label: "Terms", href: "/terms" },
-            ].map((l) => (
+            {t.footerExploreLinks.map((l) => (
               <a
                 key={l.label}
                 href={l.href}
@@ -207,7 +193,7 @@ export default function Footer() {
                 marginBottom: "1.25rem",
               }}
             >
-              Visit
+              {t.footerVisitHeading}
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
               <a
@@ -271,7 +257,7 @@ export default function Footer() {
                   letterSpacing: "0.04em",
                   color: "var(--teal-deep)",
                 }}>
-                  New patients welcome
+                  {t.footerBadge}
                 </span>
               </div>
             </div>
@@ -298,13 +284,10 @@ export default function Footer() {
               color: "var(--ink-faint)",
             }}
           >
-            © 2025 Pain & Wellness Solutions · Stirling, Ontario
+            {t.footerCopyright}
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
-            {[
-              { label: "Privacy policy", href: "/privacy" },
-              { label: "Terms", href: "/terms" },
-            ].map((l) => (
+            {t.footerLegalLinks.map((l) => (
               <a
                 key={l.label}
                 href={l.href}

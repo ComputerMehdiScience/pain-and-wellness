@@ -49,6 +49,10 @@ export default defineConfig({
           homepage: defineLocations({
             locations: [{ title: "Homepage", href: "/" }],
           }),
+          siteText: defineLocations({
+            message: "Button words, headings and menu links used across the whole site",
+            locations: [{ title: "Homepage", href: "/" }],
+          }),
           siteSettings: defineLocations({
             message: "Phone, address, hours and buttons used across the whole site",
             locations: [{ title: "Homepage", href: "/" }, { title: "Contact page", href: "/contact" }],

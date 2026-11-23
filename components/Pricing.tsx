@@ -4,9 +4,11 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { PricingRow } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function Pricing({ rows }: { rows: PricingRow[] }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -39,10 +41,10 @@ export default function Pricing({ rows }: { rows: PricingRow[] }) {
           style={{ textAlign: "center", marginBottom: "clamp(2.5rem, 4vw, 3.5rem)" }}
         >
           <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-            Simple, honest pricing.
+            {t.pricingHeading}
           </h2>
           <p className="section-subhead" style={{ maxWidth: 480, margin: "0 auto" }}>
-            No packages to decode. Just what a visit costs.
+            {t.pricingSubheading}
           </p>
         </motion.div>
 
@@ -133,11 +135,11 @@ export default function Pricing({ rows }: { rows: PricingRow[] }) {
             marginTop: "1.75rem",
           }}
         >
-          Reiki, Scar Tissue Release, and Ionized Foot Detox are priced individually.{" "}
+          {t.pricingFootnote}{" "}
           <a href={`tel:${settings.phoneTel}`} style={{ color: "var(--teal-deep)", fontWeight: 600, borderBottom: "1px solid var(--teal-light)", paddingBottom: 1 }}>
-            Call Kathy
+            {t.pricingCallLink}
           </a>{" "}
-          to ask.
+          {t.pricingFootnoteEnd}
         </motion.p>
       </div>
 

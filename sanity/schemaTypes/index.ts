@@ -1,6 +1,7 @@
 import { service } from "./service";
 import { post } from "./post";
 import { siteSettings } from "./siteSettings";
+import { siteText } from "./siteText";
 import { testimonial } from "./testimonial";
 import { faqItem } from "./faqItem";
 import { pricingRow } from "./pricingRow";
@@ -11,6 +12,7 @@ export const schemaTypes = [
   service,
   post,
   siteSettings,
+  siteText,
   testimonial,
   faqItem,
   pricingRow,

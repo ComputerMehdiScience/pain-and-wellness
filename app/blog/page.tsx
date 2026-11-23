@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { getPosts, getPageContent } from "@/sanity/lib/queries";
+import { getPosts, getPageContent, getSiteText } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
@@ -26,7 +26,7 @@ function formatDate(iso: string) {
 }
 
 export default async function BlogPage() {
-  const [sortedPosts, content] = await Promise.all([getPosts(), getPageContent("blog")]);
+  const [sortedPosts, content, t] = await Promise.all([getPosts(), getPageContent("blog"), getSiteText()]);
   const { header } = content;
   return (
     <>
@@ -106,7 +106,7 @@ export default async function BlogPage() {
                       marginBottom: "0.75rem",
                     }}
                   >
-                    {formatDate(post.date)} · {post.readMin} min read
+                    {formatDate(post.date)} · {post.readMin} {t.blogMinRead}
                   </p>
                   <h2
                     style={{
@@ -141,7 +141,7 @@ export default async function BlogPage() {
                       color: "var(--teal-accent)",
                     }}
                   >
-                    Read more →
+                    {t.blogReadMore}
                   </span>
                 </div>
               </Link>

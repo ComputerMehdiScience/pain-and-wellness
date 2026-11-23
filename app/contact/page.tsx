@@ -3,21 +3,21 @@ import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import { getPageContent, getSiteSettings } from "@/sanity/lib/queries";
+import { getPageContent, getSiteSettings, getSiteText } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export const revalidate = 60;
 
 export default async function ContactPage() {
-  const [content, settings] = await Promise.all([getPageContent("contact"), getSiteSettings()]);
+  const [content, settings, t] = await Promise.all([getPageContent("contact"), getSiteSettings(), getSiteText()]);
   const { header } = content;
 
   const contactLinks = [
-    ["Phone", settings.phoneDisplay, `tel:${settings.phoneTel}`],
-    ["Clinic", settings.address, settings.addressMapUrl],
-    ...(settings.instagramUrl ? [["Instagram", "@painandwellnesssolutions", settings.instagramUrl]] : []),
-    ...(settings.facebookUrl ? [["Facebook", "@painandwellnesssolutions", settings.facebookUrl]] : []),
+    [t.contactPhoneLabel, settings.phoneDisplay, `tel:${settings.phoneTel}`],
+    [t.contactClinicLabel, settings.address, settings.addressMapUrl],
+    ...(settings.instagramUrl ? [[t.contactInstagramLabel, t.contactInstagramHandle, settings.instagramUrl]] : []),
+    ...(settings.facebookUrl ? [[t.contactFacebookLabel, t.contactFacebookHandle, settings.facebookUrl]] : []),
   ];
 
   return (
@@ -104,11 +104,10 @@ export default async function ContactPage() {
           <div style={{ maxWidth: 640, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "clamp(1.75rem, 3vw, 2.5rem)" }}>
               <h2 className="section-heading" style={{ marginBottom: "1rem" }}>
-                Send a message.
+                {t.contactFormHeading}
               </h2>
               <p className="section-subhead" style={{ maxWidth: 460, margin: "0 auto" }}>
-                Not sure where to start? Send a note and Kathy will point you in the
-                right direction.
+                {t.contactFormSubheading}
               </p>
             </div>
             <ContactForm />

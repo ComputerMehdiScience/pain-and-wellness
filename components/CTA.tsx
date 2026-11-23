@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function CTA({
   title,
@@ -12,6 +13,7 @@ export default function CTA({
   body?: string;
 }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const resolvedTitle = title ?? settings.defaultCtaTitle;
   const resolvedBody = body ?? settings.defaultCtaBody;
   const ref = useRef<HTMLDivElement>(null);
@@ -146,7 +148,7 @@ export default function CTA({
               a.style.background = "var(--cream)";
             }}
           >
-            Book your appointment
+            {t.ctaButton}
           </a>
 
           <a

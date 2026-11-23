@@ -4,9 +4,11 @@ import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { FaqItem } from "@/sanity/lib/types";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 export default function FAQ({ faqs }: { faqs: FaqItem[] }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -45,10 +47,10 @@ export default function FAQ({ faqs }: { faqs: FaqItem[] }) {
           style={{ textAlign: "center", marginBottom: "clamp(2.5rem, 4vw, 4rem)" }}
         >
           <h2 className="section-heading" style={{ marginBottom: "1.25rem" }}>
-            Common questions
+            {t.faqHeading}
           </h2>
           <p className="section-subhead" style={{ whiteSpace: "nowrap", margin: "0 auto" }}>
-            Most people ask these before booking. Still curious?{" "}
+            {t.faqIntro}{" "}
             <a
               href={`tel:${settings.phoneTel}`}
               style={{
@@ -58,7 +60,7 @@ export default function FAQ({ faqs }: { faqs: FaqItem[] }) {
                 paddingBottom: "1px",
               }}
             >
-              Call Kathy directly
+              {t.faqCallLink}
             </a>
             .
           </p>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 // Web3Forms access key. Get a free key at https://web3forms.com (enter Kathy's
 // email, they email you a key). It is safe to expose this key publicly.
@@ -11,6 +12,7 @@ type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -78,10 +80,10 @@ export default function ContactForm() {
         }}
       >
         <p style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", color: "var(--deep-forest)", marginBottom: "0.5rem" }}>
-          Thank you, your message is on its way.
+          {t.formSuccessTitle}
         </p>
         <p style={{ fontFamily: "var(--font-body)", color: "var(--ink-soft)", lineHeight: 1.7 }}>
-          Kathy will get back to you soon. For anything urgent, call {settings.phoneDisplay}.
+          {t.formSuccessBody} {settings.phoneDisplay}.
         </p>
       </div>
     );
@@ -105,29 +107,29 @@ export default function ContactForm() {
       <input type="checkbox" name="botcheck" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
       <div>
-        <label style={labelStyle} htmlFor="cf-name">Name</label>
-        <input id="cf-name" name="name" type="text" required style={fieldStyle} placeholder="Your name" />
+        <label style={labelStyle} htmlFor="cf-name">{t.formNameLabel}</label>
+        <input id="cf-name" name="name" type="text" required style={fieldStyle} placeholder={t.formNamePlaceholder} />
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.1rem" }} className="cf-row">
         <div>
-          <label style={labelStyle} htmlFor="cf-email">Email</label>
-          <input id="cf-email" name="email" type="email" required style={fieldStyle} placeholder="you@email.com" />
+          <label style={labelStyle} htmlFor="cf-email">{t.formEmailLabel}</label>
+          <input id="cf-email" name="email" type="email" required style={fieldStyle} placeholder={t.formEmailPlaceholder} />
         </div>
         <div>
-          <label style={labelStyle} htmlFor="cf-phone">Phone (optional)</label>
-          <input id="cf-phone" name="phone" type="tel" style={fieldStyle} placeholder="613-000-0000" />
+          <label style={labelStyle} htmlFor="cf-phone">{t.formPhoneLabel}</label>
+          <input id="cf-phone" name="phone" type="tel" style={fieldStyle} placeholder={t.formPhonePlaceholder} />
         </div>
       </div>
 
       <div>
-        <label style={labelStyle} htmlFor="cf-message">Message</label>
-        <textarea id="cf-message" name="message" required rows={5} style={{ ...fieldStyle, resize: "vertical" }} placeholder="How can Kathy help you or your animals?" />
+        <label style={labelStyle} htmlFor="cf-message">{t.formMessageLabel}</label>
+        <textarea id="cf-message" name="message" required rows={5} style={{ ...fieldStyle, resize: "vertical" }} placeholder={t.formMessagePlaceholder} />
       </div>
 
       {status === "error" && (
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "oklch(55% 0.18 25)" }}>
-          Something went wrong sending your message. Please try again, or call {settings.phoneDisplay}.
+          {t.formErrorBody} {settings.phoneDisplay}.
         </p>
       )}
 
@@ -150,7 +152,7 @@ export default function ContactForm() {
           marginTop: "0.25rem",
         }}
       >
-        {status === "sending" ? "Sending..." : "Send message"}
+        {status === "sending" ? t.formSending : t.formSubmit}
       </button>
 
       <style>{`

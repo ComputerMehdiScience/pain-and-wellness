@@ -9,6 +9,7 @@ import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { useEditMode } from "@/sanity/lib/EditMode";
 
 const GAP_PX = 16;
@@ -22,6 +23,7 @@ function getVisible(w: number) {
 
 export default function Services({ services, showHeader = true }: { services: SanityService[]; showHeader?: boolean }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const editing = useEditMode();
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -134,10 +136,10 @@ export default function Services({ services, showHeader = true }: { services: Sa
             style={{ marginBottom: "clamp(1.5rem, 3vw, 2.5rem)", textAlign: "center" }}
           >
             <h2 className="section-heading" style={{ marginBottom: "1rem" }}>
-              What Kathy offers.
+              {t.servicesHeading}
             </h2>
             <p className="section-subhead">
-              Hands-on sessions for people and animals, at the clinic or at your farm.
+              {t.servicesSubheading}
             </p>
           </motion.div>
         </div>
@@ -239,7 +241,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                               textTransform: "uppercase" as const,
                               color: "oklch(96% 0.012 82 / 0.92)",
                             }}>
-                              Learn more →
+                              {t.servicesLearnMore}
                             </div>
                           )}
 
@@ -329,7 +331,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                 onMouseEnter={e => { const b = e.currentTarget; b.style.background = "var(--deep-forest)"; b.style.color = "var(--cream)"; }}
                 onMouseLeave={e => { const b = e.currentTarget; b.style.background = "transparent"; b.style.color = "var(--deep-forest)"; }}
               >
-                ← Prev
+                {t.servicesPrev}
               </button>
               <button
                 onClick={next}
@@ -350,7 +352,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
                 onMouseEnter={e => { const b = e.currentTarget; b.style.transform = "translateY(-2px)"; b.style.boxShadow = "0 8px 18px oklch(20% 0.01 240 / 0.25)"; b.style.background = "var(--teal-deep)"; }}
                 onMouseLeave={e => { const b = e.currentTarget; b.style.transform = "translateY(0)"; b.style.boxShadow = "0 4px 12px oklch(20% 0.01 240 / 0.18)"; b.style.background = "var(--teal)"; }}
               >
-                Next →
+                {t.servicesNext}
               </button>
             </div>
           </div>
@@ -383,7 +385,7 @@ export default function Services({ services, showHeader = true }: { services: Sa
             onMouseEnter={e => { const a = e.currentTarget; a.style.transform = "translateY(-3px)"; a.style.boxShadow = "0 10px 26px oklch(20% 0.01 240 / 0.28)"; a.style.background = "var(--teal-deep)"; }}
             onMouseLeave={e => { const a = e.currentTarget; a.style.transform = "translateY(0)"; a.style.boxShadow = "0 6px 18px oklch(20% 0.01 240 / 0.2)"; a.style.background = "var(--teal)"; }}
           >
-            Book an appointment
+            {t.servicesBookButton}
           </a>
         </motion.div>
       </div>

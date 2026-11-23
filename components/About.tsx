@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Homepage } from "@/sanity/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 
 export default function About({
@@ -18,6 +19,7 @@ export default function About({
   quote: string;
   photo: Homepage["aboutPhoto"];
 }) {
+  const t = useSiteText();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -104,10 +106,10 @@ export default function About({
             zIndex: 2,
           }}>
             <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 500, color: "var(--deep-forest)", lineHeight: 1.2 }}>
-              Kathy Morton
+              {t.aboutName}
             </p>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.6875rem", fontWeight: 400, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--earth-soft)", marginTop: "0.2rem" }}>
-              Certified Bowen Therapist · Since 2017
+              {t.aboutRole}
             </p>
           </div>
         </motion.div>
@@ -159,14 +161,10 @@ export default function About({
           </blockquote>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: 440 }}>
-            {[
-              { v: "2017", l: "In practice since" },
-              { v: "Certified", l: "Bowen Therapist" },
-              { v: "ON", l: "Stirling area" },
-            ].map(s => (
-              <div key={s.l}>
-                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.6vw, 1.95rem)", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.v}</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", fontWeight: 400, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--earth-faint)", marginTop: "0.35rem", lineHeight: 1.3 }}>{s.l}</p>
+            {t.aboutStats.map((s) => (
+              <div key={s.label}>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.6vw, 1.95rem)", fontWeight: 400, color: "var(--deep-forest)", lineHeight: 1 }}>{s.value}</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", fontWeight: 400, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--earth-faint)", marginTop: "0.35rem", lineHeight: 1.3 }}>{s.label}</p>
               </div>
             ))}
           </div>

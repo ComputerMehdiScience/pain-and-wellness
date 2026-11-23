@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { Fraunces, Nunito } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
+import { stegaClean } from "next-sanity";
 import SmoothScroll from "@/components/SmoothScroll";
 import { SiteSettingsProvider } from "@/sanity/lib/SiteSettingsProvider";
+import { SiteTextProvider } from "@/sanity/lib/SiteTextProvider";
 import { EditModeProvider } from "@/sanity/lib/EditMode";
-import { getSiteSettings } from "@/sanity/lib/queries";
+import { getSiteSettings, getSiteText } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/image";
 import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
 
@@ -24,50 +27,55 @@ const nunito = Nunito({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://painandwellnesssolutions.ca"),
-  title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
-  description:
-    "Kathy Morton is a certified Bowen and myoskeletal therapist in Stirling, ON. Drug-free pain relief for people, horses, and dogs. Serving Hastings County.",
-  openGraph: {
-    title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
-    description:
-      "Certified Bowen and myoskeletal therapy for people, horses, and dogs in Stirling and Hastings County, Ontario.",
-    url: "https://painandwellnesssolutions.ca",
-    siteName: "Pain & Wellness Solutions",
-    locale: "en_CA",
-    type: "website",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Pain & Wellness Solutions",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pain & Wellness Solutions | Bowen Therapy, Stirling ON",
-    description:
-      "Certified Bowen and myoskeletal therapy for people, horses, and dogs in Stirling, Ontario.",
-    images: ["/og-image.jpg"],
-  },
-};
+const FALLBACK_TITLE = "Pain & Wellness Solutions | Bowen Therapy, Stirling ON";
+const FALLBACK_DESCRIPTION =
+  "Kathy Morton is a certified Bowen and myoskeletal therapist in Stirling, ON. Drug-free pain relief for people, horses, and dogs. Serving Hastings County.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title = settings.seoTitle ? stegaClean(settings.seoTitle) : FALLBACK_TITLE;
+  const description = settings.seoDescription ? stegaClean(settings.seoDescription) : FALLBACK_DESCRIPTION;
+  const shareImage = settings.ogImage
+    ? urlForImage(settings.ogImage).width(1200).height(630).fit("crop").url()
+    : "/og-image.jpg";
+
+  return {
+    metadataBase: new URL("https://painandwellnesssolutions.ca"),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: "https://painandwellnesssolutions.ca",
+      siteName: "Pain & Wellness Solutions",
+      locale: "en_CA",
+      type: "website",
+      images: [{ url: shareImage, width: 1200, height: 630, alt: "Pain & Wellness Solutions" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [shareImage],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSiteSettings();
+  const [settings, text] = await Promise.all([getSiteSettings(), getSiteText()]);
   const { isEnabled: editing } = await draftMode();
   return (
     <html lang="en" className={`${fraunces.variable} ${nunito.variable}`}>
       <body>
         <SmoothScroll />
         <EditModeProvider editing={editing}>
-          <SiteSettingsProvider settings={settings}>{children}</SiteSettingsProvider>
+          <SiteSettingsProvider settings={settings}>
+            <SiteTextProvider text={text}>{children}</SiteTextProvider>
+          </SiteSettingsProvider>
         </EditModeProvider>
         <SanityLive />
         <VisualEditing />

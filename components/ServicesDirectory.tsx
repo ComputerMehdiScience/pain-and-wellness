@@ -9,9 +9,11 @@ import { stegaClean } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { editAttr, itemPath } from "@/sanity/lib/editAttr";
 import { useSiteSettings } from "@/sanity/lib/SiteSettingsProvider";
+import { useSiteText } from "@/sanity/lib/SiteTextProvider";
 
 function ServiceRow({ service, index }: { service: SanityService; index: number }) {
   const settings = useSiteSettings();
+  const t = useSiteText();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const flip = index % 2 === 1;
@@ -151,7 +153,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83a19.79 19.79 0 01-3.07-8.67A2 2 0 012.4 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.5 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="var(--teal-deep)" />
             </svg>
-            Call for pricing
+            {t.directoryCallForPricing}
           </motion.a>
         )}
 
@@ -216,7 +218,7 @@ function ServiceRow({ service, index }: { service: SanityService; index: number 
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--teal-deep)"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--teal)"}
           >
-            {bookingMethod === "online" ? "Book an appointment" : "Call to arrange a visit"}
+            {bookingMethod === "online" ? t.directoryBookButton : t.directoryCallButton}
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
               <path d="M1 5h11M12 5L8 1M12 5L8 9" stroke="#fff" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
