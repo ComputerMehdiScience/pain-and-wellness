@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { Fraunces, Nunito } from "next/font/google";
-import { VisualEditing } from "next-sanity/visual-editing";
 import { stegaClean } from "next-sanity";
 import SmoothScroll from "@/components/SmoothScroll";
 import { SiteSettingsProvider } from "@/sanity/lib/SiteSettingsProvider";
@@ -78,7 +77,6 @@ export default async function RootLayout({
           </SiteSettingsProvider>
         </EditModeProvider>
         <SanityLive />
-        <VisualEditing />
       </body>
     </html>
   );

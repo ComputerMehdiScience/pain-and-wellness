@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { VisualEditing } from "next-sanity/visual-editing";
 
 const EditModeContext = createContext(false);
 
@@ -22,10 +23,21 @@ export function EditModeProvider({ editing: draft, children }: { editing: boolea
   // sees draft mode. Only act when we are the preview inside the Studio frame.
   const [inPreview, setInPreview] = useState(false);
   useEffect(() => {
+    if (!draft) return;
+    const onStudio = window.location.pathname.startsWith("/studio");
+    let framed = true;
     try {
-      setInPreview(draft && window.self !== window.top && !window.location.pathname.startsWith("/studio"));
+      framed = window.self !== window.top;
     } catch {
-      setInPreview(draft);
+      framed = true;
+    }
+    if (framed && !onStudio) {
+      setInPreview(true);
+    } else if (!onStudio) {
+      // Leftover editing cookie on the public site: switch it off so visitors
+      // (and Kathy) see the normal site with no editing overlay.
+      const back = window.location.pathname + window.location.search;
+      window.location.replace("/api/draft-mode/disable?redirect=" + encodeURIComponent(back));
     }
   }, [draft]);
   const editing = inPreview;
@@ -58,6 +70,7 @@ export function EditModeProvider({ editing: draft, children }: { editing: boolea
     <EditModeContext.Provider value={editing}>
       {children}
       {editing && <EditBar />}
+      {editing && <VisualEditing />}
     </EditModeContext.Provider>
   );
 }
