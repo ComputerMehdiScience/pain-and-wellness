@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,7 +17,19 @@ export function useEditMode() {
  * cards are blocked, and the contact form cannot send real messages. Menu
  * links to other pages still work so she can move around her own site.
  */
-export function EditModeProvider({ editing, children }: { editing: boolean; children: React.ReactNode }) {
+export function EditModeProvider({ editing: draft, children }: { editing: boolean; children: React.ReactNode }) {
+  // Draft cookie is set for the whole browser, so the Studio itself (same site) also
+  // sees draft mode. Only act when we are the preview inside the Studio frame.
+  const [inPreview, setInPreview] = useState(false);
+  useEffect(() => {
+    try {
+      setInPreview(draft && window.self !== window.top && !window.location.pathname.startsWith("/studio"));
+    } catch {
+      setInPreview(draft);
+    }
+  }, [draft]);
+  const editing = inPreview;
+
   useEffect(() => {
     if (!editing) return;
     const blockExit = (e: MouseEvent) => {
