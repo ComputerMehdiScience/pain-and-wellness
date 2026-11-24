@@ -7,8 +7,9 @@ import { faqItem } from "./faqItem";
 import { pricingRow } from "./pricingRow";
 import { homepage } from "./homepage";
 import { pageContent } from "./pageContent";
+import { StatusInput } from "../components/StatusInput";
 
-export const schemaTypes = [
+const documents = [
   service,
   post,
   siteSettings,
@@ -19,3 +20,6 @@ export const schemaTypes = [
   homepage,
   pageContent,
 ];
+
+// Every document shows a plain "Live / not live yet" note at the top.
+export const schemaTypes = documents.map((t) => ({ ...t, components: { ...(t as { components?: object }).components, input: StatusInput } })) as unknown as typeof documents;

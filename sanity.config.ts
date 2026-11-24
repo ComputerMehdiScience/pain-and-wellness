@@ -5,6 +5,7 @@ import { dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { studioTheme } from "./sanity/theme";
+import { DraftWatcher } from "./sanity/components/DraftWatcher";
 import type { DocumentActionComponent } from "sanity";
 
 // One-of-a-kind documents: cannot be deleted, duplicated or created again by accident.
@@ -29,6 +30,7 @@ export default defineConfig({
   basePath: "/studio",
   title: "Pain & Wellness Solutions",
   theme: studioTheme,
+  studio: { components: { layout: DraftWatcher } },
   projectId,
   dataset,
   schema: { types: schemaTypes },
@@ -44,7 +46,8 @@ export default defineConfig({
           if (a.action !== "publish") return a;
           const Publish: DocumentActionComponent = (props) => {
             const r = a(props);
-            return r && { ...r, label: r.label === "Publish" ? "Publish to website" : r.label };
+            const labels: Record<string, string> = { Publish: "Save to live site", "Publishing…": "Saving…", Published: "Live, nothing to save" };
+            return r && { ...r, label: labels[r.label ?? ""] ?? r.label };
           };
           Publish.action = "publish";
           return Publish;

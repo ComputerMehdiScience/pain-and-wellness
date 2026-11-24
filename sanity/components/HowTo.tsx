@@ -12,13 +12,13 @@ export function HowTo() {
   return (
     <div style={wrap}>
       <h1 style={h1}>How to edit your website</h1>
-      <p style={lead}>Everything you can change is here. Nothing goes public until you press Publish.</p>
+      <p style={lead}>Everything you can change is here. Your work is saved as you type, but it only goes on your website when you press <strong>Save to live site</strong>.</p>
 
       <div style={card}>
         <h2 style={h2}>Change a photo or some words</h2>
         <p style={p}>
           Click <strong>Edit my website</strong> at the top. Click any photo, heading or sentence on your site. A box
-          opens on the left. Change it, then press <strong>Publish to website</strong>.
+          opens on the left. Change it, then press <strong>Save to live site</strong>.
         </p>
       </div>
 
@@ -26,7 +26,7 @@ export function HowTo() {
         <h2 style={h2}>Write a blog post</h2>
         <p style={p}>
           Click <strong>Blog posts</strong> on the left, then the <strong>+</strong> button at the top. Add a title, a
-          photo and your writing. Press <strong>Publish to website</strong>. The web address, date and reading time fill
+          photo and your writing. Press <strong>Save to live site</strong>. The web address, date and reading time fill
           in by themselves.
         </p>
       </div>
@@ -46,7 +46,7 @@ export function HowTo() {
       </div>
 
       <div style={note}>
-        Changes show on your site about a minute after you press Publish. Stuck or something looks wrong? Ask Mehdi.
+        A green note at the top of every page says "Live" when your website matches what you see. An orange note means you still have changes to save. Changes show on your site about a minute after you press Save to live site. Stuck or something looks wrong? Ask Mehdi.
       </div>
     </div>
   );
