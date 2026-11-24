@@ -4,6 +4,11 @@ import { presentationTool, defineLocations, defineDocuments } from "sanity/prese
 import { dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
+import { studioTheme } from "./sanity/theme";
+import type { DocumentActionComponent } from "sanity";
+
+// One-of-a-kind documents: cannot be deleted, duplicated or created again by accident.
+const SINGLETONS = ["siteSettings", "siteText", "homepage", "pageContent"];
 
 const PAGE_HREF: Record<string, string> = {
   services: "/services",
@@ -22,10 +27,30 @@ const pageDoc = (page: string) => ({
 
 export default defineConfig({
   basePath: "/studio",
+  title: "Pain & Wellness Solutions",
+  theme: studioTheme,
   projectId,
   dataset,
   schema: { types: schemaTypes },
   releases: { enabled: false },
+  document: {
+    newDocumentOptions: (prev, { creationContext }) =>
+      creationContext.type === "global" ? prev.filter((t) => !SINGLETONS.includes(t.templateId)) : prev,
+    actions: (prev, { schemaType }) => {
+      const single = SINGLETONS.includes(schemaType);
+      return prev
+        .filter((a) => !(single && ["delete", "duplicate", "unpublish"].includes(a.action ?? "")))
+        .map((a): DocumentActionComponent => {
+          if (a.action !== "publish") return a;
+          const Publish: DocumentActionComponent = (props) => {
+            const r = a(props);
+            return r && { ...r, label: r.label === "Publish" ? "Publish to website" : r.label };
+          };
+          Publish.action = "publish";
+          return Publish;
+        });
+    },
+  },
   plugins: [
     // First tool in the list is the one the Studio opens on: the live site editor.
     presentationTool({
@@ -98,6 +123,6 @@ export default defineConfig({
         },
       },
     }),
-    structureTool({ structure, title: "All content" }),
+    structureTool({ structure, title: "Blog, pages & settings" }),
   ],
 });

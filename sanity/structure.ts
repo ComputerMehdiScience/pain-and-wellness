@@ -1,47 +1,50 @@
 import type { StructureResolver } from "sanity/structure";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+import { HowTo } from "./components/HowTo";
 
 const PAGE_LABELS: Record<string, string> = {
-  services: "Services Page",
-  blog: "Blog Page",
-  about: "About Page",
-  contact: "Contact Page",
-  "personal-pain-management": "Personal Pain Management Page",
-  results: "Results Page",
-  "equine-body-work": "Equine Body Work Page",
+  services: "Services page",
+  blog: "Blog page",
+  about: "About page",
+  contact: "Contact page",
+  "personal-pain-management": "Personal Pain Management page",
+  results: "Results page",
+  "equine-body-work": "Equine Body Work page",
 };
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
-    .title("Content")
+    .title("Your website")
     .items([
-      S.listItem()
-        .title("Site Settings")
-        .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
-      S.listItem()
-        .title("Buttons & Labels (every button, heading and menu link)")
-        .child(S.document().schemaType("siteText").documentId("siteText")),
-      S.listItem()
-        .title("Homepage (Hero, About, Herd sections)")
-        .child(S.document().schemaType("homepage").documentId("homepage")),
+      S.listItem().title("How to edit your website").child(S.component(HowTo).title("How to edit your website")),
       S.divider(),
-      orderableDocumentListDeskItem({ type: "service", title: "Services (drag to reorder)", S, context }),
-      S.listItem().title("Blog Posts").child(S.documentTypeList("post").title("Blog Posts")),
-      orderableDocumentListDeskItem({ type: "testimonial", title: "Testimonials (drag to reorder)", S, context }),
-      orderableDocumentListDeskItem({ type: "faqItem", title: "FAQ (drag to reorder)", S, context }),
-      orderableDocumentListDeskItem({ type: "pricingRow", title: "Pricing (drag to reorder)", S, context }),
+      S.listItem().title("Blog posts").child(S.documentTypeList("post").title("Blog posts")),
+      orderableDocumentListDeskItem({ type: "service", title: "Services", S, context }),
+      orderableDocumentListDeskItem({ type: "testimonial", title: "Testimonials", S, context }),
+      orderableDocumentListDeskItem({ type: "faqItem", title: "Questions & answers (FAQ)", S, context }),
+      orderableDocumentListDeskItem({ type: "pricingRow", title: "Prices", S, context }),
       S.divider(),
       S.listItem()
-        .title("Other Pages (header banner + sections)")
+        .title("Homepage")
+        .child(S.document().schemaType("homepage").documentId("homepage").title("Homepage")),
+      S.listItem()
+        .title("Other pages")
         .child(
           S.list()
-            .title("Other Pages (header banner + sections)")
+            .title("Other pages")
             .items(
               Object.entries(PAGE_LABELS).map(([slug, label]) =>
                 S.listItem()
                   .title(label)
-                  .child(S.document().schemaType("pageContent").documentId(`pageContent-${slug}`))
+                  .child(S.document().schemaType("pageContent").documentId(`pageContent-${slug}`).title(label))
               )
             )
         ),
+      S.divider(),
+      S.listItem()
+        .title("Buttons & menu words")
+        .child(S.document().schemaType("siteText").documentId("siteText").title("Buttons & menu words")),
+      S.listItem()
+        .title("Phone, address, hours & logo")
+        .child(S.document().schemaType("siteSettings").documentId("siteSettings").title("Phone, address, hours & logo")),
     ]);

@@ -37,7 +37,7 @@ const postProjection = `{
   readMin,
   photo,
   excerpt,
-  description,
+  "description": coalesce(description, excerpt),
   body
 }`;
 
