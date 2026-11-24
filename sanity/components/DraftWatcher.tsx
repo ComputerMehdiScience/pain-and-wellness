@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useClient, type LayoutProps } from "sanity";
 
-const DRAFTS = `*[_id in path("drafts.**")]`;
+// Real content only: Sanity keeps its own internal drafts (preview keys) that must not be counted.
+const DRAFTS = `*[_id in path("drafts.**") && !(_type match "sanity.*")]`;
 
 /**
  * Wraps the whole Studio. While anything is saved as a draft but not yet on the
